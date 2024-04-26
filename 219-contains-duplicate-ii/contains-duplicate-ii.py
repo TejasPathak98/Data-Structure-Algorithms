@@ -9,8 +9,7 @@ class Solution:
                 dic[nums[i]] = [i] 
         
         for l in dic.values():
-            length = len(l) 
-            for i in range(1,length):
+            for i in range(1,len(l)):
                 if abs(l[i] - l[i - 1]) <= k:
                     return True  
         
