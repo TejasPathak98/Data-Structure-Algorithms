@@ -8,8 +8,6 @@ class Solution:
             else:
                 dic[nums[i]] = [i] 
         
-        print(dic)
-
         for l in dic.values():
             length = len(l) 
             for i in range(1,length):
