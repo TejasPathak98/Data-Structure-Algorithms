@@ -1,13 +1,10 @@
 class Solution:
     def frequencySort(self, s: str) -> str:
-        dic = {}
+        dic = defaultdict(int) 
 
-        for i in range(len(s)):
-            if s[i] not in dic:
-                dic[s[i]] = 1 
-            else:
-                dic[s[i]] += 1
-        
+        for i in s:
+            dic[i] = dic[i] + 1
+
         sorted_dic = sorted(dic.items(), key = lambda item:item[1], reverse= True)
 
         print(sorted_dic)
