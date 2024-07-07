@@ -13,16 +13,6 @@ class Solution:
         list3 = ListNode(0)
         h = list3
 
-        if list1.val <= list2.val:
-            list3.next = ListNode(list1.val)
-            list1 = list1.next 
-            list3 = list3.next
-        
-        else:
-            list3.next = ListNode(list2.val)
-            list2 = list2.next 
-            list3 = list3.next
-        
         print(list3.val)
         
         while list1 and list2:
