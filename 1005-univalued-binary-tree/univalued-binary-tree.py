@@ -6,26 +6,14 @@
 #         self.right = right
 class Solution:
     def isUnivalTree(self, root: Optional[TreeNode]) -> bool:
-        def dfs_helper_iterative(root,arr):
-            if root is None:
-                return
-            
-            stack = []
-            stack.append(root)
-
-            while stack:
-                node = stack.pop()
-                arr.append(node.val)
-
-                if node.right:
-                    stack.append(node.right)
-                if node.left:
-                    stack.append(node.left)
-            
-            return
+        def dfs_helper_recursive(root,arr):
+            if root:
+                arr.append(root.val)
+                dfs_helper_recursive(root.left, arr)
+                dfs_helper_recursive(root.right, arr)
         
         arr = []
-        dfs_helper_iterative(root,arr)
+        dfs_helper_recursive(root,arr)
         if arr[0]*len(arr) == sum(arr):
             return True 
         else:
