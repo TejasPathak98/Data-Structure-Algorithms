@@ -1,6 +1,6 @@
 class Solution:
     def findBuildings(self, heights: List[int]) -> List[int]:
-        ans = []
+        ans = deque()
         n = len(heights) - 1
         ans.append(n)
         i = n - 1
@@ -9,10 +9,10 @@ class Solution:
 
         while i >= 0:
             if heights[i] > max_height:
-                ans.append(i)
+                ans.appendleft(i)
                 max_height = heights[i]
             i -= 1
             
-        ans = sorted(ans)
+        #ans = sorted(ans)
         return ans
         
