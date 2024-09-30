@@ -7,14 +7,18 @@
 class Solution:
     def sumNumbers(self, root: Optional[TreeNode]) -> int:
         def dfs(root,current_sum):
-            if not root:
+            if root is None:
                 return 0
-            current_sum = current_sum*10 + root.val 
+
+            current_sum = current_sum*10 + root.val
+
             if root.left is None and root.right is None:
                 return current_sum
+            
             left_sum = dfs(root.left,current_sum)
             right_sum = dfs(root.right,current_sum)
 
             return left_sum + right_sum
-
-        return dfs(root,0)        
+        
+        return dfs(root,0)
+        
