@@ -10,26 +10,22 @@ class Solution:
             return True
         
         q = deque([root])
-        q.append(None) 
+        #q.append(None) 
         res = []
-        temp = []
 
         while q:
-            node = q.popleft()
-            if node == None:
-                if len(q) == 0:
-                    res.append(temp.copy())
-                    break
-                else:
-                    res.append(temp.copy())
-                    temp.clear()
-                    q.append(None)
-            else:
+            size = len(q)
+            temp = []
+
+            for _ in range(size):
+                node = q.popleft()
                 temp.append(node.val)
                 if node.left:
                     q.append(node.left)
                 if node.right:
                     q.append(node.right)
+            
+            res.append(temp)
             
         for i in range(len(res)):
             if i % 2 == 0:
