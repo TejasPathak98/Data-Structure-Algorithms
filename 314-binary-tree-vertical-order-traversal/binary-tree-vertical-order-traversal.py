@@ -8,13 +8,15 @@ class Solution:
     def verticalOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
         if root is None:
             return []
-
-        columns = defaultdict(list)
-        queue = []
+        
+        ans = []
+        queue = deque()
         queue.append((root,0))
+        columns = defaultdict(list)
 
-        while len(queue):
-            node,col = queue.pop(0)
+        while queue:
+
+            node,col = queue.popleft()
             columns[col].append(node.val)
 
             if node.left:
@@ -24,11 +26,8 @@ class Solution:
         
         low = min(columns.keys())
         high = max(columns.keys())
-        ans = []
 
         for i in range(low,high + 1):
-            ans.append(columns.get(i))
-
+            ans.append(columns[i])
+        
         return ans
-        
-        
