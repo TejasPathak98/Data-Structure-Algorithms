@@ -2,21 +2,20 @@ class Solution:
 
     def __init__(self, w: List[int]):
         self.prefix_arr = []
-        total = 0
+        temp = 0
 
-        for s in w:
-            total += s 
-            self.prefix_arr.append(total)
-        self.tot = total 
-
+        for weight in w:
+            temp = temp + weight
+            self.prefix_arr.append(temp)
+        self.total = temp
         
+
     def pickIndex(self) -> int:
+
+        r = random.randint(1,self.total)
+
+        return bisect_left(self.prefix_arr, r)
         
-        r = random.randint(1,self.tot)
-
-        return bisect.bisect_left(self.prefix_arr,r)
-
-
 
 
 # Your Solution object will be instantiated and called as such:
