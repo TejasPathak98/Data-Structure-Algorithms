@@ -4,11 +4,13 @@ class Solution:
         for num in nums:
             heapq.heappush(heap, -1 * num)
 
-        res= []
+        #res= []
 
         while k:
-            res.append(-1 * heapq.heappop(heap))
+            ans = -1 * heapq.heappop(heap)
             k -= 1
+            if k == 0:
+                return ans
         
         return res[-1]
 
