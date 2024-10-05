@@ -4,15 +4,15 @@ class Solution:
         for num in nums:
             heapq.heappush(heap, -1 * num)
 
-        #res= []
-
         while k:
-            ans = -1 * heapq.heappop(heap)
-            k -= 1
-            if k == 0:
-                return ans
+            if k == 1:
+                return -1 * heapq.heappop(heap)
+            else:
+                heapq.heappop(heap)
+                k -= 1
+            
         
-        return res[-1]
+
 
 
        
