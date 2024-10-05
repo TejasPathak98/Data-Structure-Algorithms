@@ -18,28 +18,25 @@ class Solution:
             return p.parent
         
         temp = p
-        
+
         while temp.parent:
             temp = temp.parent
         
         root = temp
 
         def helper(root,p,q):
-            if root == None or root == p or root == q:
+            if root is None or p == root or q == root:
                 return root
             
-            left = helper(root.left,p,q)
-            right = helper(root.right,p,q)
+            l = helper(root.left,p,q)
+            r = helper(root.right,p,q)
 
-            if left and right:
+            if l and r:
                 return root
             
-            return left if left else right
-
+            return l if l else r
+        
         return helper(root,p,q)
 
-            
-
-        
 
         
