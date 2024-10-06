@@ -9,27 +9,21 @@ class Solution:
         if root is None:
             return 0
         
-        arr = []
+        
         
         def dfs(root,x):
-            nonlocal arr
-
             if root is None:
-                return
+                return 0
 
             x = x*10 + root.val
 
             if root.left is None and root.right is None:
-                arr.append(x)
-                return
-            
-            
+                return x
 
-            dfs(root.left,x)
-            dfs(root.right,x)
+            l = dfs(root.left,x)
+            r = dfs(root.right,x)
+
+            return l + r
         
-        dfs(root,0)
-        print(arr)
-        return sum(arr)
-
+        return dfs(root,0)
         
