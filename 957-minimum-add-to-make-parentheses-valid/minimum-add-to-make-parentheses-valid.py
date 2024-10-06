@@ -1,6 +1,21 @@
 class Solution:
     def minAddToMakeValid(self, s: str) -> int:
-        while "()" in s:
-            s = s.replace("()","",1)
-        return len(s)
+        i = 0
+        stack = []
+        ans = 0
+
+        while i < len(s):
+            if s[i] == "(":
+                stack.append((s[i],i))
+            else:
+                if stack:
+                    stack.pop()
+                else:
+                    ans += 1
+            i += 1
+
+        return ans + len(stack)
+
+            
+
         
