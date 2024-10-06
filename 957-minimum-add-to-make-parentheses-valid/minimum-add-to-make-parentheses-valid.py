@@ -6,7 +6,7 @@ class Solution:
 
         while i < len(s):
             if s[i] == "(":
-                stack.append((s[i],i))
+                stack.append(i)
             else:
                 if stack:
                     stack.pop()
