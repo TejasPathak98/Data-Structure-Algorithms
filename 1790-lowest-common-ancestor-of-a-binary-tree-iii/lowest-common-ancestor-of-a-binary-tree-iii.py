@@ -16,14 +16,12 @@ class Solution:
             return p
         if p.parent == q.parent:
             return p.parent
-        
+
         temp = p
 
         while temp.parent:
             temp = temp.parent
         
-        root = temp
-
         def helper(root,p,q):
             if root is None or p == root or q == root:
                 return root
@@ -36,7 +34,5 @@ class Solution:
             
             return l if l else r
         
-        return helper(root,p,q)
+        return helper(temp,p,q)
 
-
-        
