@@ -10,29 +10,12 @@ class Node:
 
 class Solution:
     def lowestCommonAncestor(self, p: 'Node', q: 'Node') -> 'Node':
-        if p.parent == q:
-            return q
-        if q.parent == p:
-            return p
-        if p.parent == q.parent:
-            return p.parent
+        a = p
+        b = q
 
-        temp = p
-
-        while temp.parent:
-            temp = temp.parent
+        while a != b:
+            a = a.parent if a else q
+            b = b.parent if b else p
         
-        def helper(root,p,q):
-            if root is None or p == root or q == root:
-                return root
-            
-            l = helper(root.left,p,q)
-            r = helper(root.right,p,q)
-
-            if l and r:
-                return root
-            
-            return l if l else r
+        return a
         
-        return helper(temp,p,q)
-
