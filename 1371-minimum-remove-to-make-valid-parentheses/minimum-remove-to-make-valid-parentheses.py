@@ -1,30 +1,24 @@
 class Solution:
     def minRemoveToMakeValid(self, s: str) -> str:
-        i = 0
         stack = []
-        
-        while i < len(s):
-            if s[i] == "(":
-                stack.append((s[i],i))
-            elif s[i] == ")":
+        invalid_indices = set()
+
+        for i, ch in enumerate(s):
+            if ch == "(":
+                stack.append(i)
+            elif ch == ")":
                 if stack:
                     stack.pop()
                 else:
-                    s = s[:i] + s[i + 1:]
-                    i -= 1
-            else:
-                i += 1
-                continue
-            i += 1
+                    invalid_indices.add(i)
         
-        while stack:
-            _ , index = stack.pop()
-            s = s[:index] + s[index + 1:]
+        invalid_indices.update(stack)
+
+        p = ""
+
+        for i in range(len(s)):
+            if i not in invalid_indices:
+                p = p + s[i]
         
-        return s
-
-
-
-
-            
+        return p
         
