@@ -1,16 +1,10 @@
 class Solution:
     def minRemoveToMakeValid(self, s: str) -> str:
-        n = len(s)
-        stack = []
         i = 0
+        stack = []
         
         while i < len(s):
-            orr = ord(s[i]) - ord('a')
-            
-            if 0 <= orr < 26:
-                i += 1
-                continue
-            elif s[i] == "(":
+            if s[i] == "(":
                 stack.append((s[i],i))
             elif s[i] == ")":
                 if stack:
@@ -18,12 +12,19 @@ class Solution:
                 else:
                     s = s[:i] + s[i + 1:]
                     i -= 1
+            else:
+                i += 1
+                continue
             i += 1
         
-        for _, index in reversed(stack):
+        while stack:
+            _ , index = stack.pop()
             s = s[:index] + s[index + 1:]
-
-
+        
         return s
 
+
+
+
+            
         
