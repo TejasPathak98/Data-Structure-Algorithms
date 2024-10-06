@@ -1,17 +1,31 @@
 class Solution:
     def maximumSwap(self, num: int) -> int:
-        my_num = [int(digit) for digit in str(num)]
+        s = list(str(num))
+        s_sorted = sorted(s,reverse = True)
 
-        def solve(my_num):
-            if not my_num:
-                return my_num
-            max_number = max(my_num)
-            if my_num[0] == max_number:
-                return [max_number] + solve(my_num[1:])
+        n = len(s)
+        i = 0
+
+        pos = -1
+
+        while i < n:
+            if s[i] == s_sorted[i]:
+                i += 1
+                continue
             else:
-                pos = my_num[::-1].index(max_number)
-                pos = pos + 1
-                my_num[-pos] , my_num[0] = my_num[0] , my_num[-pos]
-                return my_num        
+                pos = i
+                for j in range(n - 1,-1,-1):
+                    if s[j] == s_sorted[i]:
+                        new_pos = j
+                        break
+                s[i] , s[new_pos] = s[new_pos] , s[i]
+                break
+
+        if pos == -1:
+            return num
         
-        return int(''.join(str(digit) for digit in solve(my_num)))
+        ans = ""
+
+        for x in s:
+            ans += x
+        return int(ans)
