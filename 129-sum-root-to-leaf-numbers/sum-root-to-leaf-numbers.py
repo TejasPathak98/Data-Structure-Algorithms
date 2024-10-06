@@ -17,14 +17,13 @@ class Solution:
             if root is None:
                 return
 
-            
-            
+            x = x*10 + root.val
+
             if root.left is None and root.right is None:
-                x = x*10 + root.val
                 arr.append(x)
                 return
             
-            x = x*10 + root.val
+            
 
             dfs(root.left,x)
             dfs(root.right,x)
