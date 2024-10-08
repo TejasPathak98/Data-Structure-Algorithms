@@ -6,20 +6,25 @@
 #         self.right = right
 class Solution:
     def largestBSTSubtree(self, root: Optional[TreeNode]) -> int:
+        self.res = 0
+
         def dfs(root):
-            if not root:
-                return True,0,float('inf'),float('-inf')
+            if root is None:
+                return float('inf'),float('-inf'),True,0
+        
+            lmin,lmax,l,lsize = dfs(root.left)
+            rmin,rmax,r,rsize = dfs(root.right)
 
-            isleftBST,leftSize,leftMin,leftMax = dfs(root.left)
-            isrightBST,rightSize,rightMin,rightMax = dfs(root.right)
-
-            if isleftBST and isrightBST and leftMax < root.val < rightMin:
-                size = leftSize + rightSize + 1
-                minval = min(root.val,leftMin)
-                maxval = max(root.val,rightMax)
-
-                return True,size,minval,maxval 
-            else:
-                return False,max(leftSize,rightSize),0,0
+            size = lsize + rsize + 1
+            is_Bst = False
+            if lmax < root.val < rmin and l and r:
+                is_Bst = True
+            if is_Bst:
+                self.res = max(self.res,size)
             
-        return dfs(root)[1]
+            return min(lmin,rmin,root.val) , max(lmax,rmax,root.val) , is_Bst ,size
+        
+        dfs(root)
+        return self.res
+
+        
