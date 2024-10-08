@@ -22,19 +22,17 @@ class Solution:
             elif prev.val > curr.val:
                 if insertVal >= prev.val or insertVal <= curr.val:
                     isInsert = True
-            
-            if isInsert:
+
+            if isInsert == True:
                 prev.next = Node(insertVal,curr)
                 return head
-            
+
             prev,curr = curr,curr.next
 
             if prev == head:
                 break
-            
-        
+
         prev.next = Node(insertVal,curr)
         return head
-
 
         
