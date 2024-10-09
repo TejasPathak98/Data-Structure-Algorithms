@@ -7,25 +7,21 @@
 
 class Solution:
     def distanceK(self, root: TreeNode, target: TreeNode, k: int) -> List[int]:
-        ans = []
+        queue = deque([root])
         parent = {}
-        queue = deque()
-        queue.append(root)
 
         while queue:
-            size = len(queue)
-            for _ in range(size):
-                top = queue.popleft()
-
-                if top.left:
-                    parent[top.left.val] = top
-                    queue.append(top.left)
-                if top.right:
-                    parent[top.right.val] = top
-                    queue.append(top.right)
+            node = queue.popleft()
+            if node.left:
+                queue.append(node.left)
+                parent[node.left.val] = node
+            if node.right:
+                queue.append(node.right)
+                parent[node.right.val] = node
         
-        visited = {}
         queue.append(target)
+        visited = {}
+        ans = []
 
         while queue and k > 0:
             size = len(queue)
@@ -39,18 +35,15 @@ class Solution:
                     queue.append(node.right)
                 if node.val in parent and parent[node.val].val not in visited:
                     queue.append(parent[node.val])
-                
-            k -= 1
 
+            k -= 1
+        
         while queue:
             ans.append(queue.popleft().val)
-
-        return ans  
-
-
+           
+        return ans
                 
-
-
+                
 
 
         
