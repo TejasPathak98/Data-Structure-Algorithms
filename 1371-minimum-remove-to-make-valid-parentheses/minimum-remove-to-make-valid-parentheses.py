@@ -2,11 +2,8 @@ class Solution:
     def minRemoveToMakeValid(self, s: str) -> str:
         stack = []
         s_list = list(s)
-        print(s_list)
 
         i = 0
-        j = 0
-
         while i < len(s_list):
             if s_list[i] == "(":
                 stack.append((s_list[i],i))
@@ -22,5 +19,4 @@ class Solution:
             _, pos = stack.pop()
             s_list = s_list[:pos] + s_list[pos + 1:]
 
-        print(s_list)
         return "".join(s_list)   
