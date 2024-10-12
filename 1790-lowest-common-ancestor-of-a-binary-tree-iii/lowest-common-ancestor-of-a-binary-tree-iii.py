@@ -11,7 +11,7 @@ class Node:
 class Solution:
     def lowestCommonAncestor(self, p: 'Node', q: 'Node') -> 'Node':
         a = p
-        b = q
+        b = q 
 
         while a != b:
             a = a.parent if a else q
