@@ -5,7 +5,10 @@ class Solution:
 
         for num in nums:
             heapq.heappush(heap,num)
-        
+
+            while len(heap) > k:
+                heapq.heappop(heap)
+
         while len(heap) > k:
             heapq.heappop(heap)
         
