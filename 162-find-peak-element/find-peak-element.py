@@ -14,6 +14,6 @@ class Solution:
             else:
                 h = mid - 1
 
-        return l        
+        return l       
 
-        #O(logn) ; O()
+        #O(logn) ; O(1)
