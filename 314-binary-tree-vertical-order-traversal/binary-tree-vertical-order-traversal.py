@@ -23,10 +23,15 @@ class Solution:
             if node.right:
                 queue.append((node.right,column_pos + 1))
         
-        dic_sorted = dict(sorted(dic.items(), key = lambda x : x[0]))
-        for col_pos,val in dic_sorted.items():
-            ans.append(val)
-        
+        # dic_sorted = dict(sorted(dic.items(), key = lambda x : x[0]))
+        # for col_pos,val in dic_sorted.items():
+        #     ans.append(val)
+
+        low = min(dic.keys())
+        high = max(dic.keys())
+
+        for i in range(low,high + 1):
+            ans.append(dic[i])
         return ans
 
             
