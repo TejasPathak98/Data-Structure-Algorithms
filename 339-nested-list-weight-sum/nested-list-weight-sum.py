@@ -43,8 +43,6 @@
 
 class Solution:
     def depthSum(self, nestedList: List[NestedInteger]) -> int:
-        
-
         def helper(nestedList,depth):
             ans = 0
             for element in nestedList:
