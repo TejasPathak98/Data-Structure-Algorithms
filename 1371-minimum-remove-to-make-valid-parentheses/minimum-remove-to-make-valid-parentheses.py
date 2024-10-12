@@ -6,7 +6,7 @@ class Solution:
         i = 0
         while i < len(s_list):
             if s_list[i] == "(":
-                stack.append((s_list[i],i))
+                stack.append(i)
             elif s_list[i] == ")":
                 if stack:
                     stack.pop()
@@ -16,7 +16,7 @@ class Solution:
             i += 1
 
         while stack:
-            _, pos = stack.pop()
+            pos = stack.pop()
             s_list = s_list[:pos] + s_list[pos + 1:]
 
         return "".join(s_list)   
