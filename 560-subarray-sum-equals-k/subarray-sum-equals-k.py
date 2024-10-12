@@ -1,14 +1,17 @@
 class Solution:
     def subarraySum(self, nums: List[int], k: int) -> int:
-        res = 0
-        my_dict = defaultdict(int)
-        prefix_sum = 0
-        my_dict[0] = 1
+        dic = defaultdict(int)
+        dic[0] = 1
+        temp = 0
+        ans = 0
 
         for num in nums:
-            prefix_sum += num
-            if (prefix_sum - k) in my_dict:
-                res += my_dict[prefix_sum - k]
-            my_dict[prefix_sum] += 1
+            temp = temp + num
+            if temp - k in dic:
+                ans += dic[temp - k]
+            dic[temp] += 1
         
-        return res
+        return ans
+
+            
+        
