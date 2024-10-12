@@ -15,3 +15,5 @@ class Solution:
                 h = mid - 1
 
         return l        
+
+        #O(logn) ; O()
