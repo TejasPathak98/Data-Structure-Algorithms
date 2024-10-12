@@ -6,7 +6,7 @@ class Solution:
         for num in nums:
             heapq.heappush(heap,num)
 
-            while len(heap) > k:
+            if len(heap) > k:
                 heapq.heappop(heap)
 
         while len(heap) > k:
