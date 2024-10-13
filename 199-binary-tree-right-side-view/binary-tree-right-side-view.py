@@ -15,14 +15,16 @@ class Solution:
             if not root:
                 return
             
-            if root.left:
-                dfs(root.left,depth + 1)
             dic[depth] = root.val
-            if root.right:
-                dfs(root.right, depth + 1)
+            dfs(root.left,depth + 1)
+            dfs(root.right, depth + 1)
         
         if root:
             dfs(root,0)
-        return [dic[i] for i in sorted(dic.keys())]
+        return [dic[i] for i in dic.keys()]
+
+        #O(nlogn) ; O(n)
         
+
+
         
