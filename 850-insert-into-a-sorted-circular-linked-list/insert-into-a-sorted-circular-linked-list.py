@@ -13,11 +13,11 @@ class Solution:
             node.next = node
             return node
         
-        if head.next == head:
-            node = Node(insertVal)
-            head.next = node
-            node.next = head
-            return head
+        # if head.next == head:
+        #     node = Node(insertVal)
+        #     head.next = node
+        #     node.next = head
+        #     return head
         
         t = prev = head
         curr = head.next
@@ -28,11 +28,9 @@ class Solution:
                 insertIt = True
             elif prev.val > curr.val:
                 if (insertVal >= prev.val and insertVal >= curr.val) or (insertVal <= curr.val and insertVal <= prev.val):
-                    print("br")
                     insertIt = True
             
             if insertIt == True:
-                print("br2")
                 node = Node(insertVal)
                 prev.next = node
                 node.next = curr
@@ -45,7 +43,6 @@ class Solution:
                 break
         
         if not insertIt:
-            print("br3") 
             while curr != head:
                 prev = prev.next
                 curr = curr.next
