@@ -9,19 +9,19 @@ class Node:
 
 class Solution:
     visited = {}
-
     def copyRandomList(self, head: 'Optional[Node]') -> 'Optional[Node]':
-        if head is None:
+        if not head:
             return head
         
-        if self.visited.get(head):
-            return self.visited.get(head)
+        if head in self.visited:
+            return self.visited[head]
         
-        node = Node(head.val,None,None)
+        node = Node(head.val)
 
         self.visited[head] = node
 
         node.next = self.copyRandomList(head.next)
         node.random = self.copyRandomList(head.random)
-        
+
         return node
+        
