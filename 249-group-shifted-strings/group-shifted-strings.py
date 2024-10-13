@@ -15,7 +15,7 @@ class Solution:
                 i = 0
                 temp = []
                 while i <= len(st) - 2:
-                    diff = abs(ord(st[i + 1]) - ord(st[i]) + 26) % 26
+                    diff = (ord(st[i + 1]) - ord(st[i]) + 26) % 26
                     temp.append(diff)
                     i += 1
                 dic[tuple(temp)].append(st)
