@@ -2,18 +2,18 @@ class Node:
     def __init__(self,key,value):
         self.key = key
         self.value = value
-        self.prev = None
         self.next = None
+        self.prev = None
 
 class LRUCache:
 
     def __init__(self, capacity: int):
         self.capacity = capacity
-        self.dic = dict() #key to node
         self.head = Node(-1,-1)
         self.tail = Node(-1,-1)
-        self.head.next = self.tail
-        self.tail.prev = self.head
+        self.head.prev = self.tail
+        self.tail.next = self.head
+        self.dic = defaultdict(Node)
         
 
     def get(self, key: int) -> int:
@@ -22,41 +22,41 @@ class LRUCache:
         else:
             node = self.dic[key]
             self.removeNode(node)
-            self.addNodetoHead(node)
+            self.addNode(node)
             return node.value
         
     def put(self, key: int, value: int) -> None:
         if key in self.dic:
             node = self.dic[key]
-            self.removeNode(node)
-            self.addNodetoHead(node)
             node.value = value
+            self.removeNode(node)
+            self.addNode(node)
         else:
             if len(self.dic) >= self.capacity:
-                self.removefromTail()
+                self.removeLastNode()
             node = Node(key,value)
-            self.dic[key] = node
-            self.addNodetoHead(node)
+            self.addNode(node)
+            self.dic[key] = node  
 
     def removeNode(self,node):
-        node.next.prev = node.prev
-        node.prev.next = node.next
+        next_node = node.next
+        prev_node = node.prev
+        next_node.prev = prev_node
+        prev_node.next = next_node
+
+    def addNode(self,node):
+        temp = self.head.prev
+        self.head.prev = node
+        node.next = self.head
+        node.prev = temp
+        temp.next = node
     
-    def addNodetoHead(self,node):
-        temp = self.head.next
-        self.head.next = node
-        node.next = temp
-        node.prev = self.head
-        temp.prev = node
-    
-    def removefromTail(self):
+    def removeLastNode(self):
         if len(self.dic) == 0:
             return
-        tail_node = self.tail.prev
-        del self.dic[tail_node.key]
-        self.removeNode(tail_node)
-
-    
+        temp = self.tail.next
+        del self.dic[temp.key]
+        self.removeNode(temp)
 
         
 
