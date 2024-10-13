@@ -1,31 +1,29 @@
 class Solution:
     def maximumSwap(self, num: int) -> int:
-        if 0 <= num <= 9:
-            return num
-        s = str(num)
+        nums = [int(digit) for digit in str(num)]
+        m_stack = []
 
-        l = []
-        for i in range(len(s)):
-            l.append(s[i])
-        l_sorted = sorted(l,reverse=True)
-
-        i = 0
-        while i < len(l):
-            if l[i] == l_sorted[i]:
-                i += 1
-            else:
-                x = l_sorted[i]
-                pos = -1
-                for k in range(len(l) - 1,-1,-1):
-                    if l[k] == x:
-                        pos = k
-                        break
-                l[i] , l[pos] = l[pos] , l[i]
+        for i in range(len(nums)):
+            while m_stack and nums[m_stack[-1]] < nums[i]:
+                m_stack.pop()
+            m_stack.append(i)
+        
+        for i in range(len(nums)):
+            if nums[i] != nums[m_stack[i]]:
                 break
+            
+        j = i + 1
+        while j < len(m_stack) and nums[m_stack[i]] == nums[m_stack[j]]:
+            j += 1
         
-        return int(''.join(l))
-                
+        j -= 1
 
-        return 0
+        print(m_stack)
+        #print(j,nums[m_stack[j]])
+
+        nums[i] , nums[m_stack[j]] = nums[m_stack[j]] , nums[i]
+
+        print(nums)
+
+        return int(''.join(map(str,nums)))
         
-        #7632
