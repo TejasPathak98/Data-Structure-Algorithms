@@ -1,21 +1,16 @@
 class Solution:
     def findMinDifference(self, timePoints: List[str]) -> int:
-        if not timePoints:
-            return 0
+        min_ans = float('inf')
 
         arr = []
-        min_diff = float('inf')
-        
-        for st in timePoints:
-            time = st.split(":")
-            arr.append(int(time[0]) * 60 + int(time[1]))
+
+        for time in timePoints:
+            t = time.split(":")
+            arr.append(int(t[0])*60 + int(t[1]))
         
         arr = sorted(arr)
 
         for i in range(1,len(arr)):
-            min_diff = min(min_diff,(arr[i] - arr[i-1]))
+            min_ans = min(min_ans,(arr[i] - arr[i - 1]))
         
-        return min(min_diff,arr[0] + 1440 - arr[-1])
-        
-
-        
+        return min(min_ans,arr[0] + 1440 - arr[-1])
