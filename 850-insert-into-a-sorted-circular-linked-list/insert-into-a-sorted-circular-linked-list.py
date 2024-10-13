@@ -13,12 +13,6 @@ class Solution:
             node.next = node
             return node
         
-        # if head.next == head:
-        #     node = Node(insertVal)
-        #     head.next = node
-        #     node.next = head
-        #     return head
-        
         t = prev = head
         curr = head.next
         insertIt = False
