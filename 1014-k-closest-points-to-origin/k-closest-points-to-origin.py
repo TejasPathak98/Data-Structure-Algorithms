@@ -1,22 +1,21 @@
 class Solution:
-    #maxheap
     def kClosest(self, points: List[List[int]], k: int) -> List[List[int]]:
-        if len(points) == k:
-            return points
-        
         heap = []
 
         for point in points:
-            x = point[0]
-            y = point[1]
-            dis = sqrt((x**2) + (y**2))
+            dist = math.sqrt((point[0] ** 2) + (point[1] ** 2))
 
-            heapq.heappush(heap, (-dis,point))
+            heapq.heappush(heap,(-dist,point[0],point[1]))
 
-            while len(heap) > k:
+            if len(heap) > k:
                 heapq.heappop(heap)
-            
-            
-                
+        
+        ans = []
+        while heap:
+            d,x,y = heapq.heappop(heap)
+            ans.append([x,y])
+        
+        return ans
 
-        return [x[1] for x in heap] 
+
+        
