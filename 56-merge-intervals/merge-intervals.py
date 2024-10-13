@@ -10,3 +10,5 @@ class Solution:
                 result[-1][1] = max(result[-1][1],interval[1])
 
         return result
+
+        #O(nlogn) ; O(n)
