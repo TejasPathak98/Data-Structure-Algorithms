@@ -6,14 +6,23 @@
 #         self.right = right
 class Solution:
     def rightSideView(self, root: Optional[TreeNode]) -> List[int]:
-        d = defaultdict(int)
-        def helper(root,depth):
+        if not root:
+            return []
+        
+        dic = defaultdict(int)
+
+        def dfs(root,depth):
+            if not root:
+                return
+            
             if root.left:
-                helper(root.left,depth + 1)
-            d[depth] = root.val
+                dfs(root.left,depth + 1)
+            dic[depth] = root.val
             if root.right:
-                helper(root.right,depth + 1)
+                dfs(root.right, depth + 1)
+        
         if root:
-            helper(root,0)
-        return [d[i] for i in sorted(d.keys())]
+            dfs(root,0)
+        return [dic[i] for i in sorted(dic.keys())]
+        
         
