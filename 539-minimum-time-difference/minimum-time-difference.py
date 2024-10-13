@@ -1,7 +1,6 @@
 class Solution:
     def findMinDifference(self, timePoints: List[str]) -> int:
         min_ans = float('inf')
-
         arr = []
 
         for time in timePoints:
@@ -17,4 +16,4 @@ class Solution:
 
         #O(nlogn) ; O(n)
 
-        
+
