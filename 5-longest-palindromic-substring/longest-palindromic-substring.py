@@ -3,27 +3,27 @@ class Solution:
         n = len(s)
         if n == 1:
             return s
+        max_s = ""
+        max_l = 0
 
-        i = 0
-        max_a = ""
-        max_len = 0
-
-        def helper(a,b):
-            nonlocal max_len,max_a
-            while a >= 0 and b < len(s) and s[a] == s[b]:
-                if b - a + 1 > max_len:
-                    print("br")
-                    max_a = s[a:b + 1]
-                    print(max_a)
-                    max_len = b - a + 1
-                a -= 1
-                b += 1
-            
-
-        while i < n - 1:
+        def helper(i,j):
+            nonlocal max_l,max_s
+            while i >= 0 and j < len(s):
+                if s[i] == s[j]:
+                    if j - i + 1 > max_l:
+                        max_s = s[i:j + 1]
+                        max_l = j - i + 1
+                    i -= 1
+                    j += 1
+                else:
+                    break
+        
+        for i in range(0,len(s) - 1):
             helper(i,i)
-            helper(i,i +1)
-            i += 1
+            helper(i,i+1)
 
-        return max_a
+        return max_s
+
+        
+
         
