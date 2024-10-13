@@ -1,9 +1,11 @@
 class Solution:
     def letterCombinations(self, digits: str) -> List[str]:
-        if not digits:
+        if len(digits) == 0:
             return []
-        
-        phone_map = {
+       
+        ans = []
+
+        phone_mapping = {
             '2' : 'abc',
             '3' : 'def',
             '4' : 'ghi',
@@ -13,15 +15,17 @@ class Solution:
             '8' : 'tuv',
             '9' : 'wxyz'
         }
-        
 
-        def helper(combination,next_digits):
-            if len(next_digits) == 0:
-                output.append(combination)
+        def backtracking(digits,combination):
+            if len(digits) == 0:
+                ans.append(combination)
+                return
             else:
-                for letter in phone_map[next_digits[0]]:
-                    helper(combination + letter,next_digits[1:])
+                for letter in phone_mapping[digits[0]]:
+                    backtracking(digits[1:], combination + letter)
+        
+        backtracking(digits,"")
+        return ans
 
-        output=[]
-        helper("",digits)
-        return output
+
+        
