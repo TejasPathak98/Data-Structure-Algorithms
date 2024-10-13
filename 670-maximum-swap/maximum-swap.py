@@ -18,12 +18,9 @@ class Solution:
         
         j -= 1
 
-        print(m_stack)
-        #print(j,nums[m_stack[j]])
 
         nums[i] , nums[m_stack[j]] = nums[m_stack[j]] , nums[i]
 
-        print(nums)
 
         return int(''.join(map(str,nums)))
         
