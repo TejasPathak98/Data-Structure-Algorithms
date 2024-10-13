@@ -3,8 +3,6 @@ class Solution:
         """
         Do not return anything, modify nums in-place instead.
         """
-        if len(nums) == 1:
-            return
         
         i = len(nums) - 2
 
@@ -14,18 +12,15 @@ class Solution:
             else:
                 break
         
-        
-
         j = len(nums) - 1
         if i >= 0:
             while j > i:
-                if nums[i] >= nums[j]:
+                if nums[j] <= nums[i]:
                     j -= 1
                 else:
                     break
         
-         
+        nums[j],nums[i] = nums[i] , nums[j]
 
-        nums[i] , nums[j] = nums[j] , nums[i]
-
-        nums[i + 1:] = reversed(nums[i + 1:])
+        nums[i + 1:] = reversed(nums[i+1:])
+        
