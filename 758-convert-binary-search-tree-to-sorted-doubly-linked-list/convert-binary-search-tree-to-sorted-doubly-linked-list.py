@@ -10,34 +10,35 @@ class Node:
 class Solution:
     def treeToDoublyList(self, root: 'Optional[Node]') -> 'Optional[Node]':
         if not root:
-            return root
+            return None
         
-        self.first = self.last = None
+        self.first = None
+        self.last = None
+
+        
 
         self.dfs_linker(root)
 
-        self.last.right = self.first
         self.first.left = self.last
+        self.last.right = self.first
 
         return self.first
-    
-    def dfs_linker(self,node):
 
-        if node is None:
+    def dfs_linker(self,root):
+        if not root:
             return
         
-        self.dfs_linker(node.left)
+        self.dfs_linker(root.left)
 
         if not self.last:
-            self.first = node
+            self.first = root
         else:
-            node.left = self.last
-            self.last.right = node
-        
-        self.last = node
+            self.last.right = root
+            root.left = self.last
 
-        self.dfs_linker(node.right)
-    
+        self.last = root
+
+        self.dfs_linker(root.right)
 
 
         
