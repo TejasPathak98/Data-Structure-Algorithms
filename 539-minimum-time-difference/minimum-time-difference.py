@@ -14,3 +14,7 @@ class Solution:
             min_ans = min(min_ans,(arr[i] - arr[i - 1]))
         
         return min(min_ans,arr[0] + 1440 - arr[-1])
+
+        #O(nlogn) ; O(n)
+
+        
