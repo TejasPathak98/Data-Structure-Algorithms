@@ -2,15 +2,17 @@ class Solution:
 
     def __init__(self, nums: List[int]):
         self.nums = nums
-        self.n = len(self.nums)
+        self.n = len(nums)
+        self.dic = defaultdict(list)
+        for i in range(self.n):
+            self.dic[nums[i]].append(i)
         
 
     def pick(self, target: int) -> int:
-        df = []
-        for i in range(self.n):
-            if self.nums[i] == target:
-                df.append(i)
-        return random.choice(df)
+        l = []
+        l = self.dic[target]
+        return random.choice(l)
+
         
 
 
