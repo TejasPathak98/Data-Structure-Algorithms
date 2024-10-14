@@ -17,8 +17,6 @@ class Solution:
             if targetMod in hmap:
                 min_len = min(min_len,i - hmap[targetMod])
             hmap[currentMod] = i
-        
-        print(min_len)
 
         if min_len < len(nums) :
             return min_len
