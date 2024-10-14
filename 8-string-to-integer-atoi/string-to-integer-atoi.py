@@ -1,54 +1,56 @@
 class Solution:
     def myAtoi(self, s: str) -> int:
-        if len(s) == 0:
+        n = len(s)
+        if n == 0:
             return 0
         
-        n = len(s)
         i = 0
-        temp = ""
-        neg = False
-        sign_set = False
+        while i < n and s[i] == " ":
+            i += 1
 
-        while i < n:
+        num = ""
+        
+        is_sign_set = False
+        sign = 0
+        
+        while i < len(s):
             if s[i] == " ":
-                if temp or sign_set:
-                    break
-                i += 1
-                continue
-            elif s[i] == '-':
-                if temp or sign_set:
-                    break
-                else:
-                    sign_set = True
-                    neg = True
-            elif s[i] == '+':
-                if temp or sign_set:
-                    break
-                else:
-                    sign_set = True
-            elif s[i].isdigit():
-                temp = temp + s[i]
-            else:
+                print(i)
                 break
-            print(i)
+            elif s[i].isdigit():
+                num += s[i]
+            elif s[i] == "+" and is_sign_set == False:
+                if len(num) != 0:
+                    break
+                sign = 0
+                is_sign_set = True
+            elif s[i] == "-" and is_sign_set == False:
+                if len(num) != 0:
+                    break
+                sign = 1
+                is_sign_set = True
+            elif s[i] == "+" or s[i] == "-" and is_sign_set == True:
+                break
+            elif s[i].isalpha():
+                print(s[i])
+                break
+            else:
+                print("hey")
+                break
             i += 1
         
-        if len(temp) == 0:
+        if len(num) == 0:
             return 0
-
-        number = int(temp)
-        if neg:
-            number = -1 * number
-        
-        if number < 0:
-            number = max(number,-1 * (2 ** 31))
+        print(num)
+        num = int(num)
+        print(num)
+        if sign == 0:
+            return min(num,2**31 - 1)
         else:
-            number = min(number,2 ** 31 - 1)
+            return -min((2**31),num)
 
-        return number
+        
 
-                    
-            
-            
+
 
         
