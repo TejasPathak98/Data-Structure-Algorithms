@@ -5,7 +5,6 @@ class Solution:
         pos = []
         t = ""
         l_ = list(range(n))
-        print(l_)
 
         for i in range(m):
             indices = [j for j,c in enumerate(s) if s[j] == order[i]]
