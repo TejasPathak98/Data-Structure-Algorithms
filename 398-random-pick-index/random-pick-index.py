@@ -9,7 +9,6 @@ class Solution:
         
 
     def pick(self, target: int) -> int:
-        l = []
         l = self.dic[target]
         return random.choice(l)
 
