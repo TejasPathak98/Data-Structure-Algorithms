@@ -15,7 +15,6 @@ class Solution:
         
         while i < len(s):
             if s[i] == " ":
-                print(i)
                 break
             elif s[i].isdigit():
                 num += s[i]
@@ -45,7 +44,7 @@ class Solution:
         else:
             return -min((2**31),num)
 
-        
+        # O(n) ; O(n)
 
 
 
