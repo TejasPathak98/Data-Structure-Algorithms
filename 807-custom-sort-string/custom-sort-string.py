@@ -9,8 +9,6 @@ class Solution:
             indices = [j for j,c in enumerate(s) if s[j] == order[i]]
             if indices != [-1]:
                 pos.extend(indices)
-        
-        print(pos)
 
         for i in range(len(pos)):
             t = t + s[pos[i]]
