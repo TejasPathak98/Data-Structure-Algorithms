@@ -32,18 +32,14 @@ class Solution:
             elif s[i] == "+" or s[i] == "-" and is_sign_set == True:
                 break
             elif s[i].isalpha():
-                print(s[i])
                 break
             else:
-                print("hey")
                 break
             i += 1
         
         if len(num) == 0:
             return 0
-        print(num)
         num = int(num)
-        print(num)
         if sign == 0:
             return min(num,2**31 - 1)
         else:
