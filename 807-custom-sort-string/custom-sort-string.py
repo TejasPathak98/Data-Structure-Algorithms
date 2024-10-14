@@ -16,8 +16,6 @@ class Solution:
             t = t + s[pos[i]]
         
         l = list(set(l_) - set(pos))
-        
-        print(l)
 
         for i in range(len(l)):
             t = t + s[l[i]]
