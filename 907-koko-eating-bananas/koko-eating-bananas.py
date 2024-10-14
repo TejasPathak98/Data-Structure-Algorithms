@@ -3,12 +3,15 @@ class Solution:
         low = 1
         high = max(piles)
 
-        while low <= high:
+        while low < high:
             mid = (low + high) // 2
-            x = sum(math.ceil(pile / mid) for pile in piles)
-            if x > h:
+
+            time = sum(math.ceil(pile / mid) for pile in piles) 
+
+            if time > h:
                 low = mid + 1
             else:
-                high = mid - 1
-
+                high = mid
+        
         return low
+        
