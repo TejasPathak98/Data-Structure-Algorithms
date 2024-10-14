@@ -4,6 +4,8 @@ class Solution:
         m = len(order)
         pos = []
         t = ""
+        l_ = list(range(n))
+        print(l_)
 
         for i in range(m):
             indices = [j for j,c in enumerate(s) if s[j] == order[i]]
@@ -13,10 +15,13 @@ class Solution:
         for i in range(len(pos)):
             t = t + s[pos[i]]
         
-        for i in range(n):
-            if i not in pos:
-                t = t + s[i]
+        l = list(set(l_) - set(pos))
         
+        print(l)
+
+        for i in range(len(l)):
+            t = t + s[l[i]]
+
         return t
         
         
