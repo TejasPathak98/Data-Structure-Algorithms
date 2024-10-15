@@ -20,7 +20,6 @@ class Solution:
                     if rx < 0 or rx >= m or ry < 0 or ry >= n or board[rx][ry] == "." or board[rx][ry] == "*":
                         continue
                     else:
-                        print("Br")
                         board[rx][ry] = "*"
                         queue.append((rx,ry))
         
