@@ -1,36 +1,12 @@
 class Solution:
     def countBattleships(self, board: List[List[str]]) -> int:
-        m = len(board)
-        n = len(board[0])
-        directions = [(-1,0),(1,0),(0,1),(0,-1)]
-        ans = 0
+        count = 0
 
-        def helper(x,y):
-            nonlocal board,n,m
-            queue = deque()
-            queue.append((x,y))
-            board[x][y] = "*"
-
-            while queue:
-                x1,y1 = queue.popleft()
-                for dx,dy in directions:
-                    rx = dx + x1
-                    ry = dy + y1
-
-                    if rx < 0 or rx >= m or ry < 0 or ry >= n or board[rx][ry] == "." or board[rx][ry] == "*":
-                        continue
-                    else:
-                        board[rx][ry] = "*"
-                        queue.append((rx,ry))
+        for i, row in enumerate(board):
+            for j,cell in enumerate(row):
+                if cell == "X":
+                    if (i == 0 or board[i-1][j] == ".") and (j == 0 or board[i][j - 1] == "."):
+                        count += 1
         
-        for i in range(m):
-            for j in range(n):
-                if board[i][j] == "X":
-                    ans += 1
-                    helper(i,j)
-
-        return ans
-
-
-    
-
+        return count
+        
