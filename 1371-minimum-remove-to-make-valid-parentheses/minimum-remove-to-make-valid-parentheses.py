@@ -1,7 +1,6 @@
 class Solution:
     def minRemoveToMakeValid(self, s: str) -> str:
         stack = []
-        s_list = list(s)
 
         i = 0
         while i < len(s):
@@ -14,9 +13,11 @@ class Solution:
                     s = s[:i] + s[i + 1:]
                     i -= 1
             i += 1
-
+        
         while stack:
             pos = stack.pop()
             s = s[:pos] + s[pos + 1:]
+        
+        return s
 
-        return s   
+        
