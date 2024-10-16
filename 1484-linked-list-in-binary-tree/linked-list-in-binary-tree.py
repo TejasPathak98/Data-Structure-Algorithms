@@ -11,25 +11,29 @@
 #         self.right = right
 class Solution:
     def isSubPath(self, head: Optional[ListNode], root: Optional[TreeNode]) -> bool:
-        if root is None:
+        if not root:
             return False
-        
-        if head is None:
+        if not head:
             return True
-
+        
         def dfs(root,head):
             if head is None:
                 return True
             
-            if  root is None or root.val != head.val:
+            if root is None:
                 return False
+            
 
+            if root.val != head.val:
+                return False
+            
             l = dfs(root.left,head.next)
             r = dfs(root.right,head.next)
 
             return l or r
-
-        queue = deque([root])
+        
+        queue = deque()
+        queue.append(root)
 
         while queue:
             node = queue.popleft()
@@ -41,7 +45,5 @@ class Solution:
                 queue.append(node.left)
             if node.right:
                 queue.append(node.right)
-        
-        return False
 
-        
+        return False        
