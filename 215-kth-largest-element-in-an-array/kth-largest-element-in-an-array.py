@@ -9,8 +9,8 @@ class Solution:
             if len(heap) > k:
                 heapq.heappop(heap)
 
-        while len(heap) > k:
-            heapq.heappop(heap)
+        #while len(heap) > k:
+        #    heapq.heappop(heap)
         
         return heap[0]
 
@@ -22,4 +22,6 @@ class Solution:
         #     k -= 1
         
         # return -1* x
+
+        #O(Nlogk) ; O(K)
 
