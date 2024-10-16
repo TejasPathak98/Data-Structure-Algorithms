@@ -9,8 +9,8 @@ class Solution:
             if len(heap) > k:
                 heapq.heappop(heap)
 
-        #while len(heap) > k:
-        #    heapq.heappop(heap)
+        while len(heap) > k:
+            heapq.heappop(heap)
         
         return heap[0]
 
