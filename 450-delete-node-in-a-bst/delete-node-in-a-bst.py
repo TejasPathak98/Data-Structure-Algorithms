@@ -7,7 +7,7 @@
 class Solution:
     def deleteNode(self, root: Optional[TreeNode], key: int) -> Optional[TreeNode]:
         if not root:
-            return root
+            return None
         
         if key < root.val:
             root.left = self.deleteNode(root.left, key)
@@ -26,9 +26,9 @@ class Solution:
         
         return root
 
-    def findmin(self, root: Optional[TreeNode]):
+    def findmin(self,root):
         while root.left:
             root = root.left
         return root.val
-        
+
         
