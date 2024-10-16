@@ -14,7 +14,6 @@ class Solution:
                 return
             
             if low <= root.val <= high:
-                print(root.val)
                 ans += root.val
                 dfs(root.left)
                 dfs(root.right)
