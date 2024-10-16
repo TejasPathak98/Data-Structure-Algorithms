@@ -10,15 +10,4 @@ class Solution:
                 heapq.heappop(heap)
         
         return heap[0]
-
-        # for num in nums:
-        #     heapq.heappush(heap,-num)
-
-        # while k:
-        #     x = heapq.heappop(heap)
-        #     k -= 1
         
-        # return -1* x
-
-        #O(Nlogk) ; O(K)
-
