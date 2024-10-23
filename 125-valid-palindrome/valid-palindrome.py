@@ -1,8 +1,29 @@
 class Solution:
     def isPalindrome(self, s: str) -> bool:
-        st = ""
-        for i in range(len(s)):
-            if s[i].isalnum():
-                st += s[i].lower()
+        if not s:
+            return False
         
-        return st == st[::-1]
+        start = 0
+        end = len(s) - 1
+        s = s.lower()
+
+        while start <= end:
+            while start <= end and not s[start].isalnum():
+                start += 1
+            while start <= end and not s[end].isalnum():
+                end -= 1
+            
+            if start <= end and s[start] == s[end]:
+                start += 1
+                end -= 1
+            else:
+                break
+        
+        if start < end:
+            return False
+        else:
+            return True
+            
+
+
+        
