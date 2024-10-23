@@ -1,8 +1,8 @@
 class Solution:
     def isPalindrome(self, s: str) -> bool:
         st = ""
-        for ch in s:
-            if ch.isalnum():
-                st += ch.lower()
+        for i in range(len(s)):
+            if s[i].isalnum():
+                st += s[i].lower()
         
         return st == st[::-1]
