@@ -10,5 +10,5 @@ class Solution:
             else:
                 stack.append([c,1])
 
-        return ''.join(c * cnt for c , cnt in stack)
+        return ''.join(c * cnt for c ,cnt in stack)
         
