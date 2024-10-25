@@ -1,34 +1,46 @@
 class Solution:
     def maxAreaOfIsland(self, grid: List[List[int]]) -> int:
-        m = len(grid)
-        n = len(grid[0])
-        dir = [[0,1],[0,-1],[1,0],[-1,0]]
-        visited = [[False]*n for _ in range(m)]
+        n = len(grid)
+        m = len(grid[0])
+        directions = [(-1,0),(1,0),(0,1),(0,-1)]
         max_area = 0
+        visited = set()
 
-        def dfs(i,j):
-            nonlocal dir
-            area = 1
-            visited[i][j] = True
+        def bfs(x,y):
+            nonlocal max_area
+            queue = deque()
+            queue.append((x,y))
+            area = 0
+            visited.add((x,y))
 
-            for k in range(len(dir)):
-                x = i + dir[k][0]
-                y = j + dir[k][1]
+            while queue:
+                x,y = queue.popleft()
+                area += 1
+                max_area = max(max_area,area)
 
-                if x >=0 and x < len(grid) and y >= 0 and y < len(grid[0]) and visited[x][y] == False and grid[x][y] == 1:
-                    print("Hi")
-                    area += dfs(x,y)
-            
-            return area
+                for dx,dy in directions:
+                    x_new = x + dx
+                    y_new = y + dy
+
+                    if 0 <= x_new < n and 0 <= y_new < m and grid[x_new][y_new] == 1 and (x_new,y_new) not in visited:
+                        visited.add((x_new,y_new))
+                        queue.append((x_new,y_new))
 
         
-
-        for i in range(m):
-            for j in range(n):
-                area = 0
-                if visited[i][j] == False and grid[i][j] == 1:
-                    print("Hi2")
-                    max_area = max(max_area,dfs(i,j))
+        
+        for i in range(n):
+            for j in range(m):
+                if grid[i][j] == 1 and (i,j) not in visited:
+                    bfs(i,j)
         
         return max_area
+
+        
+            
+
+
+
+
+
+
         
