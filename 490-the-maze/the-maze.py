@@ -18,7 +18,7 @@ class Solution:
 
         while queue:
             curr = queue.popleft()
-            if curr[0] == destination[0] and curr[1] == destination[1]:
+            if curr == destination:
                 return True
             
             for dir in directions:
