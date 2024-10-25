@@ -3,7 +3,7 @@ class Solution:
         if not maze or not start or not destination:
             return False
         
-        if start[0] == destination[0] and start[1] == destination[1]: #start == destination:
+        if start == destination:
             return True
 
         n = len(maze)
