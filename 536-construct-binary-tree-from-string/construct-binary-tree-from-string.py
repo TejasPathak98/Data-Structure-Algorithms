@@ -8,35 +8,31 @@ class Solution:
     def str2tree(self, s: str) -> Optional[TreeNode]:
         if not s:
             return None
-        
-        number = ''
         stack = []
+        number = ''
 
         for i in s:
             if i in '()':
-                if i == '(' and number:
-                    stack.append(TreeNode(int(number)))
-                    number = ''
-                elif i == ')':
+                if i == "(":
+                    if number:
+                        stack.append(TreeNode(int(number)))
+                        number = ""
+                else:
                     if number:
                         node = TreeNode(int(number))
-                        number = ''
+                        number = ""
                     else:
                         node = stack.pop()
                     
-                    if stack:
-                        parent = stack[-1]
-                        if not parent.left:
-                            parent.left = node
-                        else:
-                            parent.right = node
+                    parent = stack[-1]
+                    if not parent.left:
+                        parent.left = node
+                    else:
+                        parent.right = node
             else:
                 number += i
-
+        
         if number:
             stack = [TreeNode(int(number))]
         
         return stack[0]
-
-
-        
