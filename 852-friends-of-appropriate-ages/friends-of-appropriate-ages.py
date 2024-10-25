@@ -1,31 +1,25 @@
 class Solution:
     def numFriendRequests(self, ages: List[int]) -> int:
-        ans = 0
+        amount_in_ages = [0] * 121
+        prefix_sum_age = [0] * 121
+        unique_age = set()
 
-        def helper(x,y):
-            if y > x:
-                return False
-            if y > 100 and x < 100:
-                return False
-            if y <= 0.5 * x + 7:
-                return False
-            
-            return True
-            
-        my_dict = defaultdict(int)
         for age in ages:
-            my_dict[age] += 1
+            amount_in_ages[age] += 1
+            unique_age.add(age)
         
-        for age1,count1 in my_dict.items():
-            for age2,count2 in my_dict.items():
-                if helper(age1,age2):
-                    if age1 == age2:
-                        ans += count1 * (count1 - 1)
-                    else:
-                        ans += count1 * count2
-        
-        return ans
+        for i in range(1,len(amount_in_ages)):
+            prefix_sum_age[i] = prefix_sum_age[i - 1] + amount_in_ages[i]
 
+        total = 0
 
+        for age in unique_age:
+            lb = age // 2 + 7
+            hb = age
+            
+            requests = amount_in_ages[age] * (prefix_sum_age[hb] - prefix_sum_age[lb] - 1) 
+
+            total += max(requests,0)
         
+        return total
         
