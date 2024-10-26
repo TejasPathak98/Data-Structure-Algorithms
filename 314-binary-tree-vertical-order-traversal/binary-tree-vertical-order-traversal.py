@@ -11,29 +11,30 @@ class Solution:
         
         queue = deque()
         queue.append((root,0))
-        dic = defaultdict(list)
-        ans = []
+        ans = defaultdict(list)
+        res = []
 
         while queue:
-            node,column_pos = queue.popleft()
-            dic[column_pos].append(node.val)
+            node,col_idx = queue.popleft()
+            ans[col_idx].append(node.val)
 
             if node.left:
-                queue.append((node.left,column_pos - 1))
+                queue.append((node.left,col_idx - 1))
+            
             if node.right:
-                queue.append((node.right,column_pos + 1))
+                queue.append((node.right,col_idx + 1))
         
-        # dic_sorted = dict(sorted(dic.items(), key = lambda x : x[0]))
-        # for col_pos,val in dic_sorted.items():
-        #     ans.append(val)
-
-        low = min(dic.keys())
-        high = max(dic.keys())
+        low = min(ans.keys())
+        high = max(ans.keys())
 
         for i in range(low,high + 1):
-            ans.append(dic[i])
-        return ans
+            res.append(ans[i])
+        
+        return res
 
-            
-            
+
+
+
+
+
         
