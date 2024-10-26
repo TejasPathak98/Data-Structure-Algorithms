@@ -1,19 +1,15 @@
 class Solution:
+
     def __init__(self, w: List[int]):
-        self.prefix = [0] * len(w)
-        self.w = w
-        x = 0
-        for i in range(len(w)):
-            x = x + w[i]
-            self.prefix[i] = x
-        self.tot = x
-
+        self.prefix = []
+        self.temp = 0
+        for weight in w:
+            self.temp += weight
+            self.prefix.append(self.temp)
+    
     def pickIndex(self) -> int:
-        r = random.randint(1,self.tot)
-        return bisect_left(self.prefix, r)
-
-
-
+        r = random.randint(1,self.temp)
+        return bisect_left(self.prefix,r)
         
 
 
