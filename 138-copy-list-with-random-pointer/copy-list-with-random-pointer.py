@@ -8,17 +8,18 @@ class Node:
 """
 
 class Solution:
-    visited = {}
+    def __init__(self):
+        self.my_dict = {}
+
     def copyRandomList(self, head: 'Optional[Node]') -> 'Optional[Node]':
-        if not head:
-            return head
+        if head in self.my_dict:
+            return self.my_dict[head]
         
-        if head in self.visited:
-            return self.visited[head]
+        if head is None:
+            return None
         
         node = Node(head.val)
-
-        self.visited[head] = node
+        self.my_dict[head] = node
 
         node.next = self.copyRandomList(head.next)
         node.random = self.copyRandomList(head.random)
