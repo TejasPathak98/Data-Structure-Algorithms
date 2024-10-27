@@ -9,22 +9,22 @@ class Solution:
         if not root:
             return []
         
-        dic = defaultdict(int)
+        my_dict = defaultdict(int)
 
-        def dfs(root,depth):
-            if not root:
+        def helper(root,level):
+            if root is None:
                 return
             
-            dic[depth] = root.val
-            dfs(root.left,depth + 1)
-            dfs(root.right, depth + 1)
+            my_dict[level] = root.val
+            helper(root.left, level + 1)
+            helper(root.right, level + 1)
         
-        if root:
-            dfs(root,0)
-        return [dic[i] for i in dic.keys()]
+        helper(root,0)
 
-        #O(nlogn) ; O(n)
+        ans = []
+        low = min(my_dict.keys())
+        high = max(my_dict.keys())
+        for i in range(low,high + 1):
+            ans.append(my_dict[i])
         
-
-
-        
+        return ans
