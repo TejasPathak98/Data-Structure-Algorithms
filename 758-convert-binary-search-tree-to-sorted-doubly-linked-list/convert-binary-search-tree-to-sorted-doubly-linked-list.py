@@ -15,21 +15,19 @@ class Solution:
         self.first = None
         self.last = None
 
-        
-
-        self.dfs_linker(root)
+        self.helper(root)
 
         self.first.left = self.last
         self.last.right = self.first
 
         return self.first
 
-    def dfs_linker(self,root):
+    def helper(self,root):
         if not root:
             return
-        
-        self.dfs_linker(root.left)
 
+        self.helper(root.left) 
+        
         if not self.last:
             self.first = root
         else:
@@ -38,7 +36,4 @@ class Solution:
 
         self.last = root
 
-        self.dfs_linker(root.right)
-
-
-        
+        self.helper(root.right) 
