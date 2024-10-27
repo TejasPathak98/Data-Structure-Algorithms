@@ -21,10 +21,10 @@ class Solution:
         
         helper(root,0)
 
-        ans = []
-        low = min(my_dict.keys())
-        high = max(my_dict.keys())
-        for i in range(low,high + 1):
-            ans.append(my_dict[i])
+        #ans = [my_dict.values()]
+        # low = min(my_dict.keys())
+        # high = max(my_dict.keys())
+        # for i in range(low,high + 1):
+        #     ans.append(my_dict[i])
         
-        return ans
+        return list(my_dict.values())
