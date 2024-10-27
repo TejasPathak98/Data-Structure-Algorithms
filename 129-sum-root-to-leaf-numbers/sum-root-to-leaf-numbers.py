@@ -9,19 +9,26 @@ class Solution:
         if not root:
             return 0
         
-        def dfs(root,x):
-            if not root:
-                return 0
-            
-            x = x*10 + root.val
-
-            if root.left is None and root.right is None:
-                return x
-            
-            l = dfs(root.left,x)
-            r = dfs(root.right,x)
-
-            return l + r
+        final_sum = 0
         
-        return dfs(root,0)
+        def helper(root,curr_sum):
+            nonlocal final_sum
+            if root.left is None and root.right is None:
+                final_sum += curr_sum*10 + root.val
+                return
+
+            curr_sum = curr_sum*10 + root.val
+
+            if root.left:
+                helper(root.left,curr_sum)
+            if root.right:
+                helper(root.right,curr_sum)
+        
+        helper(root,0)
+        return final_sum
+        
+
+
+
+
         
