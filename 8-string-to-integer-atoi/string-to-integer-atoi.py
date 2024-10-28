@@ -1,51 +1,42 @@
 class Solution:
     def myAtoi(self, s: str) -> int:
-        n = len(s)
-        if n == 0:
-            return 0
-        
-        i = 0
-        while i < n and s[i] == " ":
-            i += 1
+        sign = True
+        sign_set = False
+        s = s.lstrip()
 
-        num = ""
-        
-        is_sign_set = False
-        sign = 0
-        
+        i = 0
+        ans = ""
         while i < len(s):
-            if s[i] == " ":
+            if s[i].isalpha():
                 break
-            elif s[i].isdigit():
-                num += s[i]
-            elif s[i] == "+" and is_sign_set == False:
-                if len(num) != 0:
+            elif s[i].isnumeric():
+                ans += s[i]
+                i += 1
+            elif s[i] == "-":
+                if len(ans) > 0 or sign_set:
                     break
-                sign = 0
-                is_sign_set = True
-            elif s[i] == "-" and is_sign_set == False:
-                if len(num) != 0:
+                else:
+                    sign = False
+                    sign_set = True
+                    i += 1
+            elif s[i] == "+":
+                if len(ans) > 0 or sign_set:
                     break
-                sign = 1
-                is_sign_set = True
-            elif s[i] == "+" or s[i] == "-" and is_sign_set == True:
-                break
-            elif s[i].isalpha():
-                break
+                else:
+                    sign_set = True
+                    i += 1
             else:
                 break
-            i += 1
         
-        if len(num) == 0:
-            return 0
-        num = int(num)
-        if sign == 0:
-            return min(num,2**31 - 1)
+        if len(ans) > 0:
+            if sign:
+                return min(int(ans),(2 ** 31) - 1)
+            else:
+                return max(-int(ans), -(2**31))
         else:
-            return -min((2**31),num)
+            return 0
+        
+            
 
-        # O(n) ; O(n)
-
-
-
+        
         
