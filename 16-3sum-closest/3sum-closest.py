@@ -1,41 +1,48 @@
 class Solution:
     def threeSumClosest(self, nums: List[int], target: int) -> int:
-        nums.sort()
-        return self.Kclosest(nums,target,3)
+        nums = sorted(nums)
+        return self.Kclosest(nums,3,target)
 
-    def Kclosest(self,nums,target,k):
-        N = len(nums)
-
-        if N < k:
-            return 10 ** 4 + (1001)
+    def Kclosest(self,nums,k,target):
+        if len(nums) < k:
+            return 10**4 + 1001
         
-        if N == k:
+        if len(nums) == k:
             return sum(nums)
-        
-        if N > k:
-            if sum(nums[:k]) >= target:
-                return sum(nums[:k])
-            if sum(nums[-k:]) <= target:
-                return sum(nums[-k:])
 
+        if sum(nums[:k]) >= target:
+            return sum(nums[:k])
+        
+        if sum(nums[-k:]) <= target:
+            return sum(nums[-k:])
+        
         if k == 1:
-            var =  [(x,abs(target - x)) for x in nums]
-            return min(var,key = lambda x : x[1])[0]
+            m = float('INF')
+            var = -10001
+            for x in nums:
+                if abs(target - x) < m:
+                    m = abs(target - x)
+                    var = x
+            return var
+        
+        
 
-        
         closest = sum(nums[:k])
-        
-        for i, x in enumerate(nums):
-            if i > 0 and nums[i - 1] == x:
-                continue
-            
-            bs = self.Kclosest(nums[i + 1:], target - x, k - 1)
+
+        for i,x in enumerate(nums):
+            bs = self.Kclosest(nums[i + 1:] , k - 1, target - x)
             t = bs + x
 
-            if abs(t - target) < abs(target - closest):
-                if t == target:
+            if abs(target - t) < abs(target - closest):
+                if target == t:
                     return target
                 closest = t
         
         return closest
+
+
+
+
+            
+
         
