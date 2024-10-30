@@ -3,14 +3,11 @@ class Solution:
         ans = []
         my_dict = defaultdict(list)
 
-        for st in strs:
-            x = tuple(sorted(st))
-            my_dict[x].append(st)
+        for s in strs:
+            my_dict[tuple(sorted(s))].append(s)
         
-        for key,value in my_dict.items():
-            ans.append(value)
+        for s,val in my_dict.items():
+            ans.append(val)
         
         return ans
-
-
         
