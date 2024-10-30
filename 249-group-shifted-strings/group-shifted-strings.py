@@ -1,34 +1,22 @@
 class Solution:
     def groupStrings(self, strings: List[str]) -> List[List[str]]:
-        n = len(strings)
-        if n == 1:
-            return [strings[0]]
-        
-        dic = defaultdict(list)
+        my_dict = defaultdict(list)
         ans = []
-        t = []
 
-        for st in strings:
-            if len(st) == 1:
-                t.append(st)
+        for s in strings:
+            l = len(s)
+            if l == 1:
+                temp = [-1]
+                my_dict[tuple(temp)].append(s)
             else:
-                i = 0
                 temp = []
-                while i <= len(st) - 2:
-                    diff = (ord(st[i + 1]) - ord(st[i]) + 26) % 26
-                    temp.append(diff)
-                    i += 1
-                dic[tuple(temp)].append(st)
+                for i in range(1,len(s)):
+                    temp.append( (ord(s[i]) - ord(s[i - 1]) + 26 ) % 26)
+                my_dict[tuple(temp)].append(s)
         
-        for key,v in dic.items():
-            ans.append(v)
-        
-        if t:
-            ans.append(t)
+        for k,val in my_dict.items():
+            ans.append(val)
         
         return ans
-        
-        # O(NM) ; O(N)
-
 
         
