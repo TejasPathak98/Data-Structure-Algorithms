@@ -1,18 +1,17 @@
 class Solution:
     def findMinDifference(self, timePoints: List[str]) -> int:
-        M = 1440
-        minute = [False] * M
+        new_time = []
         for time in timePoints:
-            mi = self.helper(time)
-            if minute[mi]:
-                return 0
-            else:
-                minute[mi] = True
-        
-        minutes = [i for i in range(M) if minute[i] == True]
-        return min(((minutes[i] - minutes[i - 1]) % M for i in range(len(minutes))))
+            l = time.split(":")
+            new_time.append(int(l[0]) * 60 + int(l[1]))
+        new_time = sorted(new_time)
 
-    def helper(self,time):
-        h,m = map(int,time.split(":"))
-        return h*60 + m
+        ans = float("INF")
+
+        for i in range(1,len(new_time)):
+            ans = min(ans,new_time[i] - new_time[i - 1])
+        
+        ans = min(ans,1440 - new_time[-1] + new_time[0])
+        return ans
+
         
