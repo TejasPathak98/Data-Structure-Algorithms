@@ -6,8 +6,7 @@ class Solution:
         for s in strings:
             l = len(s)
             if l == 1:
-                temp = [-1]
-                my_dict[tuple(temp)].append(s)
+                my_dict[(-1)].append(s)
             else:
                 temp = []
                 for i in range(1,len(s)):
