@@ -1,22 +1,20 @@
 class Solution:
     def findClosestElements(self, arr: List[int], k: int, x: int) -> List[int]:
-        my_dict = defaultdict(list)
+        low = 0 
+        high = len(arr) - k
 
-        for num in arr:
-            my_dict[abs(num - x)].append(num)
-        
-        my_dict = dict(sorted(my_dict.items()))
-
-        ans = []
-
-        for _,val in my_dict.items():
-            if len(ans) + len(val) < k:
-                ans.extend(val)
+        while low < high:
+            mid = (low + high) // 2
+            if x <= arr[mid]:
+                high = mid
+            elif x >= arr[mid + k]:
+                low = mid + 1
             else:
-                extra = len(ans) + len(val) - k
-                val = sorted(val)
-                pos = len(val) - extra
-                val = val[:pos]
-                ans.extend(val)
-
-        return sorted(ans)
+                d1 = abs(arr[mid] - x)
+                d2 = abs(arr[mid + k] - x)
+                if d1 <= d2:
+                    high = mid
+                else:
+                    low = mid + 1
+        
+        return arr[low:low + k]
