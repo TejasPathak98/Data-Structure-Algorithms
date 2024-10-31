@@ -2,9 +2,10 @@ class Solution:
     def findDiagonalOrder(self, nums: List[List[int]]) -> List[int]:
         n = len(nums)
         m = 0
-        for i in nums:
-            m = max(m,len(i))
-        ans = [[] for i in range(n + m - 1)]
+
+        for i in range(n):
+            m = max(m,len(nums[i]))
+        ans = [[] for _ in range(n + m - 1)]
 
         for i in range(n):
             for j in range(len(nums[i])):
@@ -13,8 +14,8 @@ class Solution:
         sol = []
 
         for v in ans:
-            for j in range(len(v) - 1,-1,-1):
-                sol.append(v[j])
+            sol.extend(v[::-1])
         
         return sol
+
         
