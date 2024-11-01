@@ -23,16 +23,15 @@ class Solution:
             prev = curr
             curr = temp
         
-        first = head
-        second = prev
+        l1 = head
+        l2 = prev
 
-        while second.next:
-            tmp1 = first.next
-            tmp2 = second.next
+        while l2.next:
+            t1 = l1.next
+            t2 = l2.next
 
-            first.next = second
-            second.next = tmp1
+            l1.next = l2
+            l2.next = t1
 
-            first = tmp1
-            second = tmp2
-        
+            l1 = t1
+            l2 = t2
