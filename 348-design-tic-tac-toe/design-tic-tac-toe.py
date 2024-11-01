@@ -1,28 +1,29 @@
 class TicTacToe:
+
     def __init__(self, n: int):
         self.n = n
-        self.row = [0] * n
-        self.col = [0] * n
+        self.rows = [0] * n
+        self.cols = [0] * n
         self.diag = [0] * 2
         
     def move(self, row: int, col: int, player: int) -> int:
         if player == 1:
-            self.row[row] += 1
-            self.col[col] += 1
+            self.rows[row] += 1
+            self.cols[col] += 1
             if row == col:
                 self.diag[0] += 1
             if row + col == self.n - 1:
                 self.diag[1] += 1
-            if self.row[row] == self.n or self.col[col] == self.n or self.diag[0] == self.n or self.diag[1] == self.n:
+            if self.rows[row] == self.n or self.cols[col] == self.n or self.diag[0] == self.n or self.diag[1] == self.n:
                 return 1
-        else:
-            self.row[row] -= 1
-            self.col[col] -= 1
+        elif player == 2:
+            self.rows[row] -= 1
+            self.cols[col] -= 1
             if row == col:
                 self.diag[0] -= 1
             if row + col == self.n - 1:
                 self.diag[1] -= 1
-            if self.row[row] == -self.n or self.col[col] == -self.n or self.diag[0] == -self.n or self.diag[1] == -self.n:
+            if self.rows[row] == -self.n or self.cols[col] == -self.n or self.diag[0] == -self.n or self.diag[1] == -self.n:
                 return 2
         
         return 0
