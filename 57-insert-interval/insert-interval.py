@@ -3,15 +3,17 @@ class Solution:
         result = []
 
         for interval in intervals:
-            if interval[1] < newInterval[0]:
+            if newInterval[0] > interval[1]:
                 result.append(interval)
-            elif interval[0] > newInterval[1]:
+            elif newInterval[1] < interval[0]:
                 result.append(newInterval)
                 newInterval = interval
-            elif interval[0] <= newInterval[0] or newInterval[1] <= interval[1]:
-                newInterval[0] = min(interval[0],newInterval[0])
-                newInterval[1] = max(interval[1],newInterval[1])
-        
+            else:
+                st = min(newInterval[0],interval[0])
+                ed = max(newInterval[1],interval[1])
+                newInterval[0] = st
+                newInterval[1] = ed
+
         result.append(newInterval)
         return result
         
