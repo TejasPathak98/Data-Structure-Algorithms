@@ -9,32 +9,26 @@ class Solution:
         if not root:
             return []
         
-        queue = deque()
-        queue.append(root)
-        queue.append(None)
         ans = []
-        temp = []
-
-        while queue:
-            node = queue.popleft()
-            if node == None:
-                ans.append(temp.copy())
-                temp.clear()
-                if len(queue) == 0:
-                    break
-                queue.append(None)
+        
+        def dfs(root,level):
+            if len(ans) == level:
+                ans.append([])
+            
+            if level % 2 == 0:
+                ans[level].append(root.val)
             else:
-                temp.append(node.val)
-                if node.left:
-                    queue.append(node.left)
-                if node.right:
-                    queue.append(node.right)
+                ans[level].insert(0, root.val)
+            
+            if root.left:
+                dfs(root.left,level + 1)
+            if root.right:
+                dfs(root.right,level + 1)
         
-        
-        for i,v in enumerate(ans):
-            if i % 2 == 1:
-                print("Br")
-                ans[i] = ans[i][::-1]
-        
+        dfs(root,0)
         return ans
+        
+        
 
+
+        
