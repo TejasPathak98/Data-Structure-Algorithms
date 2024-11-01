@@ -3,13 +3,13 @@ class Solution:
         String = '1'
 
         for _ in range(n - 1):
-            String = self.helper(String)
+            String = Solution.helper(String)
         
         return String
     
-    #@staticmethod
-    def helper(self,n:string) -> string:
+    @staticmethod
+    def helper(n:string) -> string:
         return ''.join(f'{sum(1 for _ in gr)}{key}' for key,gr in groupby(n))
-
-
+    
+     
         
