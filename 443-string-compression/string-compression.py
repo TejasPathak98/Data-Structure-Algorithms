@@ -1,18 +1,21 @@
 class Solution:
     def compress(self, chars: List[str]) -> int:
         grouped = groupby(chars)
-        s = ""
         j = 0
-        for key, group in grouped:
-            length = len(list(group))
-            if length == 1:
+
+        for key , gr in grouped:
+            l = list(gr)
+            le = len(l)
+
+            if le == 1:
                 chars[j] = key
                 j += 1
             else:
                 chars[j] = key
                 j += 1
-                for c in str(length):
+                for c in str(le):
                     chars[j] = c
                     j += 1
-                
+            
         return j
+        
