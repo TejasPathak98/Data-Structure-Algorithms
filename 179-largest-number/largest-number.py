@@ -1,13 +1,11 @@
 class Solution:
     def largestNumber(self, nums: List[int]) -> str:
-        array = list(map(str,nums))
+        arr = list(map(str,nums))
+        arr = sorted(arr,key = lambda x : x * 10,reverse = True)
 
-        array.sort(key = lambda x : x * 10,reverse=True)
-
-        if array[0] == "0":
+        if arr[0] == "0":
             return "0"
-        
         else:
-            return ''.join(array)
-        
+            return ''.join(arr)
+
         
