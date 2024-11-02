@@ -6,7 +6,6 @@ class Node:
         self.left = left
         self.right = right
 """
-
 class Solution:
     def treeToDoublyList(self, root: 'Optional[Node]') -> 'Optional[Node]':
         if not root:
@@ -15,25 +14,26 @@ class Solution:
         self.first = None
         self.last = None
 
-        self.helper(root)
+        self.dfs_linker(root)
 
         self.first.left = self.last
         self.last.right = self.first
 
         return self.first
 
-    def helper(self,root):
+    def dfs_linker(self,root):
         if not root:
             return
-
-        self.helper(root.left) 
+        
+        self.dfs_linker(root.left)
         
         if not self.last:
             self.first = root
         else:
             self.last.right = root
             root.left = self.last
-
+        
         self.last = root
 
-        self.helper(root.right) 
+
+        self.dfs_linker(root.right)
