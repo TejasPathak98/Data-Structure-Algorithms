@@ -6,58 +6,60 @@ class Node:
         self.prev = None
 
 class LRUCache:
-
     def __init__(self, capacity: int):
         self.capacity = capacity
+        self.my_dict = defaultdict(Node)
         self.head = Node(-1,-1)
         self.tail = Node(-1,-1)
-        self.head.prev = self.tail
-        self.tail.next = self.head
-        self.dic = defaultdict(Node)
+        self.head.next = self.tail
+        self.tail.prev = self.head
         
-
     def get(self, key: int) -> int:
-        if key not in self.dic:
+        if key not in self.my_dict:
             return -1
         else:
-            node = self.dic[key]
+            node = self.my_dict[key]
             self.removeNode(node)
             self.addNode(node)
             return node.value
-        
+
     def put(self, key: int, value: int) -> None:
-        if key in self.dic:
-            node = self.dic[key]
+        if key in self.my_dict:
+            node = self.my_dict[key]
             node.value = value
             self.removeNode(node)
             self.addNode(node)
         else:
-            if len(self.dic) >= self.capacity:
+            if len(self.my_dict) < self.capacity:
+                node = Node(key,value)
+                self.addNode(node)
+                self.my_dict[key] = node
+            else:
                 self.removeLastNode()
-            node = Node(key,value)
-            self.addNode(node)
-            self.dic[key] = node  
+                node = Node(key,value)
+                self.addNode(node)
+                self.my_dict[key] = node
+            
+    def addNode(self,node):
+        next_temp = self.head.next
+        self.head.next = node
+        node.next = next_temp
+        node.prev = self.head
+        next_temp.prev = node
 
     def removeNode(self,node):
-        next_node = node.next
         prev_node = node.prev
-        next_node.prev = prev_node
+        next_node = node.next
         prev_node.next = next_node
+        next_node.prev = prev_node
 
-    def addNode(self,node):
-        temp = self.head.prev
-        self.head.prev = node
-        node.next = self.head
-        node.prev = temp
-        temp.next = node
-    
     def removeLastNode(self):
-        if len(self.dic) == 0:
+        node = self.tail.prev
+        if node.key not in self.my_dict:
             return
-        temp = self.tail.next
-        del self.dic[temp.key]
-        self.removeNode(temp)
-
+        del self.my_dict[node.key]
+        self.removeNode(node)
+    
         
 
 
