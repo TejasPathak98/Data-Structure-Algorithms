@@ -1,31 +1,32 @@
 class Solution:
     def evalRPN(self, tokens: List[str]) -> int:
-        n = len(tokens)
         stack = []
         i = 0
-        
 
-        while i < n:
-            if tokens[i] not in ('+','-','*','/'):
+        while i < len(tokens):
+            if tokens[i].isdigit():
                 stack.append(int(tokens[i]))
+                i += 1
             else:
-                result = 0
-                a = stack.pop()
-                b = stack.pop()
-                if tokens[i] == '+':
-                    result = b + a
-                elif tokens[i] == '-':
-                    result = b - a
-                elif tokens[i] == '*':
-                    result = b * a
+                if tokens[i] == "+":
+                    x = stack.pop()
+                    y = stack.pop()
+                    stack.append(x + y)
+                elif tokens[i] == "-":
+                    x = stack.pop()
+                    y = stack.pop()
+                    stack.append(y - x)
+                elif tokens[i] == "*":
+                    x = stack.pop()
+                    y = stack.pop()
+                    stack.append(x * y)
+                elif tokens[i] == "/":
+                    x = stack.pop()
+                    y = stack.pop()
+                    stack.append(int(y / x))
                 else:
-                    result = int(b / a)
+                    stack.append(int(tokens[i]))
+                i += 1
                 
-                if i == len(tokens) - 1:
-                    return result
-                else:
-                    stack.append(result)
+        return sum(stack)
                 
-            i += 1
-
-        return stack[-1]
