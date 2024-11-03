@@ -8,53 +8,31 @@ class Solution:
             else:
                 return [-1,-1]
         
-        left_pos = -1
-        right_pos = -1
+        ans = [-1,-1]
+        l = 0
+        h = len(nums) - 1
+
+        while l <= h:
+            mid = (l + h) // 2
+            if target == nums[mid]:
+                ans[0] = mid
+                h = mid - 1
+            elif target > nums[mid]:
+                l = mid + 1
+            else:
+                h = mid - 1
+
+        l = 0
+        h = len(nums) - 1
+
+        while l <= h:
+            mid = (l + h) // 2
+            if target == nums[mid]:
+                ans[1] = mid
+                l = mid + 1
+            elif target > nums[mid]:
+                l = mid + 1
+            else:
+                h = mid - 1
         
-        def left_search():
-            nonlocal left_pos
-            l = 0
-            h = len(nums) - 1
-            while l <= h:
-                mid = (l + h) // 2
-                if nums[mid] == target:
-                    left_pos = mid
-                    h = mid - 1 
-                elif nums[mid] > target:
-                    h = mid - 1
-                else:
-                    l = mid + 1
-            return left_pos
-        
-        def right_search():
-            nonlocal right_pos
-            l = 0
-            h = len(nums) - 1
-            while l <= h:
-                mid = (l + h) // 2
-                if nums[mid] == target:
-                    right_pos = mid
-                    l = mid + 1
-                elif nums[mid] > target:
-                    h = mid - 1
-                else:
-                    l = mid + 1
-            return right_pos
-
-        left_search()
-        right_search()
-        return [left_pos,right_pos]
-        
-
-
-        
-        
-
-
-
-        
-
-
-
-
-        
+        return ans
