@@ -6,12 +6,12 @@ class Solution:
         while low < high:
             mid = (low + high) // 2
 
-            time = sum(math.ceil(pile / mid) for pile in piles) 
+            time = sum(math.ceil(pile/mid) for pile in piles)
 
-            if time > h:
-                low = mid + 1
-            else:
+            if time <= h:
                 high = mid
-        
-        return low
-        
+            else:
+                low = mid + 1
+
+
+        return low        
