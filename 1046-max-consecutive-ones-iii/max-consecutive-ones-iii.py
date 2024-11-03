@@ -14,12 +14,10 @@ class Solution:
                     j += 1
                     k -= 1
                 else:
-                    if nums[i] == 1:
-                        i += 1
-                    else:
-                        i += 1
+                    if nums[i] == 0:
                         k += 1
-        
+                    i += 1
+
         return max_ans
 
 
