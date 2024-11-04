@@ -6,49 +6,48 @@
 #         self.right = right
 class Solution:
     def isEvenOddTree(self, root: Optional[TreeNode]) -> bool:
-        if root is None:
-            return True
-        
-        q = deque([root])
-        #q.append(None) 
-        res = []
+        queue = deque([root])
+        queue.append(None)
+        ans = []
+        temp = []
 
-        while q:
-            size = len(q)
-            temp = []
-
-            for _ in range(size):
-                node = q.popleft()
+        while queue:
+            node = queue.popleft()
+            if node is None:
+                ans.append(temp.copy())
+                temp.clear()
+                if len(queue) == 0:
+                    break
+                else:
+                    queue.append(None)
+            else:
                 temp.append(node.val)
                 if node.left:
-                    q.append(node.left)
+                    queue.append(node.left)
                 if node.right:
-                    q.append(node.right)
-            
-            res.append(temp)
-            
-        for i in range(len(res)):
-            if i % 2 == 0:
-                temp = res[i]
-                for j in range(len(temp)):
-                    if temp[j] % 2 == 0:
-                        return False
-                    if j > 0 and temp[j - 1] >= temp[j]:
-                        return False
+                    queue.append(node.right)
+
+        print(ans)
                 
+        for i,arr in enumerate(ans):
+            if i % 2 == 0:
+                print(arr)
+                for j in range(1,len(arr)):
+                    if arr[j - 1] >= arr[j]:
+                        return False
+                    if arr[j] % 2 == 0:
+                        return False
+                if arr[0] % 2 == 0:return False
             else:
-                temp = res[i]
-                for j in range(len(temp)):
-                    if temp[j] % 2 == 1:
+                print(arr)
+                for j in range(1,len(arr)):
+                    if arr[j - 1] <= arr[j]:
                         return False
-                    if j > 0 and temp[j - 1] <= temp[j]:
+                    if arr[j] % 2 == 1:
                         return False
+                if arr[0] % 2 == 1:return False
         
         return True
-
-
-
-
 
 
         
