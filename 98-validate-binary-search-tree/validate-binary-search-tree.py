@@ -9,13 +9,16 @@ class Solution:
         mi = float("-inf")
         ma = float("inf")
 
-        def helper(root,min_v,max_v):
+        def helper(root,mi,ma):
             if root is None:
                 return True
-
-            if root.val <= min_v or root.val >= max_v:
+            
+            if root.val <= mi or root.val >= ma:
                 return False
             
-            return helper(root.left,min_v,root.val) and helper(root.right,root.val,max_v)
+            return helper(root.left,mi,root.val) and helper(root.right,root.val,ma)
 
         return helper(root,mi,ma)
+
+        
+        
