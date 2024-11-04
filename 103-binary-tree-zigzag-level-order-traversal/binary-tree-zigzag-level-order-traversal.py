@@ -10,25 +10,24 @@ class Solution:
             return []
         
         ans = []
-        
+
         def dfs(root,level):
+            if not root:
+                return
+            
             if len(ans) == level:
                 ans.append([])
             
             if level % 2 == 0:
                 ans[level].append(root.val)
             else:
-                ans[level].insert(0, root.val)
-            
+                ans[level].insert(0,root.val)
+
             if root.left:
                 dfs(root.left,level + 1)
             if root.right:
                 dfs(root.right,level + 1)
-        
+
         dfs(root,0)
-        return ans
-        
-        
-
-
+        return ans 
         
