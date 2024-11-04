@@ -5,7 +5,7 @@ class Solution:
         
         ans = []
 
-        def helper(l,nums):
+        def helper(l):
             nonlocal ans
             if len(l) == len(nums):
                 ans.append(l.copy())
@@ -14,10 +14,10 @@ class Solution:
             for i in range(len(nums)):
                 if nums[i] not in l:
                     l.append(nums[i])
-                    helper(l,nums)
+                    helper(l)
                     l.pop()
                 
-        helper([],nums)
+        helper([])
         return ans
 
 
