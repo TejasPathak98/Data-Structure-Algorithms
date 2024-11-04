@@ -8,9 +8,9 @@ class Solution:
             for ch in str_num:
                 prefix += ch
                 prefix_map[prefix] += 1
-
-        max_length = 0
         
+        max_length = 0
+
         for num in arr2:
             str_num = str(num)
             prefix = ""
@@ -20,7 +20,5 @@ class Solution:
                     max_length = max(max_length,len(prefix))
         
         return max_length
-        
-
 
         
