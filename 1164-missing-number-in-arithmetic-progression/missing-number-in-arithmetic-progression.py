@@ -14,7 +14,6 @@ class Solution:
         max_diff = float('-inf')
         f = Counter(diff)
 
-        print("Bye")
         
         for x,freq in f.items():
             if freq >= 2:
@@ -22,14 +21,9 @@ class Solution:
                 break
             max_diff = max(max_diff,x)
             min_diff = min(min_diff,x)
-
-        print(the_diff)
-        print("Hi")
         
         if the_diff != float('inf'):
-            print("Br1")
             for i in range(1,n):
-                print("Br")
                 if abs(arr[i] - arr[i - 1]) > the_diff:
                     if arr[i] > arr[i - 1]:
                         print(the_diff)
@@ -37,7 +31,6 @@ class Solution:
                     else:
                         return arr[i - 1] - the_diff
         else:
-            print("Br4")
             for i in range(1,n):
                 if abs(arr[i] - arr[i - 1]) == max_diff:
                     if arr[i] > arr[i - 1]:
