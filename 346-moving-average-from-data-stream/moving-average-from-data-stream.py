@@ -3,13 +3,24 @@ class MovingAverage:
     def __init__(self, size: int):
         self.size = size
         self.arr = []
+        self.avg = float('inf')
         
     def next(self, val: int) -> float:
         self.arr.append(val)
-        if len(self.arr) <= self.size:
-            return sum(self.arr) / len(self.arr)
+        if self.avg != float('inf'):
+            if len(self.arr) <= self.size:
+                print("Bye")
+                self.avg = (self.avg *(len(self.arr) - 1) + self.arr[-1]) / len(self.arr)
+            else:
+                print("Hi")
+                tot = self.avg * self.size - self.arr[-(self.size + 1)] + self.arr[-1]
+                print(tot)
+                print(self.arr[-self.size])
+                self.avg = tot / self.size
+            return self.avg
         else:
-            return sum(self.arr[-self.size:]) / self.size
+            self.avg = sum(self.arr) / len(self.arr)
+            return self.avg
 
         
 
