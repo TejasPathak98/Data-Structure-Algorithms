@@ -13,8 +13,6 @@ class MovingAverage:
             else:
                 self.arr.popleft()
                 self.avg = sum(self.arr) / len(self.arr)
-                #tot = self.avg * self.size - self.arr[-(self.size + 1)] + self.arr[-1]
-                #self.avg = tot / self.size
             return self.avg
         else:
             self.avg = sum(self.arr) / len(self.arr)
