@@ -9,13 +9,9 @@ class MovingAverage:
         self.arr.append(val)
         if self.avg != float('inf'):
             if len(self.arr) <= self.size:
-                print("Bye")
                 self.avg = (self.avg *(len(self.arr) - 1) + self.arr[-1]) / len(self.arr)
             else:
-                print("Hi")
                 tot = self.avg * self.size - self.arr[-(self.size + 1)] + self.arr[-1]
-                print(tot)
-                print(self.arr[-self.size])
                 self.avg = tot / self.size
             return self.avg
         else:
