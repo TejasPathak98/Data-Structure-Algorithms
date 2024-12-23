@@ -1,44 +1,44 @@
 class Solution:
     def hasPath(self, maze: List[List[int]], start: List[int], destination: List[int]) -> bool:
-        if not maze or not start or not destination:
+        if not start or not destination or not maze:
             return False
-        
         if start == destination:
             return True
+        
+        m = len(maze)
+        n = len(maze[0])
 
-        n = len(maze)
-        m = len(maze[0])
+        x = start[0]
+        y = start[1]
+        visited = set()
 
         queue = deque()
-        queue.append(start)
-        directions = [[0,1],[0,-1],[1,0],[-1,0]]
-        visited = set()
-        visited.add((start[0],start[1]))
+        queue.append((x,y))
+        visited.add((x,y))
 
+        directions = [(1,0),(-1,0),(0,1),(0,-1)]
 
         while queue:
-            curr = queue.popleft()
-            if curr == destination:
+            x_ , y_ = queue.popleft()
+            if x_ == destination[0] and y_ == destination[1]:
                 return True
             
-            for dir in directions:
-                x = curr[0] + dir[0]
-                y = curr[1] + dir[1]
+            for dx,dy in directions:
+                x_new = x_ + dx
+                y_new = y_ + dy
 
-                while 0 <= x < n and 0 <= y < m and maze[x][y] == 0:
-                    x = x + dir[0]
-                    y = y + dir[1]
+                while 0 <= x_new < m and 0 <= y_new < n and maze[x_new][y_new] == 0:
+                    x_new += dx
+                    y_new += dy
                 
-                rolled_x = x - dir[0]
-                rolled_y = y - dir[1]
+                rolled_x = x_new - dx
+                rolled_y = y_new - dy
+
                 if (rolled_x,rolled_y) not in visited:
                     visited.add((rolled_x,rolled_y))
-                    queue.append([rolled_x,rolled_y])
+                    queue.append((rolled_x,rolled_y))
 
         return False
-
-
-
             
 
         
