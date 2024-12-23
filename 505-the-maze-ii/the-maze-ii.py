@@ -1,38 +1,41 @@
 class Solution:
     def shortestDistance(self, maze: List[List[int]], start: List[int], destination: List[int]) -> int:
-        n = len(maze)
-        m = len(maze[0])
+        dist = [[float('inf')] * len(maze[0]) for _ in range(len(maze))]
+        dist[start[0]][start[1]] = 0
 
-        visited = set()
-        start = tuple(start)
-        destination = tuple(destination)
-        heap = [(0,start)]
+        hq = [(0,start[0],start[1])]
+        heapq.heapify(hq)
         directions = [(0,1),(0,-1),(1,0),(-1,0)]
 
-        while heap:
-            dist,coordinate = heapq.heappop(heap)
+        while hq:
+            curr_dist,x,y = heapq.heappop(hq)
 
-            if coordinate == destination:
-                return dist
-            
-            if coordinate in visited:
+            if curr_dist > dist[x][y]:
                 continue
             
-            visited.add(coordinate)
+            if x == destination[0] and y == destination[1]:
+                return curr_dist
+            
+            for dx,dy in directions:
+                new_x = x
+                new_y = y
+                steps = 0
 
-            for direction in directions:
-                new_dist = 0
-                i,j = coordinate
+                while 0 <= new_x + dx < len(maze) and 0 <= new_y + dy < len(maze[0]) and maze[new_x + dx][new_y + dy] == 0:
+                    new_x += dx
+                    new_y += dy
+                    steps += 1
+                
+                if steps + curr_dist < dist[new_x][new_y]:
+                    dist[new_x][new_y] = steps + curr_dist
+                    heapq.heappush(hq,(steps + curr_dist,new_x,new_y))
 
-                while (0 <= i + direction[0] < n) and (0 <= j + direction[1] < m) and (maze[i + direction[0]][j + direction[1]] == 0):
-                    i += direction[0]
-                    j += direction[1]
-                    new_dist += 1
-
-                heapq.heappush(heap,(new_dist + dist,(i,j)))
-        
 
         return -1
+                
+
+            
+
 
 
         
