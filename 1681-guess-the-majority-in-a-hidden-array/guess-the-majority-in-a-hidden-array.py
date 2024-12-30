@@ -32,8 +32,7 @@ class Solution:
                 indx = i 
             else:
                 count += 1
-
-
+        
         if count > n / 2:
             return 0
         elif count == n / 2:
