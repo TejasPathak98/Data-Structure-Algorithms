@@ -17,7 +17,7 @@ class Solution:
                 if s[i].isalpha():
                     options.append([s[i]])
                 i += 1
-        print(options)
+
 
         def backtracking(index,tempstr):
             if len(tempstr) == len(options):
