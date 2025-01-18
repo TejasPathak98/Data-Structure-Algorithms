@@ -4,15 +4,16 @@ class Solution:
 
         left_product = 1
         right_product = 1
+        res = [1] * n
 
-        arr = [1] * n    
+        for i in range(1,n):
+            res[i] = left_product * nums[i - 1]
+            left_product = left_product * nums[i - 1]
 
-        for i in range(0,n):
-            arr[i] = left_product
-            left_product = left_product * nums[i]
-        
-        for i in range(n - 1, -1 , -1):
-            arr[i] = arr[i] * right_product
+        for i in range(n - 1,-1,-1):
+            res[i] = res[i] * right_product
             right_product = right_product * nums[i]
         
-        return arr
+        return res
+
+        
