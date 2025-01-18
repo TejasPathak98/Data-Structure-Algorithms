@@ -3,10 +3,13 @@ class Solution:
         ans = []
         my_dict = defaultdict(list)
 
-        for s in strs:
-            my_dict[tuple(sorted(s))].append(s)
+        for st in strs:
+            if tuple(sorted(st)) in my_dict:
+                my_dict[tuple(sorted(st))].append(st)
+            else:
+                my_dict[tuple(sorted(st))].append(st)
         
-        for s,val in my_dict.items():
+        for key,val in my_dict.items():
             ans.append(val)
         
         return ans
