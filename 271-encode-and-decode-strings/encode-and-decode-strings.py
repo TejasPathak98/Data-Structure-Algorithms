@@ -2,16 +2,13 @@ class Codec:
     def encode(self, strs: List[str]) -> str:
         """Encodes a list of strings to a single string.
         """
-        result = []
         temp = ""
 
         for st in strs:
             for c in st:
                 temp += (str(ord(c)) + ";")
             temp += " "
-
-        print(temp)
-        
+                    
         return temp
 
     def decode(self, s: str) -> List[str]:
