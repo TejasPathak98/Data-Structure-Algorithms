@@ -3,36 +3,34 @@ class Codec:
         """Encodes a list of strings to a single string.
         """
         result = []
+        temp = ""
 
         for st in strs:
             for c in st:
-                result.append(str(ord(c)))
-                result.append(';')
-            result.append(' ')
+                temp += (str(ord(c)) + ";")
+            temp += " "
 
-        print(''.join(result))
-    
-        return ''.join(result)
-
+        print(temp)
         
+        return temp
+
     def decode(self, s: str) -> List[str]:
         """Decodes a single string to a list of strings.
         """
-        ans = []
-        strings = s.split(' ')
 
-        for st in strings:
+        stt = s.split(" ")
+        res = []
+
+        for st in stt:
             temp = []
-            for ch in st.split(';'):
-                if ch:
-                    temp.append(chr(int(ch)))
-            ans.append(''.join(temp))
+            t = st.split(";")
+            for x in t:
+                if x:
+                    temp.append(chr(int(x)))
+            res.append("".join(temp))
         
-        
-        ans.pop()
-        return ans
-        
-
+        res.pop()
+        return res
 
         
 
