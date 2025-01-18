@@ -9,7 +9,7 @@ class Solution:
             for c in range(n):
 
                 if board[r][c] == ".":
-                    continue 
+                    continue
                 
                 val = board[r][c]
 
@@ -23,11 +23,15 @@ class Solution:
                 else:
                     cols[c].add(val)
                 
-                idx = (r // 3)*3 + c // 3
+                idx = (r // 3) * 3 + (c // 3)
+
                 if val in boxes[idx]:
                     return False
                 else:
                     boxes[idx].add(val)
-        
+                
         return True
+                
+
+
         
