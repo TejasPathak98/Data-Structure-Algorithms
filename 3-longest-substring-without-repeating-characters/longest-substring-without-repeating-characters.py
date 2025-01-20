@@ -16,7 +16,6 @@ class Solution:
                     i = pos + 1
                 my_dict[s[j]] = j
                 max_len = max(max_len, j - i + 1)
-                print(max_len,i,j)
                 j += 1
         
         return max_len
