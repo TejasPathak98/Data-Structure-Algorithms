@@ -1,31 +1,23 @@
 class Solution:
     def lengthOfLongestSubstring(self, s: str) -> int:
-        if len(s) == 0:
-            return 0
-        i = 0
-        j = 0
-        max_len = 1
-        my_dict = defaultdict(int)
+        n = len(s)
+        i = j = 0
+        max_len = 0
+        my_dict = {}
 
-        while j < len(s):
+        while j < n:
             if s[j] not in my_dict:
                 my_dict[s[j]] = j
-                max_len = max(max_len,j - i + 1)
+                max_len = max(max_len, j - i + 1)
                 j += 1
             else:
-                if my_dict[s[j]] >= i:
-                    i = my_dict[s[j]] + 1
+                pos = my_dict[s[j]]
+                if i <= pos:
+                    i = pos + 1
                 my_dict[s[j]] = j
-                max_len = max(max_len,j - i + 1)
+                max_len = max(max_len, j - i + 1)
+                print(max_len,i,j)
                 j += 1
-
+        
         return max_len
 
-
-                
-            
-
-
-
-
-        
