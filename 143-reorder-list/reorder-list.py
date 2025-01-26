@@ -8,9 +8,11 @@ class Solution:
         """
         Do not return anything, modify head in-place instead.
         """
-        slow = fast = head
+        if not head or not head.next or not head.next.next:
+            return head
 
-        while slow and fast and fast.next:
+        slow = fast = head
+        while fast and fast.next:
             slow = slow.next
             fast = fast.next.next
         
@@ -35,3 +37,9 @@ class Solution:
 
             l1 = t1
             l2 = t2
+        
+        # if l2:
+        #     l1.next = l2
+        
+
+        
