@@ -10,9 +10,8 @@ class Solution:
         
         tortoise = nums[0]
         while tortoise != hare:
-            hare = nums[hare]
             tortoise = nums[tortoise]
+            hare = nums[hare]
         
         return tortoise
-         
         
