@@ -8,21 +8,24 @@ class Node:
 """
 
 class Solution:
-    def __init__(self):
-        self.my_dict = {}
-
+    my_dict = {}
+    
     def copyRandomList(self, head: 'Optional[Node]') -> 'Optional[Node]':
+        
+        if head == None:
+            return None
+
         if head in self.my_dict:
             return self.my_dict[head]
         
-        if head is None:
-            return None
+        node = ListNode(head.val)
         
-        node = Node(head.val)
         self.my_dict[head] = node
 
         node.next = self.copyRandomList(head.next)
         node.random = self.copyRandomList(head.random)
 
         return node
+
+            
         
