@@ -14,17 +14,17 @@ class Codec:
         :rtype: str
         """
 
-        self.res = []
+        res = []
         def preorder(node):
             if not node:
-                self.res.append("N")
+                res.append("N")
                 return
-            self.res.append(str(node.val))
+            res.append(str(node.val))
             preorder(node.left)
             preorder(node.right)
         preorder(root)
 
-        return ','.join(self.res)
+        return ','.join(res)
 
     def deserialize(self, data):
         """Decodes your encoded data to tree.
