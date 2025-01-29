@@ -9,28 +9,25 @@ class Solution:
         if not root:
             return []
         
-        queue = deque([root])
-        queue.append(None)
-        ans = []
-        temp = []
+        ans = defaultdict(list)
 
-        while queue:
-            node = queue.popleft()
-            if node is None:
-                ans.append(temp.copy())
-                temp.clear()
-                if len(queue) == 0:
-                    break
-                else:
-                    queue.append(None)
-            else:
-                temp.append(node.val)
-                if node.left:
-                    queue.append(node.left)
-                if node.right:
-                    queue.append(node.right)
-        
-        return ans
-
-
+        def dfs(node,level):
+            if not node:
+                return
             
+            ans[level].append(node.val)
+
+            if node.left:
+                dfs(node.left,level + 1)
+            if node.right:
+                dfs(node.right,level + 1)
+
+        dfs(root,0)
+            
+        result = []
+        for k,v in ans.items():
+            result.append(v)
+        return result
+            
+
+        
