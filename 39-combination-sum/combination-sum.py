@@ -3,14 +3,15 @@ class Solution:
         if target < min(candidates):
             return []
         
-        ans = set()
+        ans = []
         
         def helper(x,temp):
             if sum(temp) > target:
                 return
 
             if sum(temp) == target:
-                ans.add(tuple(sorted(temp.copy())))
+                #ans.add(tuple(sorted(temp.copy())))
+                ans.append(temp.copy())
                 return
             
             for i in range(x,len(candidates)):
@@ -19,5 +20,5 @@ class Solution:
                 temp.pop()
 
         helper(0,[])
-        return list(ans)
+        return ans
         
