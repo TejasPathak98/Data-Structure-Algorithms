@@ -5,7 +5,7 @@ class Solution:
         
         ans = set()
         
-        def helper(temp):
+        def helper(x,temp):
             if sum(temp) > target:
                 return
 
@@ -13,11 +13,11 @@ class Solution:
                 ans.add(tuple(sorted(temp.copy())))
                 return
             
-            for i in range(len(candidates)):
+            for i in range(x,len(candidates)):
                 temp.append(candidates[i])
-                helper(temp)
+                helper(i,temp)
                 temp.pop()
 
-        helper([])
+        helper(0,[])
         return list(ans)
         
