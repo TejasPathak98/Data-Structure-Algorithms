@@ -1,26 +1,23 @@
 class Solution:
     def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
-        result = set()
-        candidates = sorted(candidates)
-
-        def helper(candidates,result,var,index,sum):
-            if sum == target:
-                result.add(tuple(var))
-                return
-            
-            elif index >= len(candidates):
-                return
-
-            elif sum > target:
-                return
-            
-            helper(candidates, result, var + [candidates[index]], index, sum + candidates[index])
-            helper(candidates, result, var, index + 1, sum)
-
+        if target < min(candidates):
+            return []
         
-        helper(candidates, result, [], 0, 0)
-        return result
+        ans = set()
+        
+        def helper(temp):
+            if sum(temp) > target:
+                return
 
+            if sum(temp) == target:
+                ans.add(tuple(sorted(temp.copy())))
+                return
+            
+            for i in range(len(candidates)):
+                temp.append(candidates[i])
+                helper(temp)
+                temp.pop()
 
-
+        helper([])
+        return list(ans)
         
