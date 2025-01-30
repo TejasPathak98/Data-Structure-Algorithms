@@ -1,22 +1,22 @@
 class Solution:
     def subsets(self, nums: List[int]) -> List[List[int]]:
+        if len(nums) == 0:
+            return []
+        
         ans = []
-        temp = []
-        n = len(nums)
 
-        def helper(nums,i):
-            if i == n:
+        def helper(i,temp):
+            if i == len(nums):
                 ans.append(temp.copy())
                 return
-
+            
             temp.append(nums[i])
 
-            helper(nums,i + 1)
+            helper(i + 1,temp)
 
             temp.pop()
 
-            helper(nums,i + 1)
-
-        helper(nums,0)
+            helper(i+ 1,temp)
+        
+        helper(0,[])
         return ans
-            
