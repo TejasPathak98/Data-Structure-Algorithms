@@ -16,13 +16,13 @@ class Solution:
 
         result = []
 
-        def helper(pos,temp):
-            if len(temp) == len(digits):
-                result.append(temp)
+        def helper(pos,temp_string):
+            if len(temp_string) == len(digits):
+                result.append(temp_string)
                 return
             for i in range(pos,len(digits)):
-                for s in digit_map[digits[i]]:
-                    helper(i + 1,temp + s)
+                for ch in digit_map[digits[i]]:
+                    helper(i + 1,temp_string + ch)
 
         helper(0,"")
         return result
