@@ -3,14 +3,17 @@ class Solution:
         if not s:
             return []
         
-        def backtracking(start,path):
+        result = []
+
+        def helper(start,temp):
             if start == len(s):
-                result.append(path)
+                result.append(temp)
                 return
             for end in range(start + 1,len(s) + 1):
                 if s[start:end] == s[start:end][::-1]:
-                    backtracking(end, path + [s[start:end]])
-
-        result = []
-        backtracking(0,[])
+                    helper(end,temp + [s[start:end]])
+        
+        helper(0,[])
         return result
+
+        
