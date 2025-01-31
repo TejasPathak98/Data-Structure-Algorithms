@@ -1,25 +1,23 @@
 class Solution:
     def permute(self, nums: List[int]) -> List[List[int]]:
-        if not nums:
-            return []
+        if len(nums) == 1:
+            return [[nums[0]]]
         
-        ans = []
+        ans = set()
 
-        def helper(l):
-            nonlocal ans
-            if len(l) == len(nums):
-                ans.append(l.copy())
+        def helper(temp):
+            if len(temp) == len(nums):
+                ans.add(tuple(temp.copy()))
                 return
             
             for i in range(len(nums)):
-                if nums[i] not in l:
-                    l.append(nums[i])
-                    helper(l)
-                    l.pop()
-                
+                if nums[i] not in temp:
+                    temp.append(nums[i])
+                    helper(temp)
+                    temp.pop()
+        
         helper([])
-        return ans
+        return list(ans)
 
 
-       
         
