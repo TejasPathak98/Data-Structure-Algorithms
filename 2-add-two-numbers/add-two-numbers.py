@@ -12,45 +12,38 @@ class Solution:
         if not l2:
             return l1
         
-        f = dummy = ListNode(-1)
+        dummy = curr = ListNode(-1)
+        the_sum = 0
         carry = 0
 
         while l1 and l2:
-            x = l1.val
-            y = l2.val
-            st = x + y + carry
-            list_sum = (st) % 10
-            carry = (st) // 10
-
-            dummy.next = ListNode(list_sum)
-            dummy = dummy.next
+            the_sum = (l1.val + l2.val + carry) % 10
+            carry = (l1.val + l2.val + carry) // 10
+            curr.next = ListNode(the_sum)
             l1 = l1.next
             l2 = l2.next
+            curr = curr.next
 
         while l1:
-            st = l1.val + carry
-            list_sum = (st) % 10
-            carry = (st) // 10
-
-            dummy.next = ListNode(list_sum)
-            dummy = dummy.next
+            the_sum = (l1.val + carry) % 10
+            carry = (l1.val + carry) // 10
+            curr.next = ListNode(the_sum)
             l1 = l1.next
-
+            curr = curr.next
+        
         while l2:
-            st = l2.val + carry
-            list_sum = (st) % 10
-            carry = (st) // 10
-
-            dummy.next = ListNode(list_sum)
-            dummy = dummy.next
+            the_sum = (l2.val + carry) % 10
+            carry = (l2.val + carry) // 10
+            curr.next = ListNode(the_sum)
             l2 = l2.next
+            curr = curr.next
+        
+        if carry:
+            curr.next = ListNode(carry)
+        
+        return dummy.next
 
-        if carry > 0:
-            dummy.next = ListNode(carry)
-            dummy = dummy.next
-
-        return f.next
-
+        #O(N) ; O(N)
 
 
         
