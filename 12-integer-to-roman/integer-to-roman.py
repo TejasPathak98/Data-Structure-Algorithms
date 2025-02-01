@@ -13,12 +13,9 @@ class Solution:
         
         var = var[::-1]
         result = ""
-        print(var)
 
         for i in range(len(var)):
             x = var[i]
-            print(len(var))
-            print(var[i])
             if x >= 1000:
                 result = result + "M" * (x // 1000)
             elif 100 <= x < 1000:
