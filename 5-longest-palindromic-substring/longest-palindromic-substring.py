@@ -1,28 +1,28 @@
 class Solution:
     def longestPalindrome(self, s: str) -> str:
-        if len(s) <= 1:
-            return s
+        if not s:
+            return ""
         
-        max_ans = ""
+        if len(s) == 1:
+            return s[0]
+
         max_len = 0
+        max_str = ""
+        
+        def helper(x,y):
+            nonlocal max_str,max_len
 
-        def helper(i,j):
-            nonlocal max_ans,max_len
-            while i>= 0 and j < len(s) and s[i] == s[j]:
-                if j - i + 1 > max_len:
-                    max_len = j - i + 1
-                    max_ans = s[i:j + 1]
-                i -= 1
-                j += 1
-
-        i = 0
-        while i < len(s) - 1:
+            while x >= 0 and y < len(s) and s[x] == s[y]:
+                if max_len < (y - x + 1):
+                    max_str = s[x:y + 1]
+                    max_len = max(max_len,y - x + 1)
+                x -= 1
+                y += 1
+        
+        for i in range(len(s) - 1):
             helper(i,i)
             helper(i,i + 1)
-            i += 1
         
-        return max_ans
+        return max_str
+                
 
-        
-
-        
