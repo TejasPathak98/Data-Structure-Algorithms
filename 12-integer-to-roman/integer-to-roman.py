@@ -7,56 +7,55 @@ class Solution:
             x = temp % 10
             temp = temp // 10
             var.append(x)
-
+        
         for i in range(len(var)):
             var[i] = var[i] * (10 ** i)
-        var = list(reversed(var))
+        
+        var = var[::-1]
+        result = ""
         print(var)
 
-        s = ""
-
-        for x in var:
+        for i in range(len(var)):
+            x = var[i]
+            print(len(var))
+            print(var[i])
             if x >= 1000:
-                f = x // 1000
-                s = s + "M" * f
+                result = result + "M" * (x // 1000)
             elif 100 <= x < 1000:
                 if x == 500:
-                    s = s + "D"
-                elif x == 900:
-                    s = s + "CM"
+                    result = result + "D"
                 elif x == 400:
-                    s = s + "CD"
+                    result += "CD"
+                elif x == 900:
+                    result += "CM"
                 elif x < 400:
-                    f = x // 100
-                    s = s + "C" * f
+                    result += (x // 100) * "C"
                 elif x > 500:
-                    f = (x - 500) // 100
-                    s = s + "D" + "C" * f
+                    result += "D" + ((x - 500) // 100) * "C"
             elif 10 <= x < 100:
                 if x == 50:
-                    s = s + "L"
-                elif x == 90:
-                    s = s + "XC"
+                    result = result + "L"
                 elif x == 40:
-                    s = s + "XL"
+                    result += "XL"
+                elif x == 90:
+                    result += "XC"
                 elif x < 40:
-                    f = x // 10
-                    s = s + "X" * f
+                    result += (x // 10) * "X"
                 elif x > 50:
-                    f = (x - 50) // 10
-                    s = s + "L" + "X" * f
-            else:
+                    result += "L" + ((x - 50) // 10) * "X"
+            elif 1 <= x < 10:
                 if x == 5:
-                    s = s + "V"
+                    result = result + "V"
                 elif x == 4:
-                    s = s + "IV"
+                    result += "IV"
                 elif x == 9:
-                    s = s + "IX"
+                    result += "IX"
                 elif x < 4:
-                    f = x
-                    s = s + "I" * f
+                    result += (x) * "I"
                 elif x > 5:
-                    f = (x - 5)
-                    s = s + "V" + "I" * f
+                    result += "V" + (x - 5) * "I"
+            
+
+        return result
+
         
-        return s
