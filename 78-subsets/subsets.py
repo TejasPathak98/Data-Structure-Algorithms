@@ -11,12 +11,10 @@ class Solution:
                 return
             
             temp.append(nums[i])
-
             helper(i + 1,temp)
-
             temp.pop()
-
-            helper(i+ 1,temp)
+            helper(i + 1,temp)
         
         helper(0,[])
         return ans
+        
