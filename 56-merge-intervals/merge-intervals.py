@@ -20,6 +20,8 @@ class Solution:
                 i += 1
 
         return result
+
+        #O(NlogN) ;O(N)
             
 
         
