@@ -9,25 +9,27 @@ class Solution:
         if not root:
             return []
         
-        ans = []
+        ans = defaultdict(list)
 
-        def dfs(root,level):
-            if not root:
+        def helper(node,level):
+            nonlocal ans
+            if node is None:
                 return
-            
-            if len(ans) == level:
-                ans.append([])
-            
-            if level % 2 == 0:
-                ans[level].append(root.val)
+
+            ans[level].append(node.val)
+
+            if node.left:
+                helper(node.left,level + 1)
+            if node.right:
+                helper(node.right,level + 1)
+
+        result = []
+        helper(root,0)
+
+        for k,v in ans.items():
+            if k % 2 == 0:
+                result.append(v)
             else:
-                ans[level].insert(0,root.val)
+                result.append(v[::-1])
 
-            if root.left:
-                dfs(root.left,level + 1)
-            if root.right:
-                dfs(root.right,level + 1)
-
-        dfs(root,0)
-        return ans 
-        
+        return result 
