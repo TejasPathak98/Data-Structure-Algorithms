@@ -1,15 +1,19 @@
 class Solution:
     def generateParenthesis(self, n: int) -> List[str]:
-        def bt(s = "",left = 0,right = 0):
-            if len(s) == 2*n:
-                result.append(s)
-                return
-            if left < n:
-                bt(s + "(",left + 1,right)
-            if right < left:
-                bt(s + ")",left,right + 1)
+        if n == 0:
+            return []
         
         result = []
-        bt()
+
+        def helper(temp,left_bracket,right_bracket):
+            if len(temp) == 2*n:
+                result.append(temp)
+                return
+            if left_bracket < n:
+                helper(temp + "(",left_bracket + 1,right_bracket)
+            if right_bracket < left_bracket:
+                helper(temp + ")",left_bracket,right_bracket + 1)
+        
+        helper("",0,0)
         return result
         
