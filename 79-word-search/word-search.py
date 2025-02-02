@@ -29,3 +29,6 @@ class Solution:
                     if backtracking(i,j,visited,1,word) == True:return True
         
         return False
+
+
+        #O() ; O(MN)
