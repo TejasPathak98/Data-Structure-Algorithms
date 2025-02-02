@@ -8,13 +8,7 @@ class Solution:
         
         if s[0] == "0":
             return 0
-        
-        # if len(s) == 2:
-        #     if int(s) == 10 or int(s) == 20:return 1
-        #     elif 11 <= int(s) <= 26: return 2
-        #     elif s[1] == "0":return 0
-        #     else: return 1
-        
+                
         dp = [0] * len(s)
         dp[0] = 1
         if int(s[:2]) == 10 or int(s[:2]) == 20:dp[1] = 1
