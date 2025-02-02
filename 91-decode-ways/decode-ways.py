@@ -22,7 +22,6 @@ class Solution:
         elif s[1] == "0":return 0
         else: dp[1] = 1
 
-        print(dp)
 
         for i in range(2,len(s)):
             if s[i] != "0":
@@ -34,7 +33,7 @@ class Solution:
                     dp[i] = dp[i - 2]
                 else:
                     return 0
-            print(dp)
+
         
         return dp[len(s) - 1]
 
