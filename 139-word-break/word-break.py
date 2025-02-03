@@ -17,7 +17,4 @@ class Solution:
             return False
         
         return construct(s,wordDict)
-
-
-
         
