@@ -1,7 +1,6 @@
 class Solution:
     def maxProduct(self, nums: List[int]) -> int:
         max_product = float("-inf")
-        #temp_prod = 1
         temp_prod_2 = 1
         tp = 1
 
@@ -19,4 +18,5 @@ class Solution:
         
         return max_product
             
+        # O(N) ; O(1)
         
