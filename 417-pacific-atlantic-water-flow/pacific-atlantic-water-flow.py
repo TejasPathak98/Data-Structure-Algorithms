@@ -18,10 +18,12 @@ class Solution:
 
         def bfs(queue):
             reachable = set()
+            for x,y in queue:
+                reachable.add((x,y))
 
             while queue:
                 x,y = queue.popleft()
-                reachable.add((x,y))
+                
 
                 for dx,dy in [(-1,0),(1,0),(0,1),(0,-1)]:
                     x_ = x + dx
@@ -37,6 +39,7 @@ class Solution:
                         continue
                     
                     queue.append((x_,y_))
+                    reachable.add((x_,y_))
             
 
             return reachable
