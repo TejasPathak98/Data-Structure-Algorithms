@@ -31,10 +31,7 @@ class Solution:
         while queue:
             time += 1
             for _ in range(len(queue)):
-                
-                
                 x,y = queue.popleft()
-                
                 for dx,dy in directions:
                     x_ = x + dx
                     y_ = y + dy
