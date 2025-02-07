@@ -20,7 +20,8 @@ class Solution:
                 seen.add(node)
                 for child in graph[node]:
                     if parent.get(node) == child:continue
-                    if child in seen:return False
+                    #if child in seen:return False
+                    if child in parent:return False
                     parent[child] = node
                     queue.append(child)
                     
@@ -44,6 +45,6 @@ class Solution:
             return len(seen) == n
 
         
-        return DFS()
+        return BFS()
 
         
