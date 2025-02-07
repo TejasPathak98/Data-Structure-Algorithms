@@ -38,13 +38,14 @@ class Solution:
                 seen.add(node)
                 for child in graph[node]:
                     if parent.get(node) == child:continue
-                    if child in parent:return False
+                    #if child in parent:return False
+                    if child in seen:return False
                     parent[child] = node
                     stack.append(child)
             
             return len(seen) == n
 
         
-        return BFS()
+        return DFS()
 
         
