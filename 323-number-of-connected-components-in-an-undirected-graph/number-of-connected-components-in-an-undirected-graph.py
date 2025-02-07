@@ -1,37 +1,27 @@
 class Solution:
     def countComponents(self, n: int, edges: List[List[int]]) -> int:
+        cc = 0
+        visited = set()
         graph = defaultdict(list)
+        for x,y in edges:
+            graph[x].append(y)
+            graph[y].append(x)
 
-        for u,v in edges:
-            graph[u].append(v)
-            graph[v].append(u)
-        
-        ans = 0
-        self.li = set()
-
-        def helper(x):
-        
-            dq = deque([x])
-            
-            while dq:
-                y = dq.popleft()
-                self.li.add(y)
-                for neighbor in graph[y]:
-                    if neighbor not in self.li:
-                        dq.append(neighbor)
+        def dfs(x):
+            visited.add(x)
+            for neighbor in graph[x]:
+                if neighbor not in visited:
+                    dfs(neighbor)
         
         for i in range(n):
-            if i not in self.li:
-                helper(i)
-                ans += 1
-
-        return ans
+            if i not in visited:
+                dfs(i)
+                cc += 1
         
-        
+        return cc
         
 
 
-        
 
 
 
