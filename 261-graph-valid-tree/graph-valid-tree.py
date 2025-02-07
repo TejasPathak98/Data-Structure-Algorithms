@@ -25,7 +25,25 @@ class Solution:
                     queue.append(child)
                     
             return len(seen) == n
+
+        def DFS():
+            stack = []
+            stack.append(0)
+            seen = set()
+            parent = {}
+
+            while len(stack):
+                node = stack.pop()
+                seen.add(node)
+                for child in graph[node]:
+                    if parent.get(node) == child:continue
+                    if child in parent:return False
+                    parent[child] = node
+                    stack.append(child)
+            
+            return len(seen) == n
+
         
-        return BFS()
+        return DFS()
 
         
