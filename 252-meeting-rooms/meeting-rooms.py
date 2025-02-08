@@ -9,3 +9,5 @@ class Solution:
                 return False
         
         return True
+
+        # O(NlogN) ; O(1)
