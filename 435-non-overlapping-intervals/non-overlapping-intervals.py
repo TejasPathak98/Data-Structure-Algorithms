@@ -10,5 +10,4 @@ class Solution:
                 ans += 1
         
         return ans
-
         
