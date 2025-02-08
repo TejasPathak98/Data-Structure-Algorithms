@@ -6,7 +6,7 @@ class Solution:
             if interval[1] < newInterval[0]:
                 result.append(interval)
             elif newInterval[1] < interval[0]:
-                result.append(newInterval.copy())
+                result.append(newInterval)
                 newInterval = interval
             else:
                 start = min(interval[0],newInterval[0])
