@@ -11,7 +11,7 @@ class Solution:
             if g < 0:
                 idx = i + 1
                 g = 0
-                print(idx)
+
         
         return idx
 
