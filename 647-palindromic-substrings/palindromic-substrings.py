@@ -1,20 +1,24 @@
 class Solution:
     def countSubstrings(self, s: str) -> int:
-        max_ans = 0
-
-        def helper(i,j):
-            nonlocal max_ans
-            while i >=0 and j < len(s) and s[i] == s[j]:
-                max_ans += 1
-                i -= 1
-                j += 1
-
-        i = 0
-        while i < len(s) - 1:
-            helper(i,i)
-            helper(i,i + 1)
-            i += 1
-
-        return max_ans + 1
-
+        n = len(s)
+        if n == 1:
+            return 1
         
+        ans = 0
+
+        dp = [[False] * n for _ in range(n)]
+
+        for length in range(n):
+            for i in range(n - length):
+                j = i + length
+
+                if s[i] == s[j]:
+                    if length == 0 or length == 1:
+                        dp[i][j] = 1
+                    elif dp[i + 1][j - 1]:
+                        dp[i][j] = 1
+                    
+                    if dp[i][j]:
+                        ans += 1
+        
+        return ans
