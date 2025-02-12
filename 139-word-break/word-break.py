@@ -1,6 +1,6 @@
 class Solution:
     def wordBreak(self, s: str, wordDict: List[str]) -> bool:
-        def construct(current,wordDict,memo = {}):
+        def construct(current,wordDict,memo={}):
             if current in memo:
                 return memo[current]
             
@@ -9,7 +9,7 @@ class Solution:
             
             for word in wordDict:
                 if current.startswith(word):
-                    if construct(current[len(word):],wordDict,memo):
+                    if construct(current[len(word):],wordDict):
                         memo[current] = True
                         return True
             
@@ -17,4 +17,5 @@ class Solution:
             return False
         
         return construct(s,wordDict)
+
         
