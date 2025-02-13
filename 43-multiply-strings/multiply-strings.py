@@ -21,13 +21,15 @@ class Solution:
             y += temp[i] * (10 ** (len(temp) - 1 - i))
         
         z = x*y
-        result = ""
+        result = []
 
         while z:
-            result = str(z % 10) + result
+            result.append(chr(ord('0') + z  % 10))
             z = z // 10
+
         
-        return result
+        
+        return "".join(result[::-1])
 
 
         
