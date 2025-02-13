@@ -1,23 +1,33 @@
 class Solution:
     def multiply(self, num1: str, num2: str) -> str:
-        if num1 == '0' or num2 == '0':
-            return '0'
+        if num1 == "0" or num2 == "0":return "0"
+
+        temp_num = []
+        for ch in num1:
+            digit = ord(ch) - ord("0")
+            temp_num.append(digit)
         
-        def decode(num):
-            ans = 0
-            for i in num:
-                ans = ans*10 + (ord(i) - ord('0'))
-            return ans
+        x = 0
+        for i in range(len(temp_num)):
+            x += temp_num[i] * (10 ** (len(temp_num) - 1 - i))
         
-        def encode(num):
-            x = ""
-            while num:
-                a = num % 10
-                num = num // 10
-                x = chr(ord('0') + a) + x
-            return x
+        temp = []
+        for ch in num2:
+            digit = ord(ch) - ord("0")
+            temp.append(digit)
         
-        return encode(decode(num1) * decode(num2))
+        y = 0
+        for i in range(len(temp)):
+            y += temp[i] * (10 ** (len(temp) - 1 - i))
+        
+        z = x*y
+        result = ""
+
+        while z:
+            result = str(z % 10) + result
+            z = z // 10
+        
+        return result
 
 
         
