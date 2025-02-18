@@ -4,6 +4,7 @@ class TrieNode:
         self.isEnd = False
 
 class WordDictionary:
+
     def __init__(self):
         self.root = TrieNode()
         
@@ -31,11 +32,9 @@ class WordDictionary:
             return False
         else:
             if c in node.children:
-                return self.helper(index + 1, word, node.children[c])
+                return self.helper(index + 1,word,node.children[c])
             else:
                 return False
-
-
         
 
 
