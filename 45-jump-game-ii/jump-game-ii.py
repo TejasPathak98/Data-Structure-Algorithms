@@ -1,17 +1,19 @@
 class Solution:
     def jump(self, nums: List[int]) -> int:
-        currEnd = 0
+        if len(nums) == 1:return 0
+
         currFar = 0
+        currEnd = 0
+        no_of_jumps = 0
 
-        answer = 0
+        for i in range(len(nums)):
+            currFar = max(currFar,i + nums[i])
 
-        for i in range(len(nums) - 1):
-            currFar = max(currFar,nums[i] + i)
-
-            if i == currEnd:
-                answer += 1
+            if currEnd == i:
+                no_of_jumps += 1
                 currEnd = currFar
+                if currFar >= len(nums) - 1:
+                    break
                 
-            
-        return answer
         
+        return no_of_jumps
