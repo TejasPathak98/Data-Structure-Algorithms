@@ -22,7 +22,7 @@ class Solution:
                 res = max(res,1 + dfs(j))
             
             dp[pos] = res
-            return res
+            return dp[pos]
 
         
         ans = 0
