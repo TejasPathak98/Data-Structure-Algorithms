@@ -3,6 +3,7 @@ class Solution:
 
         memo = {}
         
+        @cache
         def dp(idx,state,transactions):
             if (idx,state,transactions) in memo:
                 return memo[(idx,state,transactions)]
@@ -21,4 +22,7 @@ class Solution:
         
         return dp(0,False,0)
 
+        #O(4 * N) ;  O(N)
+
+        
 
