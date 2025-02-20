@@ -53,10 +53,3 @@ class Solution:
         
         dfs(1)
         return min_distance
-
-            
-
-
-
-
-        return min_distance
