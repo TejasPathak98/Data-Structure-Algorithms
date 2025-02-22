@@ -38,5 +38,7 @@ class Solution:
         
         return the_node if found_p and found_q else None
 
+        #O(N) ; O(1)
+        
 
         
