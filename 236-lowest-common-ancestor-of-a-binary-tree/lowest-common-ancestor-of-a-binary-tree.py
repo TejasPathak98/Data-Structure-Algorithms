@@ -11,8 +11,8 @@ class Solution:
             return root
         
         if p is None and q is None:return None
-        if p is None and q is not None:return p
-        if q is None and p is not None:return q
+        if p is None and q is not None:return q
+        if q is None and p is not None:return p
         
         if root == p or root == q:
             return root
