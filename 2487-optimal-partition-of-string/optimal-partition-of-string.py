@@ -1,7 +1,6 @@
 class Solution:
     def partitionString(self, s: str) -> int:
-        no_of_partitions = float("inf")
-        paritions = []
+        no_of_partitions = 0
 
         i = 0
         temp_charset = set()
@@ -11,10 +10,10 @@ class Solution:
                 temp_charset.add(s[i])
                 i += 1
             else:
-                paritions.append(temp_charset.copy())
+                no_of_partitions += 1
                 temp_charset.clear()
         
-        return len(paritions) + 1
+        return no_of_partitions + 1
 
 
 
