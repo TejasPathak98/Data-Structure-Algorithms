@@ -1,13 +1,16 @@
 class Solution:
     def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
         ans = []
-        my_dict = defaultdict(list)
+        string_dict = defaultdict(list)
 
-        for st in strs:
-            my_dict[tuple(sorted(st))].append(st)
-
-        for key,val in my_dict.items():
-            ans.append(val)
+        for string in strs:
+            string_dict[tuple(sorted(string))].append(string)
+        
+        for key,listofstrings in string_dict.items():
+            ans.append(listofstrings)
         
         return ans
+
+
+
         
