@@ -12,3 +12,5 @@ class Solution:
                 right -= 1
         
         return max_area
+
+        # O(N) ; O(1)
