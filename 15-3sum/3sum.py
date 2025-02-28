@@ -1,48 +1,21 @@
 class Solution:
     def threeSum(self, nums: List[int]) -> List[List[int]]:
+        if len(nums) < 3:
+            return []
         nums = sorted(nums)
-        n = len(nums)
-        res = []
+        ans = set()
 
-        for i in range(n - 2):
-            if i > 0 and nums[i] == nums[i - 1]:
+        for i,v in enumerate(nums):
+            if i >= 1 and nums[i - 1] == v:
                 continue
-            
-            j = i + 1
-            k = n - 1
-            
-            while j < k:
-                s = nums[i] + nums[j]+ nums[k]
-                if s == 0:
-                    res.append([nums[i],nums[j],nums[k]])
-                    
-                    while j < k and nums[j] == nums[j + 1]:
-                        j += 1
-                    
-                    while j < k and nums[k] == nums[k - 1]:
-                        k -= 1
-                    
-                    j += 1
-                    k -= 1
-
-                elif s > 0:
-                    k -= 1
+            triplet_dict = {}
+            for x in nums[i + 1:]:
+                if x not in triplet_dict:
+                    triplet_dict[(-x-v)] = 1
                 else:
-                    j += 1
-                    print("Hi15")
+                    ans.add((v,x,-x-v))
         
-        return res
-                
+        return list(ans)
 
-
-                
-
-            
-
-
-
-            
-
-            
 
         
