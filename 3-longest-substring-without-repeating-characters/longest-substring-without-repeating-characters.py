@@ -9,7 +9,6 @@ class Solution:
             if (s[r] not in duplicate_check_dict) or (duplicate_check_dict[s[r]] < l):
                 duplicate_check_dict[s[r]] = r
                 max_len = max(max_len,r - l + 1)
-                print(l,r,max_len)
                 r += 1
             else:
                 pos = duplicate_check_dict[s[r]]
@@ -18,4 +17,6 @@ class Solution:
                 r += 1
 
         return max_len
+
+        #O(N) ; O(N)
 
