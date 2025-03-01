@@ -1,25 +1,25 @@
 class Solution:
     def maxSlidingWindow(self, nums: List[int], k: int) -> List[int]:
-        dq = deque()
-        res = []
-        i = 0
+        if len(nums) == 1:
+            return [nums[0]]
+        
+        ans = []
 
+        max_heap = []
         for i in range(k):
-            while dq and nums[i] >= nums[dq[-1]]:
-                dq.pop()
-            dq.append(i)
-            i += 1
+            max_heap.append((-1 * nums[i],i))
 
-        res.append(nums[dq[0]])
+        heapq.heapify(max_heap)
+
+        ans.append(-1 * max_heap[0][0])
 
         for i in range(k,len(nums)):
-            if dq and dq[0] == i - k:
-                dq.popleft()
+            while max_heap and max_heap[0][1] <= i - k:
+                heapq.heappop(max_heap)
             
-            while dq and nums[i] >= nums[dq[-1]]:
-                dq.pop() 
-            dq.append(i) 
-
-            res.append(nums[dq[0]])
+            heapq.heappush(max_heap, (-1 * nums[i],i))
+            ans.append(-1* max_heap[0][0])
         
-        return res
+        return ans
+
+
