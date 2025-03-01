@@ -2,11 +2,6 @@ class Solution:
     def minWindow(self, s: str, t: str) -> str:
         if len(s) < len(t):
             return ""
-        if len(s) == len(t):
-            if Counter(s) == Counter(t):
-                return s
-            else:
-                return ""
         
         t_dict = Counter(t)
         s_dict = defaultdict(int)
