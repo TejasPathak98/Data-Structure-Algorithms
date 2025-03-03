@@ -21,14 +21,7 @@ class Solution:
         while len(maxHeap) < len(minHeap):
             x = heapq.heappop(minHeap)
             heapq.heappush(maxHeap, -x)
-
-
-        print(-maxHeap[0]) if maxHeap else print("No Max Heap")
-        print(minHeap[0]) if minHeap else print("No Min Heap")
-
             
-
-
     def findMedianSortedArrays(self, nums1: List[int], nums2: List[int]) -> float:
         for i in range(len(nums1)):
             self.helper(nums1[i],self.minHeap,self.maxHeap)
