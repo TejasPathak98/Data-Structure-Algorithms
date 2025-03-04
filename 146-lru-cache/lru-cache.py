@@ -8,7 +8,7 @@ class Node:
 class LRUCache:
     def __init__(self, capacity: int):
         self.capacity = capacity
-        self.cache = defaultdict(Node)
+        self.cache = {}
         self.head = Node(-1,-1)
         self.tail = Node(-1,-1)
         self.head.next = self.tail
