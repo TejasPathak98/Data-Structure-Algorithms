@@ -8,7 +8,8 @@ class Node:
 """
 
 class Solution:
-    list_dict = {}
+    def __init__(self):
+        self.list_dict = {}
 
     def copyRandomList(self, head: 'Optional[Node]') -> 'Optional[Node]':
         if not head:
@@ -25,4 +26,4 @@ class Solution:
 
         return node
 
-        
+        #O(N) ; O(N)
