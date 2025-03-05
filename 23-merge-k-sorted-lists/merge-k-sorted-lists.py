@@ -5,15 +5,6 @@
 #         self.next = next
 class Solution:
     def mergeKLists(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:
-        def print_linked_list(head):
-            curr = head
-            while curr:
-                print(curr.val,end = "->")  # Default newline after each print
-                curr = curr.next
-            print("None")
-
-        # Linked list: 1 -> 2 -> 3 -> 4 -> 5
-
         if not lists:
             return None
         if len(lists) == 0:
