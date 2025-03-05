@@ -5,15 +5,6 @@
 #         self.next = next
 class Solution:
     def reverseKGroup(self, head: Optional[ListNode], k: int) -> Optional[ListNode]:
-
-        def print_linked_list(head):
-            curr = head
-            while curr:
-                print(curr.val, end=" -> ")
-                curr = curr.next
-            print("None")  # Indicating the end of the list
-
-
         count = 0
         curr = head
 
@@ -29,8 +20,6 @@ class Solution:
         other_part = curr.next
         curr.next = None
 
-        #print_linked_list(head)
-
         prev = None
         new_curr = head
 
@@ -41,8 +30,6 @@ class Solution:
             new_curr = temp
         
         new_curr2 = prev
-
-        #print_linked_list(prev)
 
         while new_curr2.next:
             new_curr2 = new_curr2.next
