@@ -5,40 +5,56 @@
 #         self.next = next
 class Solution:
     def mergeKLists(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:
-        if len(lists) == 0 or lists is None:
+        def print_linked_list(head):
+            curr = head
+            while curr:
+                print(curr.val,end = "->")  # Default newline after each print
+                curr = curr.next
+            print("None")
+
+        # Linked list: 1 -> 2 -> 3 -> 4 -> 5
+
+        if not lists:
+            return None
+        if len(lists) == 0:
             return None
         
-        def merge_lists(l1,l2):
-            node = head = ListNode(0)
+        def merge(l1,l2):
+            if not l1 and not l2:
+                return None
+            if not l1:
+                return l2
+            if not l2:
+                return l1
+            
+            l3 = ListNode(-1)
+            dummy = l3
 
             while l1 and l2:
-                if l1.val < l2.val:
-                    node.next = l1
+                if l1.val <= l2.val:
+                    l3.next = l1
                     l1 = l1.next
                 else:
-                    node.next = l2
+                    l3.next = l2
                     l2 = l2.next
-                node = node.next
-            
+                l3 = l3.next
+
             if l1:
-                node.next = l1
+                l3.next = l1
             if l2:
-                node.next = l2
+                l3.next = l2
             
-            return head.next
-
-        while len(lists) > 1:
-            temp = []
-            for i in range(0,len(lists),2):
-                list1 = lists[i]
-                list2 = lists[i + 1] if i + 1 < len(lists) else None
-                list3 = merge_lists(list1, list2)
-                temp.append(list3)
-            lists = temp
+            return dummy.next
         
-        return lists[0]
+        stack = []
 
-
-
-
+        for l in lists:
+            stack.append(l)
         
+        while len(stack) > 1:
+            x = stack.pop()
+            y = stack.pop()
+            z = merge(x,y)
+            stack.append(z)
+        
+        return stack.pop()
