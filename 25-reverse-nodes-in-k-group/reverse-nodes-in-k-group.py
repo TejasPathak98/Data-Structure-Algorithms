@@ -5,44 +5,49 @@
 #         self.next = next
 class Solution:
     def reverseKGroup(self, head: Optional[ListNode], k: int) -> Optional[ListNode]:
-        node = ListNode(-1)
-        node.next = begin = start = head
+
+        def print_linked_list(head):
+            curr = head
+            while curr:
+                print(curr.val, end=" -> ")
+                curr = curr.next
+            print("None")  # Indicating the end of the list
+
+
         count = 0
-        occ = 1
-        prev_pos = None
+        curr = head
 
-        def reverse_helper(the_list):
-            curr = the_list
-            temp = None
-            prev = None
-            count = k
-
-            while curr and count:
-                temp = curr.next
-                curr.next = prev
-                prev = curr
-                curr = temp
-                count -= 1
-            
-            return prev
-
-        while start:
+        while curr:
             count += 1
             if count == k:
-                temp = start.next
-                start = reverse_helper(begin)
-                if occ > 1:
-                    prev_pos.next = start
-                elif occ == 1:
-                    node.next = head = start
-                occ += 1
-                while start.next:
-                    start = start.next
-                start.next = temp
-                prev_pos = start
-                count = 0
-                begin = temp
-            start = start.next
+                break
+            curr = curr.next
+        
+        if count < k:
+            return head
+        
+        other_part = curr.next
+        curr.next = None
 
+        #print_linked_list(head)
 
-        return node.next
+        prev = None
+        new_curr = head
+
+        while new_curr:
+            temp = new_curr.next
+            new_curr.next = prev
+            prev = new_curr
+            new_curr = temp
+        
+        new_curr2 = prev
+
+        #print_linked_list(prev)
+
+        while new_curr2.next:
+            new_curr2 = new_curr2.next
+
+        
+        new_curr2.next = self.reverseKGroup(other_part, k)
+
+        return prev
