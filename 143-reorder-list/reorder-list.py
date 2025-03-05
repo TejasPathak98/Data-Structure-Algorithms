@@ -9,15 +9,17 @@ class Solution:
         Do not return anything, modify head in-place instead.
         """
         if not head or not head.next or not head.next.next:
-            return head
-
-        slow = fast = head
-        while fast and fast.next:
-            slow = slow.next
-            fast = fast.next.next
+            return
         
-        curr = slow
+        curr = head
+        slow = fast = curr
+
+        while fast and fast.next:
+            fast = fast.next.next
+            slow = slow.next
+        
         prev = None
+        curr = slow
 
         while curr:
             temp = curr.next
@@ -29,7 +31,7 @@ class Solution:
         l2 = prev
 
         while l2.next:
-            t1 = l1.next
+            t1= l1.next
             t2 = l2.next
 
             l1.next = l2
@@ -38,8 +40,5 @@ class Solution:
             l1 = t1
             l2 = t2
         
-        # if l2:
-        #     l1.next = l2
         
-
         
