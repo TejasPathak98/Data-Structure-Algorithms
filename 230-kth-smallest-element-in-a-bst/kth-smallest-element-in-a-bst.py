@@ -9,13 +9,32 @@ class Solution:
         self.arr = []
 
     def kthSmallest(self, root: Optional[TreeNode], k: int) -> int:
-        self.inorder(root)
-        return self.arr[k - 1]
-    
-    def inorder(self,root):
-        if not root:
-            return
 
-        self.inorder(root.left)
-        self.arr.append(root.val)
-        self.inorder(root.right)
+    #     self.inorder(root)
+    #     return self.arr[k - 1]
+    
+    # def inorder(self,root):
+    #     if not root:
+    #         return
+
+    #     self.inorder(root.left)
+    #     self.arr.append(root.val)
+    #     self.inorder(root.right)
+
+    # #O(N) ; O(N)
+
+        stack = []
+        while True:
+            while root:
+                stack.append(root)
+                root = root.left
+            
+            root = stack.pop()
+            k -= 1
+            if k == 0:
+                return root.val
+            
+            root = root.right
+
+        return -1
+
