@@ -11,8 +11,6 @@ class Solution:
             return None
         if root == p or root == q:
             return root
-        # if p is None and q is None:
-        #     return None
         if p is None:
             return q
         if q is None:
