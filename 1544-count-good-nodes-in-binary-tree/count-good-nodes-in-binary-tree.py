@@ -13,16 +13,13 @@ class Solution:
         return self.max_count
 
     def dfs(self,root,nodes):
-        print("Break")
         if root is None:
             return
 
         if len(nodes) == 0:
-            print(root.val)
             self.max_count += 1
         else:
             if root.val >= max(nodes):
-                print(root.val)
                 self.max_count += 1
         
         nodes.append(root.val)
