@@ -9,26 +9,20 @@ class Node:
 from typing import Optional
 class Solution:
     def __init__(self):
-        self.my_dict = {}
+        self.graph_dict = {}
+
     def cloneGraph(self, node: Optional['Node']) -> Optional['Node']:
-        if node in self.my_dict:
-            return self.my_dict[node]
-        
         if not node:
             return None
         
+        if node in self.graph_dict:
+            return self.graph_dict[node]
+        
         new_node = Node(node.val)
-        self.my_dict[node] = new_node
+
+        self.graph_dict[node] = new_node
 
         for neighbor in node.neighbors:
-            if neighbor in self.my_dict:
-                new_node.neighbors.append(self.my_dict[neighbor])
-            else:
-                new_node.neighbors.append(self.cloneGraph(neighbor))
+            new_node.neighbors.append(self.cloneGraph(neighbor))
         
         return new_node
-                
-        
-
-
-        
