@@ -22,14 +22,12 @@ class Solution:
         
         pacific_set = self.bfs(pacific_queue,heights,visited_p)
         atlantic_set = self.bfs(atlantic_queue,heights,visited_a)
-        return list(pacific_set.intersection(atlantic_set))
+        return list(pacific_set & atlantic_set)
 
     
     def bfs(self,queue,heights,visited):
-        Set = set()
         while queue:
             x,y = queue.popleft()
-            Set.add((x,y))
 
             for dx,dy in [(0,1),(0,-1),(1,0),(-1,0)]:
                 x_ = x + dx
@@ -40,6 +38,8 @@ class Solution:
                     queue.append((x_,y_))
                     visited.add((x_,y_))
         
-        return Set
+        return visited
+
+    #O(MN) ;O(MN)
 
 
