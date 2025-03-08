@@ -5,24 +5,24 @@
 #         self.left = left
 #         self.right = right
 class Solution:
-    def maxPathSum(self, root: Optional[TreeNode]) -> int:
-        if not root:
+    def __init__(self):
+        self.max_sum = float("-inf")
+
+    def maxPathSum(self, root: Optional[TreeNode]) -> int:        
+        self.helper(root)
+        return self.max_sum
+        
+    def helper(self,root):
+        if root is None:
             return 0
-        if not root.left and not root.right:
-            return root.val
+        
+        left_sum = self.helper(root.left)
+        right_sum = self.helper(root.right)
 
-        def helper(node):
-            if not node:
-                return 0
-            
-            maxleftpath = max(helper(node.left),0)
-            maxrightpath = max(helper(node.right),0)
+        self.max_sum = max(self.max_sum,root.val + left_sum + right_sum,root.val,root.val + left_sum,root.val + right_sum)
 
-            maxifnodeisRoot = node.val + maxleftpath + maxrightpath
-            self.final_sum = max(self.final_sum,maxifnodeisRoot)
-            return node.val + max(maxleftpath,maxrightpath)
+        return max(root.val,root.val + left_sum,root.val + right_sum)
 
-        self.final_sum = float("-inf")
-        helper(root)
-        return self.final_sum
 
+
+        
