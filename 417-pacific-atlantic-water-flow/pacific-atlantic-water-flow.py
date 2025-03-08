@@ -1,51 +1,45 @@
 class Solution:
     def pacificAtlantic(self, heights: List[List[int]]) -> List[List[int]]:
-        if not heights or not heights[0]:
-            return []
-        
-        pacific_q = deque()
-        atlantic_q = deque()
         m = len(heights)
         n = len(heights[0])
+        visited_p = set()
+        visited_a = set()
+
+        pacific_queue = deque()
+        atlantic_queue = deque()
 
         for i in range(m):
-            pacific_q.append((i,0))
-            atlantic_q.append((i,n - 1))
+            pacific_queue.append((i,0))
+            atlantic_queue.append((i,n - 1))
+            visited_p.add((i,0))
+            visited_a.add((i,n - 1))
+
+        for j in range(n):
+            pacific_queue.append((0,j))
+            atlantic_queue.append((m - 1,j))
+            visited_p.add((0,j))
+            visited_a.add((m - 1,j))
         
-        for i in range(n):
-            pacific_q.append((0,i))
-            atlantic_q.append((m - 1,i))
+        pacific_set = self.bfs(pacific_queue,heights,visited_p)
+        atlantic_set = self.bfs(atlantic_queue,heights,visited_a)
+        return list(pacific_set.intersection(atlantic_set))
 
-        def bfs(queue):
-            reachable = set()
-            for x,y in queue:
-                reachable.add((x,y))
+    
+    def bfs(self,queue,heights,visited):
+        Set = set()
+        while queue:
+            x,y = queue.popleft()
+            Set.add((x,y))
 
-            while queue:
-                x,y = queue.popleft()
+            for dx,dy in [(0,1),(0,-1),(1,0),(-1,0)]:
+                x_ = x + dx
+                y_ = y + dy
                 
-
-                for dx,dy in [(-1,0),(1,0),(0,1),(0,-1)]:
-                    x_ = x + dx
-                    y_ = y + dy
-                
-                    if x_ < 0 or x_ >= m or y_ < 0 or y_ >= n:
-                        continue
-                    
-                    if (x_,y_) in reachable:
-                        continue
-                    
-                    if heights[x_][y_] < heights[x][y]:
-                        continue
-                    
+                print(x_,y_)
+                if x_ >=0 and x_ < len(heights) and y_ >=0 and y_ < len(heights[0]) and heights[x_][y_] >= heights[x][y] and (x_,y_) not in visited:
                     queue.append((x_,y_))
-                    reachable.add((x_,y_))
-            
-
-            return reachable
+                    visited.add((x_,y_))
         
-        p = bfs(pacific_q)
-        q = bfs(atlantic_q)
-        return list(p.intersection(q))
+        return Set
 
-        
+
