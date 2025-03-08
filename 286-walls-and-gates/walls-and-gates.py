@@ -3,34 +3,26 @@ class Solution:
         """
         Do not return anything, modify rooms in-place instead.
         """
-        queue = deque()
-        directions = [[-1,0],[0,1],[1,0],[0,-1]]
-        INF = 2147483647
-        visited = set()
+        m = len(rooms)
+        n = len(rooms[0])
 
-        for i in range(len(rooms)):
-            for j in range(len(rooms[0])):
+        queue = deque()
+
+        for i in range(m):
+            for j in range(n):
                 if rooms[i][j] == 0:
                     queue.append((i,j))
-                    visited.add((i,j))
+
 
         while queue:
             x,y = queue.popleft()
 
-            for dx,dy in directions:
+            for dx,dy in [(0,1),(0,-1),(1,0),(-1,0)]:
                 x_ = x + dx
-                y_ = y + dy 
+                y_ = y + dy
 
-                if x_ >= 0 and x_ < len(rooms) and y_ >=0 and y_ < len(rooms[0]) and rooms[x_][y_] == INF and (x_,y_) not in visited:
-                    queue.append((x_,y_))
-                    visited.add((x_,y_))
+                if x_ >=0 and x_ < m and y_ >= 0 and y_ < n and rooms[x_][y_] == 2147483647:
                     rooms[x_][y_] = rooms[x][y] + 1
+                    queue.append((x_,y_))
 
-
-
-
-
-
-
-        
 
