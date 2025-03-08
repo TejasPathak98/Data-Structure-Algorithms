@@ -14,6 +14,7 @@ class Solution:
 
     def bfs(self,x,y,grid):
         queue = deque([(x,y)])
+        grid[x][y] = "-1"
 
         while queue:
             cx,cy = queue.popleft()
@@ -27,3 +28,4 @@ class Solution:
                     queue.append((x_,y_))
 
     
+    #O(MN) ; O(min(M,N))
