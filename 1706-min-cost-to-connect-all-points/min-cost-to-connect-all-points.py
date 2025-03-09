@@ -1,34 +1,32 @@
 class Solution:
     def minCostConnectPoints(self, points: List[List[int]]) -> int:
+        #Prim's Algo (Sequential)
         n = len(points)
-        visited = [False] * n
 
         mst_weight = 0
-        weight_dict = {0:0}
-        heap = [(0,0)]
+        min_heap = [(0,0)]
+        weights = {0:0}
+        visited = [False] * n
 
+        while min_heap:
+            curr_weight,curr_node = heapq.heappop(min_heap)
 
-        while heap:
-            curr_weight,curr_index = heapq.heappop(heap)
-            #u = points[curr_index]
-
-            if visited[curr_index] or weight_dict.get(curr_index,float("inf")) < curr_weight:
+            if visited[curr_node]:
                 continue
             
-            visited[curr_index] = True
+            if weights.get(curr_node,float("inf")) < curr_weight:
+                continue
+            
+            visited[curr_node] = True
             mst_weight += curr_weight
 
             for i in range(n):
                 if not visited[i]:
-                    new_distance = abs(points[i][0] - points[curr_index][0]) + abs(points[i][1] - points[curr_index][1])
+                    dist = abs(points[i][0] - points[curr_node][0]) + abs(points[i][1] - points[curr_node][1])
 
-                    if new_distance < weight_dict.get(i,float("inf")):
-                        weight_dict[i] = new_distance
-                        heapq.heappush(heap, (new_distance,i))
-            
-
-        return mst_weight
-
-
+                    if dist < weights.get(i,float("inf")):
+                        heapq.heappush(min_heap, (dist,i))
 
         
+        return mst_weight
+
