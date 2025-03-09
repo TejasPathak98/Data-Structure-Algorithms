@@ -12,20 +12,35 @@ class Solution:
         for i in range(n):
             if i not in visited:
                 count += 1
-                self.bfs(i,graph,visited)
+                #self.bfs(i,graph,visited)
+                self.dfs(i,graph,visited)
 
         return count
         
-    def bfs(self,i,graph,visited):
+    # def bfs(self,i,graph,visited):
 
-        queue = deque([i])
+    #     queue = deque([i])
+    #     visited.add(i)
+
+    #     while queue:
+    #         x = queue.popleft()
+
+    #         for neighbor in graph[x]:
+    #             if neighbor not in visited:
+    #                 visited.add(neighbor)
+    #                 queue.append(neighbor)
+    #O(V + E) ; O(V + E)
+
+
+    def dfs(self,i,graph,visited):
         visited.add(i)
+        for neighbor in graph[i]:
+            if neighbor not in visited:
+                self.dfs(neighbor,graph,visited)
 
-        while queue:
-            x = queue.popleft()
 
-            for neighbor in graph[x]:
-                if neighbor not in visited:
-                    visited.add(neighbor)
-                    queue.append(neighbor)
+
+
     
+
+   
