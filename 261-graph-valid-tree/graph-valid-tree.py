@@ -4,48 +4,24 @@ class Solution:
             return False
         
         graph = defaultdict(list)
-        for x,y in edges:
-            graph[x].append(y)
-            graph[y].append(x)
 
-        def BFS():
-            queue = deque()
-            queue.append(0)
-            seen = set()
-            parent = {}
-            #seen.add(0)
+        for a,b in edges:
+            graph[a].append(b)
+            graph[b].append(a)
 
-            while len(queue):
-                node = queue.popleft()
-                seen.add(node)
-                for child in graph[node]:
-                    if parent.get(node) == child:continue
-                    #if child in seen:return False
-                    if child in parent:return False
-                    parent[child] = node
-                    queue.append(child)
-                    
-            return len(seen) == n
+        visited = set()
 
-        def DFS():
-            stack = []
-            stack.append(0)
-            seen = set()
-            parent = {}
-
-            while len(stack):
-                node = stack.pop()
-                seen.add(node)
-                for child in graph[node]:
-                    if parent.get(node) == child:continue
-                    #if child in parent:return False
-                    if child in seen:return False
-                    parent[child] = node
-                    stack.append(child)
-            
-            return len(seen) == n
+        def hasCycle(node,parent):
+            visited.add(node)
+            for neighbor in graph[node]:
+                if neighbor == parent:
+                    continue
+                if neighbor in visited or hasCycle(neighbor, node):
+                    return True
+            return False
 
         
-        return DFS()
-
+        if hasCycle(0,-1) == True:
+            return False
         
+        return len(visited) == n
