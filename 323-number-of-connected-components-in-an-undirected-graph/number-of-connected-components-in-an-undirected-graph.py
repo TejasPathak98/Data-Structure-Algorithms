@@ -1,28 +1,31 @@
 class Solution:
     def countComponents(self, n: int, edges: List[List[int]]) -> int:
-        cc = 0
-        visited = set()
         graph = defaultdict(list)
-        for x,y in edges:
-            graph[x].append(y)
-            graph[y].append(x)
 
-        def dfs(x):
-            visited.add(x)
-            for neighbor in graph[x]:
-                if neighbor not in visited:
-                    dfs(neighbor)
+        for a,b in edges:
+            graph[a].append(b)
+            graph[b].append(a)
         
+        count = 0
+        visited = set()
+
         for i in range(n):
             if i not in visited:
-                dfs(i)
-                cc += 1
+                count += 1
+                self.bfs(i,graph,visited)
+
+        return count
         
-        return cc
-        
+    def bfs(self,i,graph,visited):
 
+        queue = deque([i])
+        visited.add(i)
 
+        while queue:
+            x = queue.popleft()
 
-
-
-        
+            for neighbor in graph[x]:
+                if neighbor not in visited:
+                    visited.add(neighbor)
+                    queue.append(neighbor)
+    
