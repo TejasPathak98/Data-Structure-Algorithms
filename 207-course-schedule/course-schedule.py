@@ -1,28 +1,31 @@
 class Solution:
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
-        inDegree = [0] * (numCourses)
         graph = defaultdict(list)
+        InDegree = [0] * numCourses
 
-        for course,pre_req in prerequisites:
+        for pre_req,course in prerequisites:
             graph[pre_req].append(course)
-            inDegree[course] += 1
+            InDegree[course] += 1
         
         queue = deque()
-        completed_courses = []
+        for course in range(numCourses):
+            if InDegree[course] == 0:
+                queue.append(course)
+        
+        return self.topological_sort(graph,queue,numCourses,InDegree)
 
-        for i in range(numCourses):
-            if inDegree[i] == 0:
-                queue.append(i)
-                
+    def topological_sort(self,graph,queue,numCourses,InDegree):
+        courses_done = []
+
         while queue:
             course = queue.popleft()
-            completed_courses.append(course)
+            courses_done.append(course)
 
-            for c in graph[course]:
-                inDegree[c] -= 1
-                if inDegree[c] == 0:
-                    queue.append(c)
-        
-        return len(completed_courses) == numCourses 
+            for related_course in graph[course]:
+                InDegree[related_course] -= 1
+
+                if InDegree[related_course] == 0:
+                    queue.append(related_course)
 
         
+        return len(courses_done) == numCourses
