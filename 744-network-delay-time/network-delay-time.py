@@ -37,6 +37,9 @@ class Solution:
 
         while min_heap:
             curr_time,curr_node = heapq.heappop(min_heap) #O(VlogV)
+
+            if time[curr_node] < curr_time:
+                continue
             
             for neighbor,t in graph[curr_node]:
                 if t + curr_time < time[neighbor]:
