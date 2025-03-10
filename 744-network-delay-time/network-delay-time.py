@@ -38,8 +38,8 @@ class Solution:
         while min_heap:
             curr_time,curr_node = heapq.heappop(min_heap) #O(VlogV)
 
-            if time[curr_node] < curr_time:
-                continue
+            # if time[curr_node] < curr_time:
+            #     continue
             
             for neighbor,t in graph[curr_node]:
                 if t + curr_time < time[neighbor]:
@@ -50,6 +50,7 @@ class Solution:
         if max(time.values()) == float("inf"):return -1
         else: return max(time.values())
 
+        #O(Vlogv) + O(Elogv) + O(E) ; O(E + V)
 
 
 
