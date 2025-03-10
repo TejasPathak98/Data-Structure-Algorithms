@@ -1,19 +1,21 @@
 class Solution:
     def findItinerary(self, tickets: List[List[str]]) -> List[str]:
-        graph = defaultdict(list)
+        #This is not a simple Topological Sort problem becasue its not a DAG
+        #It is Euler Path Problem
 
-        for src,dst in sorted(tickets):
-            graph[src].append(dst)
-        
-        itinerary = []
+        graph = defaultdict(list) 
+
+        for src,dst in tickets:
+            heapq.heappush(graph[src], dst) # the heap is used here for putting the lexicographically smallest elements first
+
+        ans = []
 
         def dfs(node):
-
             while graph[node]:
-                new_node = graph[node].pop(0)
-                dfs(new_node)
-            itinerary.append(node)
+                next_node = heapq.heappop(graph[node])
+                dfs(next_node)
+            ans.append(node)
         
         dfs("JFK")
 
-        return itinerary[::-1]
+        return ans[::-1]
