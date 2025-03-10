@@ -10,12 +10,23 @@ class Solution:
 
         ans = []
 
-        def dfs(node):
-            while graph[node]:
-                next_node = heapq.heappop(graph[node])
-                dfs(next_node)
-            ans.append(node)
+        # def dfs(node):
+        #     while graph[node]:
+        #         next_node = heapq.heappop(graph[node])
+        #         dfs(next_node)
+        #     ans.append(node)
         
-        dfs("JFK")
+        # dfs("JFK")
+
+        # return ans[::-1]
+
+        #(ElogE)  ; O(E) + O(E) 
+
+        stack = ["JFK"]
+
+        while stack:
+            while graph[stack[-1]]:
+                stack.append(heapq.heappop(graph[stack[-1]]))
+            ans.append(stack.pop())
 
         return ans[::-1]
