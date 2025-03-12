@@ -21,10 +21,9 @@ class Solution:
                 x_ = x + dx
                 y_ = y  + dy
 
-                
                 if 0 <= x_ < n and 0 <= y_ < n:
                     new_time = max(t,grid[x_][y_])
-                    if new_time < time[x_][y_] and visited[x_][y_] != True:
+                    if new_time < time[x_][y_] and time[x_][y_] == float("inf"):
                         time[x_][y_] = new_time
                         heapq.heappush(min_heap, (grid[x_][y_],x_,y_))
 
