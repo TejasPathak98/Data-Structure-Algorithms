@@ -22,8 +22,6 @@ class Solution:
         
         queue = deque([char for char in inDegree if inDegree[char] == 0])
 
-        print(inDegree)
-
         while queue:
             c = queue.popleft()
             result.append(c)
@@ -32,9 +30,6 @@ class Solution:
                 inDegree[neighbor] -= 1
                 if inDegree[neighbor] == 0:
                     queue.append(neighbor)
-        
-        print(result)
-        print(inDegree)
-        print(graph)
+
 
         return "".join(result) if len(inDegree) == len(result) else ""
