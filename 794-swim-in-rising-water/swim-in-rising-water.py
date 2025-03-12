@@ -4,7 +4,6 @@ class Solution:
 
         time_taken = 0
         time = [[float("inf")] * n for _ in range(n)]
-        visited = [[False] * n for _ in range(n)]
         time[0][0] = grid[0][0]
 
         min_heap = [(grid[0][0],0,0)]
@@ -12,7 +11,6 @@ class Solution:
         while min_heap:
             t , x, y = heapq.heappop(min_heap)
             time_taken = max(time_taken,t)
-            visited[x][y] = True
 
             if x == n - 1 and y == n - 1:
                 return time_taken
