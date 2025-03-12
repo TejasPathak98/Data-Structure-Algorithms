@@ -1,51 +1,40 @@
 class Solution:
     def alienOrder(self, words: List[str]) -> str:
-        charset = set("".join(words))
-        graph, inDegree = self.helper(words,charset)
+        graph = defaultdict(set)
+        inDegree = {char : 0 for word in words for char in word}
+        result = []
 
-        if graph is None:
-            return ""
-        
-        if not graph:
-            return "".join(charset)
+        # Buidling the graph and inDegree Map
+        for i in range(len(words) - 1):
+            word1 = words[i]
+            word2 = words[i + 1]
+            min_word_len = min(len(word1),len(word2))
 
-        return self.BFS(graph,inDegree,charset)
-    
-    def helper(self,words,charset):
-        graph = defaultdict(list)
-        inDegree = {char : 0 for char in charset}
-
-        for word1,word2 in zip(words,words[1:]):
-
-            if word1.startswith(word2) and len(word1) > len(word2):
-                return None,None
-
-            for c1,c2 in zip(word1,word2):
-                if c1 != c2:
-                    graph[c1].append(c2)
-                    inDegree[c2] += 1
+            if word1[:min_word_len] == word2[:min_word_len] and len(word1) > len(word2):
+                return ""
+            
+            for j in range(min_word_len):
+                if word1[j] != word2[j]:
+                    if word2[j] not in graph[word1[j]]:
+                        graph[word1[j]].add(word2[j])
+                        inDegree[word2[j]] += 1
                     break
         
-        return graph,inDegree
-    
-    def BFS(self,graph,inDegree,charset):
-        
+        queue = deque([char for char in inDegree if inDegree[char] == 0])
 
-        queue = deque([char for char in charset if inDegree[char] == 0])
-        result = ""
+        print(inDegree)
 
         while queue:
-            ch = queue.popleft()
-            result += ch
+            c = queue.popleft()
+            result.append(c)
 
-            for next_ch in graph[ch]:
-                inDegree[next_ch] -= 1
-                if inDegree[next_ch] == 0:
-                    queue.append(next_ch)
+            for neighbor in graph[c]:
+                inDegree[neighbor] -= 1
+                if inDegree[neighbor] == 0:
+                    queue.append(neighbor)
         
+        print(result)
+        print(inDegree)
+        print(graph)
 
-        return result if len(result) == len(charset) else ""
-
-
-
-        
+        return "".join(result) if len(inDegree) == len(result) else ""
