@@ -23,3 +23,5 @@ class Solution:
                 heappush(max_heap,-tc)
         
         return timer
+
+        #O(klogk) ; O(k)
