@@ -15,8 +15,7 @@ class Solution:
 
             if currFar > currEnd:
                 currEnd = currFar
-                if currEnd >= n - 1:
-                    return True
+
             i += 1
 
 
