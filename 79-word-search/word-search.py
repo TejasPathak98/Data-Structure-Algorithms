@@ -3,32 +3,68 @@ class Solution:
         m = len(board)
         n = len(board[0])
 
-        def backtracking(x,y,visited,count,word):
-            if count == len(word):return True
-
-            directions = [[0,1],[0,-1],[1,0],[-1,0]]
-
-            visited[x][y] = True
-
-            for dx,dy in directions:
-                x_ = x + dx
-                y_ = y + dy
-
-                if x_ >= 0 and x_ < m and y_ >=0 and y_ < n and not visited[x_][y_] and board[x_][y_] == word[count]:
-                    if backtracking(x_,y_,visited,count + 1,word) == True:return True
-
-            
-            visited[x][y] = False
-            return False
-
-        
         for i in range(m):
             for j in range(n):
                 if board[i][j] == word[0]:
-                    visited = [[False] * n for _ in range(m)]
-                    if backtracking(i,j,visited,1,word) == True:return True
+                    if self.backtrack(i,j,board,word) == True:
+                        return True
         
         return False
 
 
-        #O() ; O(MN)
+    # def backtrack(self,i,j,board,word):
+    #     m = len(board)
+    #     n = len(board[0])
+    #     lw = len(word)
+    #     visited = set()
+
+    #     def helper(i,j,ptr,visited):
+    #         if ptr == lw - 1:
+    #             return True
+            
+    #         visited.add((i,j))
+            
+    #         for dx,dy in [(0,1),(0,-1),(1,0),(-1,0)]:
+    #             x = i + dx
+    #             y = j + dy
+
+    #             if x < 0 or x >= m or y < 0 or y >= n or board[x][y] != word[ptr + 1] or (x,y) in visited:
+    #                 continue
+                
+    #             if helper(x,y,ptr + 1,visited):
+    #                 return True
+
+
+    #     return helper(i,j,0,visited)
+
+    # This was failing becasue the visited set changes after the dfs calls, it passed by reference so it can happen that a dfs call goes and modifies the
+    #the visited set and tracks but the visited remains changed, so the later dfs calls can lead to incorrect results
+    #Hence we apply the bactracking principle to visited, we mark an element as visited then back track and then untrack it
+
+
+
+    def backtrack(self,i,j,board,word):
+        m = len(board)
+        n = len(board[0])
+        lw = len(word)
+
+        def helper(i,j,ptr):
+            if ptr == lw:
+                return True
+            
+            if i < 0 or i >= m or j < 0 or j >= n or board[i][j] != word[ptr]:
+                return False #Incorrect, so we stop the operations further
+            
+            temp = board[i][j]
+            board[i][j] = "#"  #marking as visited
+
+            #recursing
+            for dx,dy in [(0,1),(0,-1),(1,0),(-1,0)]:
+                if helper(i + dx,j + dy,ptr + 1) == True:
+                    return True
+ 
+            #unmarking
+            board[i][j] = temp
+            return False
+        
+        return helper(i,j,0)
