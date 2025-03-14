@@ -68,3 +68,8 @@ class Solution:
             return False
         
         return helper(i,j,0)
+
+
+        #O(MN * 4 ^ L) ; O(MN)
+
+        # L is the length of the word
