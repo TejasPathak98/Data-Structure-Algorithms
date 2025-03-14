@@ -12,7 +12,6 @@ class Solution:
         def diag_helper(col1,row1,col2,row2):
             if ((col1 - col2) / (row1 - row2)) in [-1,1]:
                 return True
-            #print(col1,row1,col2,row2)
             return False
 
         def backtrack(col,row_num,total_placed,row_set,col_set):
@@ -40,8 +39,6 @@ class Solution:
                 col_set.append(i)
                 row_set.append(row_num + 1)
                 board[row_num + 1][i] = "Q"
-                print(row_num + 1,i)
-                print("br")
                 backtrack(i, row_num + 1, total_placed + 1,row_set,col_set)
                 board[row_num + 1][i] = "."
                 col_set.pop()
