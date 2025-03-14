@@ -22,8 +22,8 @@ class Solution:
                 ans.append("".join(temp[:]))
                 return
 
-            if next_digit >= len(digits):
-                return
+            # if next_digit >= len(digits):
+            #     return
             
             for ch in char_dict[digits[next_digit]]:
                 temp.append(ch)
