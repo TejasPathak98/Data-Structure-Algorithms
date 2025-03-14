@@ -2,21 +2,19 @@ class Solution:
     def canJump(self, nums: List[int]) -> bool:
         n = len(nums)
 
-
+        i = 0
         currEnd = 0
         currFar = 0
-        i = 0
 
         while i <= currEnd:
-            currFar = i + nums[i]
+            currFar = max(currFar,i + nums[i])
 
-            if currEnd >= n - 1:
-                return True
-
-            if currFar > currEnd:
+            if currFar >= n - 1:
+                return True # Early stopping
+            
+            if currEnd < currFar:
                 currEnd = currFar
-
+            
             i += 1
-
-
+    
         return False
