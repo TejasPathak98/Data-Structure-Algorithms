@@ -2,74 +2,53 @@ class Solution:
     def exist(self, board: List[List[str]], word: str) -> bool:
         m = len(board)
         n = len(board[0])
+        lw = len(word)
+
+        board_freq = Counter(sum(board,[]))
+        word_freq = Counter(word)
+
+        for char in word:
+            if word_freq[char] > board_freq.get(char,0):
+                return False
+        
+        def neighbor_rarity(x,y):
+            counter = 0
+            for dx,dy in [(0,1),(0,-1),(1,0),(-1,0)]:
+                if x + dx >= 0 and x + dx  < m and y +dy >= 0 and y + dy < n and board_freq.get(board[x + dx][y + dy],0) > 0:
+                    counter += board_freq.get(board[x + dx][y + dy])
+            return counter
+        
+        positions = []
 
         for i in range(m):
             for j in range(n):
                 if board[i][j] == word[0]:
-                    if self.backtrack(i,j,board,word) == True:
-                        return True
+                    positions.append((i,j))
+
+        positions.sort(key = lambda pos : neighbor_rarity(*pos))
+
+        def backtrack(x,y,ptr):
+            if ptr == lw:
+                return True
+            
+            if x < 0 or x >= m or y < 0 or y >= n or board[x][y] != word[ptr]:
+                return False
+            
+            temp = board[x][y]
+            board[x][y] = "#"
+
+            for dx,dy in [(0,1),(0,-1),(1,0),(-1,0)]:
+                if backtrack(x + dx,y + dy,ptr + 1):
+                    return True
+                
+            board[x][y] = temp
+            return False
+
+        
+        for i,j in positions:
+            if backtrack(i,j,0):
+                return True
         
         return False
 
 
-    # def backtrack(self,i,j,board,word):
-    #     m = len(board)
-    #     n = len(board[0])
-    #     lw = len(word)
-    #     visited = set()
-
-    #     def helper(i,j,ptr,visited):
-    #         if ptr == lw - 1:
-    #             return True
-            
-    #         visited.add((i,j))
-            
-    #         for dx,dy in [(0,1),(0,-1),(1,0),(-1,0)]:
-    #             x = i + dx
-    #             y = j + dy
-
-    #             if x < 0 or x >= m or y < 0 or y >= n or board[x][y] != word[ptr + 1] or (x,y) in visited:
-    #                 continue
-                
-    #             if helper(x,y,ptr + 1,visited):
-    #                 return True
-
-
-    #     return helper(i,j,0,visited)
-
-    # This was failing becasue the visited set changes after the dfs calls, it passed by reference so it can happen that a dfs call goes and modifies the
-    #the visited set and tracks but the visited remains changed, so the later dfs calls can lead to incorrect results
-    #Hence we apply the bactracking principle to visited, we mark an element as visited then back track and then untrack it
-
-
-
-    def backtrack(self,i,j,board,word):
-        m = len(board)
-        n = len(board[0])
-        lw = len(word)
-
-        def helper(i,j,ptr):
-            if ptr == lw:
-                return True
-            
-            if i < 0 or i >= m or j < 0 or j >= n or board[i][j] != word[ptr]:
-                return False #Incorrect, so we stop the operations further
-            
-            temp = board[i][j]
-            board[i][j] = "#"  #marking as visited
-
-            #recursing
-            for dx,dy in [(0,1),(0,-1),(1,0),(-1,0)]:
-                if helper(i + dx,j + dy,ptr + 1) == True:
-                    return True
- 
-            #unmarking
-            board[i][j] = temp
-            return False
-        
-        return helper(i,j,0)
-
-
-        #O(MN * 4 ^ L) ; O(MN)
-
-        # L is the length of the word
