@@ -1,23 +1,24 @@
 class Solution:
     def permute(self, nums: List[int]) -> List[List[int]]:
-        if len(nums) == 1:
-            return [[nums[0]]]
-        
-        ans = set()
+        ans = []
+        n = len(nums)
 
-        def helper(temp):
-            if len(temp) == len(nums):
-                ans.add(tuple(temp.copy()))
+        def helper(temp,temp_set):
+            if len(temp) == n:
+                ans.append(temp[:])
                 return
             
-            for i in range(len(nums)):
-                if nums[i] not in temp:
-                    temp.append(nums[i])
-                    helper(temp)
+            for j in range(n):
+                if nums[j] not in temp_set:
+                    temp.append(nums[j])
+                    temp_set.add(nums[j])
+                    helper(temp,temp_set)
                     temp.pop()
-        
-        helper([])
-        return list(ans)
-
+                    temp_set.remove(nums[j])
 
         
+        helper([],set())
+        return ans
+
+
+
