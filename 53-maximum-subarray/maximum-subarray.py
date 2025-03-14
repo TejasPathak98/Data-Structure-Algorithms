@@ -3,14 +3,10 @@ class Solution:
         ans = float("-inf")
         temp_sum = 0
 
-        for i in range(len(nums)):
-            temp_sum = temp_sum + nums[i]
+        for num in nums:
+            temp_sum += num
             ans = max(ans,temp_sum)
             if temp_sum < 0:
                 temp_sum = 0
         
         return ans
-
-        #O(N) ; O(1)
-
-        
