@@ -1,22 +1,19 @@
 class Solution:
     def subsets(self, nums: List[int]) -> List[List[int]]:
-        if len(nums) == 0:
-            return []
-        
         ans = []
+        n = len(nums)
 
-        def helper(i,temp):
-            if i == len(nums):
+        def helper(temp,i):
+            if i == n:
                 ans.append(temp.copy())
                 return
             
             temp.append(nums[i])
-            helper(i + 1,temp)
-            temp.pop()
-            helper(i + 1,temp)
-        
-        helper(0,[])
-        return ans
+            helper(temp,i + 1)
 
-        #O(2^n) ; O(n)
-        
+            temp.pop()
+            helper(temp,i + 1)
+
+    
+        helper([],0)
+        return ans
