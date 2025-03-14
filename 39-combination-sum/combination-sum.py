@@ -1,24 +1,25 @@
 class Solution:
     def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
-        if target < min(candidates):
-            return []
-        
-        ans = []
-        
-        def helper(x,temp):
+        n = len(candidates)
+        ans = set() 
+
+        def helper(temp,i):
             if sum(temp) > target:
                 return
-
+            
             if sum(temp) == target:
-                #ans.add(tuple(sorted(temp.copy())))
-                ans.append(temp.copy())
+                ans.add(tuple(temp.copy()))
                 return
             
-            for i in range(x,len(candidates)):
-                temp.append(candidates[i])
-                helper(i,temp)
-                temp.pop()
+            for j in range(i,n):
+                temp.append(candidates[j])
+                
+                helper(temp,j + 1)
 
-        helper(0,[])
-        return ans
-        
+                helper(temp,j)
+
+                temp.pop()
+                
+
+        helper([],0)
+        return list(ans)
