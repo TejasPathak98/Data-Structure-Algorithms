@@ -1,11 +1,5 @@
 class Solution:
     def mergeTriplets(self, triplets: List[List[int]], target: List[int]) -> bool:
-        # index_ignore = set()
-        
-        # for idx,List in enumerate(triplets):
-        #     if List[0] > target[0] or List[1] > target[1] or List[2] > target[2]:
-        #         index_ignore.add(idx)
-        
         counter = [0,0,0]
 
         for idx,List in enumerate(triplets):
