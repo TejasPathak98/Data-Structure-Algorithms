@@ -3,24 +3,39 @@ class Solution:
         if len(hand) % groupSize != 0:
             return False
         
-        count = Counter(hand)
-        min_heap = list(count.keys())
-        heapq,heapify(min_heap)
+        n = len(hand)
+        
+        heapify(hand)
+        count = 0
+        temp = []
+        temp_store = []
+        ans = []
 
-        while min_heap:
-            start = min_heap[0]
-
-            for i in range(start,start + groupSize):
-                if count[i] == 0:
+        while hand:
+            x = heapq.heappop(hand)
+            if len(temp) >= 1:
+                if temp[-1] == x:
+                    temp_store.append(x)
+                    continue
+                elif temp[-1] != x - 1:
                     return False
-                count[i] -= 1
+                elif temp[-1] == x - 1:
+                    temp.append(x)
+                    count += 1
+            else:
+                temp.append(x)
+                count += 1
+            
+            if count == groupSize:
+                ans.extend(temp[:])
+                temp.clear()
+                count = 0
+                for y in temp_store:
+                    heapq.heappush(hand, y)
+                temp_store.clear()
 
-                if count[i] == 0:
-                    if i != min_heap[0]:
-                        return False
-                    heapq.heappop(min_heap)
-        
-        return True
+        return len(ans) == n
+
+        #1,2,2,3,3,4,6,7,8
 
 
-        
