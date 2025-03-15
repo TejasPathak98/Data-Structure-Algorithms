@@ -23,7 +23,6 @@ class Solution:
             if List[2] == target[2]:
                 counter[2] = 1
             
-        print(counter)
 
         if all(counter) == 1:
             return True
