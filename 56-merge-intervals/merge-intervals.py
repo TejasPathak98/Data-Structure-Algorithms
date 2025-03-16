@@ -5,13 +5,13 @@ class Solution:
         prev_end_time = float("-inf")
 
         for i in range(len(intervals)):
-            if intervals[i][0] > prev_end_time:
+            if not ans or intervals[i][0] > ans[-1][1]:
                 ans.append(intervals[i])
             else:
-                ans[-1][0] = min(ans[-1][0],intervals[i][0])
                 ans[-1][1] = max(ans[-1][1],intervals[i][1])
-            prev_end_time = ans[-1][1]
 
         return ans
+
+        #O(NlogN) ;O(1)
             
 
