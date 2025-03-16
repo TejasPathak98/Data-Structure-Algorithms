@@ -1,13 +1,22 @@
 class Solution:
     def minMeetingRooms(self, intervals: List[List[int]]) -> int:
-        heap = []
-        intervals = sorted(intervals,key = lambda x : x[0])
+        intervals.sort(key = lambda x : x[0])
 
-        for interval in intervals:
-            if heap == [] or heap[0] > interval[0]:
-                heapq.heappush(heap, interval[1])
+        min_heap = []
+        heapify(min_heap)
+        meeting_rooms = 0
+
+        for i in range(len(intervals)):
+            if not min_heap:
+                heappush(min_heap, intervals[i][1])
+                meeting_rooms = max(meeting_rooms,len(min_heap))
             else:
-                heapq.heapreplace(heap, interval[1])
-        
-        return len(heap)
-        
+                if intervals[i][0] >= min_heap[0]: #No such functionality like min_heap.peek() (only in Java)
+                    heappushpop(min_heap, intervals[i][1])
+                    meeting_rooms = max(meeting_rooms,len(min_heap))
+                else:
+                    heappush(min_heap, intervals[i][1])
+                    meeting_rooms = max(meeting_rooms,len(min_heap))
+
+
+        return meeting_rooms
