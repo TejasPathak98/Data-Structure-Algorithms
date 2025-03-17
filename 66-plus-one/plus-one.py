@@ -1,21 +1,18 @@
 class Solution:
     def plusOne(self, digits: List[int]) -> List[int]:
-        n = len(digits)
-        the_sum = 0
+        num = 0
 
-        for i in range(n - 1,-1,-1):
-            the_sum += digits[i] * (10 ** ((n - 1) - i))
+        for i in range(len(digits)):
+            num += digits[i] * (10 ** (len(digits) - i - 1))
         
-        the_sum += 1
+        num += 1
 
-        temp = []
+        new_digits = []
 
-        while the_sum:
-            temp.append(the_sum % 10)
-            the_sum = the_sum // 10
-        
-        temp = temp[::-1]
+        while num > 0:
+            new_digits.append(num % 10)
+            num = num // 10
 
-        return temp
+        return new_digits[::-1]
 
         
