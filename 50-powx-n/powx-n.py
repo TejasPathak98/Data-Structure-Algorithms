@@ -5,10 +5,8 @@ class Solution:
         if x == 1:return 1
         if n == 0:return 1
         if n == 1:return x
-        if n == -1: return 1/x
+        if n == -1:return (1/x)
 
+        half = x ** (n // 2)
 
-        res = self.myPow(x, n // 2)
-
-        return  res * res * (x if n % 2 == 1 else 1)
-        
+        return half * half * (1 if n % 2 == 0 else x)
