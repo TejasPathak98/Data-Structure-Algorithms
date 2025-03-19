@@ -5,7 +5,7 @@ class Solution:
 
         for num in nums:
             if counter[num] > 0:
-                if k - num in counter:
+                if k - num in counter and counter[k - num] > 0:
                     if num == k - num:
                         if counter[num] >= 2:
                             count += 1
@@ -13,10 +13,9 @@ class Solution:
                         else:
                             continue
                     else:
-                        if counter[k - num] > 0:
-                            counter[num] -= 1
-                            counter[k - num] -= 1
-                            count += 1
+                        counter[num] -= 1
+                        counter[k - num] -= 1
+                        count += 1
 
         return count
 
