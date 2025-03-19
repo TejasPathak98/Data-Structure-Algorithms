@@ -10,7 +10,6 @@ class Solution:
                         if counter[num] >= 2:
                             count += 1
                             counter[num] -= 2
-                            print("Br-1",num,num)
                         else:
                             continue
                     else:
