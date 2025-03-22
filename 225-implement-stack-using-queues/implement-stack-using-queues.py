@@ -1,23 +1,25 @@
 class MyStack:
 
     def __init__(self):
-        self.stack = []
+        self.q1 = deque()
+        self.q2 = deque()
 
     def push(self, x: int) -> None:
-        self.stack.append(x)
-        
+        self.q2.append(x) #This is the temporary queue 
+
+        while self.q1:
+            self.q2.append(self.q1.popleft())
+
+        self.q1 , self.q2 = self.q2 , self.q1
+
     def pop(self) -> int:
-        return self.stack.pop()
-        
+        return self.q1.popleft()
+
     def top(self) -> int:
-        return self.stack[-1]
-        
+        return self.q1[0]
 
     def empty(self) -> bool:
-        if len(self.stack) == 0:
-            return True
-        else:
-            return False
+        return not self.q1
         
 
 
