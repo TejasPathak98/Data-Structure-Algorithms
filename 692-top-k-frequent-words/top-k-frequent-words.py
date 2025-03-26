@@ -1,12 +1,30 @@
 class Solution:
     def topKFrequent(self, words: List[str], k: int) -> List[str]:
-        count = Counter(words)
-        heap = []
+        # counter = Counter(words)
+        # min_heap = []
 
-        for word , frequency in count.items():
-            heap.append([-frequency,word])
+        # for word,freq in counter.items():
+        #     heapq.heappush(min_heap, (freq,word))
 
-        heapq.heapify(heap) 
+        #     if len(min_heap) > k:
+        #         heapq.heappop(min_heap)
 
-        return [heapq.heappop(heap)[1] for _ in range(k)]
+        # result = []
+
+        # while min_heap:
+        #     ferq,word = heapq.heappop(min_heap)
+        #     result.append(word)
+        
+        # return result[::-1]
+
+        counter = Counter(words)
+        max_heap = [(-freq,word) for word,freq in counter.items()]
+        heapify(max_heap)
+        result = []
+
+        for _ in range(k):
+            result.append(heapq.heappop(max_heap)[1])
+        
+        return result
+
 
