@@ -6,7 +6,7 @@ class Solution:
         ans = []
 
         for log in logs:
-            split_logs.append(log.split(" ")) #confim this
+            split_logs.append(log.split()) #confim this
             if split_logs[-1][1].isnumeric():
                 number_logs.append(split_logs[-1])
             else:
