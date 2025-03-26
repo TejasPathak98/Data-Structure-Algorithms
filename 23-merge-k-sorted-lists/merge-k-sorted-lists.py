@@ -5,47 +5,48 @@
 #         self.next = next
 class Solution:
     def mergeKLists(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:
-        if not lists:
+        if  len(lists) == 0 or not lists:
             return None
-        if len(lists) == 0:
-            return None
+
+        while len(lists) >= 2:
+            x = lists.pop()
+            if lists:
+                y = lists.pop()
+            else:
+                return x
+            lists.append(self.merge_two_lists(x,y))
+
+        return lists[0]
         
-        def merge(l1,l2):
-            if not l1 and not l2:
-                return None
-            if not l1:
-                return l2
-            if not l2:
-                return l1
-            
-            l3 = ListNode(-1)
-            dummy = l3
+    def merge_two_lists(self,l1,l2):
+        if not l1 and not l2:
+            return None
+        if not l1:
+            return l2
+        if not l2:
+            return l1
+        
+        l3 = dummy = ListNode(-1)
 
-            while l1 and l2:
-                if l1.val <= l2.val:
-                    l3.next = l1
-                    l1 = l1.next
-                else:
-                    l3.next = l2
-                    l2 = l2.next
-                l3 = l3.next
 
-            if l1:
+        while l1 and l2:
+            if l1.val <= l2.val:
                 l3.next = l1
-            if l2:
+                l1 = l1.next
+            else:
                 l3.next = l2
-            
-            return dummy.next
+                l2 = l2.next
+            l3 = l3.next
         
-        stack = []
+        if l1:
+            l3.next = l1
+        elif l2:
+            l3.next = l2
+        
+        return dummy.next
+    
+    
+        
 
-        for l in lists:
-            stack.append(l)
-        
-        while len(stack) > 1:
-            x = stack.pop()
-            y = stack.pop()
-            z = merge(x,y)
-            stack.append(z)
-        
-        return stack.pop()
+
+
