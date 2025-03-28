@@ -1,30 +1,29 @@
 class MedianFinder:
 
     def __init__(self):
-        self.arr = []
+        self.min_heap = []
+        self.max_heap = []
 
     def addNum(self, num: int) -> None:
-        l = 0
-        h = len(self.arr) - 1
-
-        while l <= h:
-            mid = (l + h) // 2
-
-            if self.arr[mid] > num:
-                h = mid - 1
-            else:
-                l = mid + 1
+        heapq.heappush(self.max_heap, -num)
+    
+        while len(self.max_heap) > len(self.min_heap) + 1:
+            heapq.heappush(self.min_heap, -heapq.heappop(self.max_heap))
         
-        self.arr.insert(l, num)  # TC : O(n ^2)
+        if self.max_heap and self.min_heap and -self.max_heap[0] > self.min_heap[0]:
+            heapq.heappush(self.min_heap, -heapq.heappop(self.max_heap))
+
+        if len(self.max_heap) < len(self.min_heap):
+            heapq.heappush(self.max_heap, -heapq.heappop(self.min_heap))
 
     def findMedian(self) -> float:
-        if len(self.arr) % 2 == 1:
-            return self.arr[len(self.arr) // 2]
+        l1 = len(self.max_heap)
+        l2 = len(self.min_heap)
+
+        if (l1 + l2) % 2 == 1:
+            return -self.max_heap[0]
         else:
-            return (self.arr[len(self.arr) // 2] + self.arr[(len(self.arr) // 2) -1]) / 2.0
-
-
-    # TC : O(n ^2)
+            return (-self.max_heap[0] + self.min_heap[0]) / 2.0
         
 
 
@@ -32,10 +31,3 @@ class MedianFinder:
 # obj = MedianFinder()
 # obj.addNum(num)
 # param_2 = obj.findMedian()
-
-
-# If num is greater than all elements, l ends up at the end, so num is inserted at the end.
-
-# If num is smaller than all elements, l ends up at 0, so num is inserted at the beginning.
-
-# Otherwise, l points to the exact position where num fits.
