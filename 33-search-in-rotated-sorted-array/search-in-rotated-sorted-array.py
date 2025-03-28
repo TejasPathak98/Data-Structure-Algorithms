@@ -8,7 +8,7 @@ class Solution:
             if nums[mid] == target:
                 return mid
             
-            if nums[mid] >= nums[0]: #left half is sorted
+            if nums[mid] >= nums[h]: #left half is sorted
                 if nums[l] <= target < nums[mid]:
                     h = mid - 1
                 else:
