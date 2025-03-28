@@ -5,27 +5,25 @@ class MedianFinder:
 
     def addNum(self, num: int) -> None:
         l = 0
-        r = len(self.arr) - 1
+        h = len(self.arr) - 1
 
-        while l <= r:
-            mid = (l + r) // 2
+        while l <= h:
+            mid = (l + h) // 2
 
             if self.arr[mid] > num:
-                r = mid - 1
+                h = mid - 1
             else:
                 l = mid + 1
-        
         
         self.arr.insert(l, num)
 
 
     def findMedian(self) -> float:
-        l = len(self.arr)
-        if l % 2 == 0:
-            return (self.arr[l // 2] + self.arr[l // 2 - 1]) / 2.0
+        if len(self.arr) % 2 == 1:
+            return self.arr[len(self.arr) // 2]
         else:
-            return self.arr[l // 2]
-
+            return (self.arr[len(self.arr) // 2] + self.arr[(len(self.arr) // 2) -1]) / 2.0
+        
 
 
 # Your MedianFinder object will be instantiated and called as such:
