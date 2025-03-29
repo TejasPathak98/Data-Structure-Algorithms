@@ -4,27 +4,17 @@
 
 class Solution:
     def findCelebrity(self, n: int) -> int:
-        possibleCelebSet = set()
+        candidate = 0 # intially assume that the first candidate is the celebrity
 
         for i in range(n):
-            possibleCelebSet.add(i)
+            if candidate != i:
+                if knows(candidate,i):
+                    candidate = i #if candidate knows i, its not celebrity ; if it does not know i then i cannot be celebrity
         
-        while len(possibleCelebSet) > 1:
-            a,b = possibleCelebSet.pop() , possibleCelebSet.pop()
-            if knows(a,b):
-                possibleCelebSet.add(b)
-            else:
-                possibleCelebSet.add(a)
+        for i in range(n): # this check is to see if candidate is known by everyone and knows none
+            if candidate != i:
+                if knows(candidate,i) or not knows(i,candidate):
+                    return -1
         
-        celeb = possibleCelebSet.pop()
-        for i in range(n):
-            if i == celeb:
-                continue
-            
-            if knows(i,celeb) == False:
-                return -1
-            
-            if knows(celeb,i) == True:
-                return -1
-        return celeb
+        return candidate
         
