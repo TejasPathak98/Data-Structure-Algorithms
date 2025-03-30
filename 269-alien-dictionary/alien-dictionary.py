@@ -1,42 +1,49 @@
 class Solution:
     def alienOrder(self, words: List[str]) -> str:
-        graph = defaultdict(set)
-        inDegree = {char:0 for word in words for char in word}
-        result = []
+        graph = defaultdict(list)
+        inDegree = {ch : 0 for word in words for ch in word}
 
-        for i in range(len(words) - 1):
-            word1 = words[i]
-            word2 = words[i + 1]
 
-            min_len = min(len(word1),len(word2))
+        for word1,word2 in zip(words,words[1:]):
+            l = min(len(word1),len(word2))
 
-            if word2[:min_len] == word1[:min_len] and len(word1) > len(word2):
+            if len(word1) > len(word2) and word1[:l] == word2:
                 return ""
-            
-            for j in range(min_len):
+
+            for j in range(l):
                 if word1[j] != word2[j]:
-                    if word2[j] not in graph[word1[j]]:
-                        graph[word1[j]].add(word2[j])
-                        inDegree[word2[j]] += 1
+                    graph[word1[j]].append(word2[j])
+                    inDegree[word2[j]] += 1
+                    print(word2[j],inDegree[word2[j]])
                     break
-            
-        queue = deque([char for char in inDegree if inDegree[char] == 0])
+        
+        print("br",inDegree)
+        print(graph)
 
+        result = []
+        queue = deque()
+        for ch, f in inDegree.items():
+            if f == 0:
+                queue.append(ch)
+
+        print(queue)
+        
         while queue:
-            c = queue.popleft()
-            result.append(c)
+            node = queue.popleft()
 
-            for neighbor in graph[c]:
+            result.append(node)
+
+            for neighbor in graph[node]:
                 inDegree[neighbor] -= 1
                 if inDegree[neighbor] == 0:
                     queue.append(neighbor)
 
+        print(result)
+        
         if len(result) == len(inDegree):
             return "".join(result)
         else:
             return ""
 
-
-            
 
 
