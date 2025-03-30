@@ -17,8 +17,6 @@ class Solution:
                     print(word2[j],inDegree[word2[j]])
                     break
         
-        print("br",inDegree)
-        print(graph)
 
         result = []
         queue = deque()
@@ -26,7 +24,7 @@ class Solution:
             if f == 0:
                 queue.append(ch)
 
-        print(queue)
+
         
         while queue:
             node = queue.popleft()
@@ -38,8 +36,7 @@ class Solution:
                 if inDegree[neighbor] == 0:
                     queue.append(neighbor)
 
-        print(result)
-        
+
         if len(result) == len(inDegree):
             return "".join(result)
         else:
