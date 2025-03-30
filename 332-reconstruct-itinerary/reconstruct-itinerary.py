@@ -1,32 +1,20 @@
 class Solution:
     def findItinerary(self, tickets: List[List[str]]) -> List[str]:
-        #This is not a simple Topological Sort problem becasue its not a DAG
-        #It is Euler Path Problem
+        # Euler Path Problem
+        #The nodes have to be traversed in a post order fashion, explore all the paths and then add the current node ; there is reversing at the end
 
-        graph = defaultdict(list) 
+        graph = defaultdict(list)
 
-        for src,dst in tickets:
-            heapq.heappush(graph[src], dst) # the heap is used here for putting the lexicographically smallest elements first
+        for u,v in tickets:
+            heapq.heappush(graph[u], v)
 
         ans = []
 
-        # def dfs(node):
-        #     while graph[node]:
-        #         next_node = heapq.heappop(graph[node])
-        #         dfs(next_node)
-        #     ans.append(node)
-        
-        # dfs("JFK")
+        def dfs(node):
+            while graph[node]:
+                neighbor = heapq.heappop(graph[node])
+                dfs(neighbor)
+            ans.append(node)
 
-        # return ans[::-1]
-
-        #(ElogE)  ; O(E) + O(E) 
-
-        stack = ["JFK"]
-
-        while stack:
-            while graph[stack[-1]]:
-                stack.append(heapq.heappop(graph[stack[-1]]))
-            ans.append(stack.pop())
-
+        dfs("JFK")
         return ans[::-1]
