@@ -1,32 +1,37 @@
 class Solution:
     def minCostConnectPoints(self, points: List[List[int]]) -> int:
-        #Prim's Algo (Sequential)
-        n = len(points)
+        #Prim's Algo
+        # Here you would have to have a total cost and a cost dict
+        #the cost dict is for making the choice to insert correct values in the heap 
+        # the values popped out from the heap are the final MST edges
+        #While the cost dict wont have the correct updated MSY weight
 
-        mst_weight = 0
+        n = len(points)
         min_heap = [(0,0)]
-        weights = {0:0}
-        visited = [False] * n
+        visited = set()
+        total_cost = 0
+        cost_dict = {i : float("inf") for i in range(n)}
+        cost_dict[0] = 0
+
+        def helper(a,b):
+            return abs(points[a][0] - points[b][0]) + abs(points[a][1] - points[b][1])
 
         while min_heap:
-            curr_weight,curr_node = heapq.heappop(min_heap)
+            current_cost , node = heapq.heappop(min_heap)
 
-            if visited[curr_node]:
+            if node in visited:
                 continue
-            
-            if weights.get(curr_node,float("inf")) < curr_weight:
-                continue
-            
-            visited[curr_node] = True
-            mst_weight += curr_weight
 
-            for i in range(n):
-                if not visited[i]:
-                    dist = abs(points[i][0] - points[curr_node][0]) + abs(points[i][1] - points[curr_node][1])
+            total_cost += current_cost
 
-                    if dist < weights.get(i,float("inf")):
-                        heapq.heappush(min_heap, (dist,i))
+            visited.add(node)
 
-        
-        return mst_weight
+            for j in range(n):
+                if j not in visited:
+                    new_cost = helper(node,j)
+                    if new_cost < cost_dict[j]:
+                        cost_dict[j] = new_cost
+                        heapq.heappush(min_heap, (new_cost,j))
 
+
+        return total_cost
