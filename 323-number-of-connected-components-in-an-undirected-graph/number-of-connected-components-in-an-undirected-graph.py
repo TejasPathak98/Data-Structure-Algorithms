@@ -2,45 +2,25 @@ class Solution:
     def countComponents(self, n: int, edges: List[List[int]]) -> int:
         graph = defaultdict(list)
 
-        for a,b in edges:
-            graph[a].append(b)
-            graph[b].append(a)
+        for u,v in edges:
+            graph[u].append(v)
+            graph[v].append(u)
         
-        count = 0
+        connected_components = 0
         visited = set()
+
+        def dfs(x,visited):
+            if x in visited:
+                return
+            
+            visited.add(x)
+
+            for nei in graph[x]:
+                dfs(nei,visited)
 
         for i in range(n):
             if i not in visited:
-                count += 1
-                #self.bfs(i,graph,visited)
-                self.dfs(i,graph,visited)
-
-        return count
+                dfs(i,visited)
+                connected_components += 1
         
-    # def bfs(self,i,graph,visited):
-
-    #     queue = deque([i])
-    #     visited.add(i)
-
-    #     while queue:
-    #         x = queue.popleft()
-
-    #         for neighbor in graph[x]:
-    #             if neighbor not in visited:
-    #                 visited.add(neighbor)
-    #                 queue.append(neighbor)
-    #O(V + E) ; O(V + E)
-
-
-    def dfs(self,i,graph,visited):
-        visited.add(i)
-        for neighbor in graph[i]:
-            if neighbor not in visited:
-                self.dfs(neighbor,graph,visited)
-
-
-
-
-    
-
-   
+        return connected_components
