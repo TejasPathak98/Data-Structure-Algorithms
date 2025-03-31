@@ -1,37 +1,44 @@
 class UnionFind:
-    def __init__(self,n):
-        self.parent = list(range(n))
-        self.rank  = [1] * n
+    def __init__(self,N):
+        self.parents = list(range(N + 1))
+        self.ranks = [0] * (N + 1)
 
-    def find(self,x): # O(1)
-        if x != self.parent[x]:
-            self.parent[x] = self.find(self.parent[x])  # Path Compression
-        return self.parent[x]
+    def find(self,x):
+        if self.parents[x] != x:
+            self.parents[x] = self.find(self.parents[x])
+        return self.parents[x]
 
-    def Union(self,x,y): #O(1)
+    def union(self,x,y):
         px = self.find(x)
         py = self.find(y)
 
         if px == py:
             return False
 
-        if self.rank[px] > self.rank[py]:
-            self.parent[py] = px
-        elif self.rank[px] < self.rank[py]:
-            self.parent[px] = py
+        if self.ranks[px] > self.ranks[py]:
+            self.parents[py] = px
+            self.ranks[px] += 1
         else:
-            self.parent[py] = px
-            self.rank[px] += 1
-        
+            self.parents[px] = py
+            self.ranks[py] += 1
+
         return True
+
 
 class Solution:
     def findRedundantConnection(self, edges: List[List[int]]) -> List[int]:
-        uf = UnionFind(len(edges))
-        last_edge = []
+        n = len(edges)
+        uf = UnionFind(n)
+
+        the_edge = []
 
         for edge in edges:
-            if uf.Union(edge[0] - 1,edge[1] - 1) == False:
-                last_edge = edge
+            if not uf.union(edge[0],edge[1]):
+                the_edge = edge
         
-        return last_edge
+        return the_edge
+        
+
+
+
+        
