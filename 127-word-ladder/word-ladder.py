@@ -11,10 +11,6 @@ class Solution:
                 return True
             else:
                 return False
-        
-
-        
-        graph = []
 
         queue = deque()
 
@@ -38,6 +34,44 @@ class Solution:
         
 
         return 0
+
+        #O(M×L×N) ; O(M +N)
+
+        #Bidirectional BFS
+
+        forward_queue = {beginWord}
+        back_queue = {endWord}
+        visited = set()
+        visited.add(beginWord)
+        visited.add(endWord)
+        count = 0
+        wordList = set(wordList)
+
+        while forward_queue and back_queue:
+
+            if len(forward_queue) > len(back_queue):
+                forward_queue , back_queue = back_queue , forward_queue
+
+            count += 1
+            next_level = set()
+
+            for word in forward_queue:
+                for i in len(word):
+                    for ch in 'abcedfghijklmnopqrstuvwxyz':
+                        new_word = word[:i] + ch + word[i + 1:]
+
+                        if new_word in back_queue:
+                            return count
+                        
+                        if new_word not in visited and new_word in wordList:
+                            visited.add(new_word)
+                            next_level.add(new_word)
+
+            forward_queue = next_level
+
+        return 0
+
+
 
 
 
