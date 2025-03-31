@@ -1,27 +1,25 @@
 class Solution:
     def validTree(self, n: int, edges: List[List[int]]) -> bool:
-        if len(edges) != n - 1:
-            return False
-        
+        #Always remember parent trap in undirected graphs
+
         graph = defaultdict(list)
 
-        for a,b in edges:
-            graph[a].append(b)
-            graph[b].append(a)
-
+        for u,v in edges:
+            graph[u].append(v)
+            graph[v].append(u)
+        
         visited = set()
 
-        def hasCycle(node,parent):
+        def HasCycle(node,parent):
             visited.add(node)
-            for neighbor in graph[node]:
-                if neighbor == parent:
+            for nei in graph[node]:
+                if nei == parent:
                     continue
-                if neighbor in visited or hasCycle(neighbor, node):
+                if nei in visited or HasCycle(nei, node):
                     return True
             return False
-
-        
-        if hasCycle(0,-1) == True:
+    
+        if HasCycle(0,-1) == True:
             return False
         
         return len(visited) == n
