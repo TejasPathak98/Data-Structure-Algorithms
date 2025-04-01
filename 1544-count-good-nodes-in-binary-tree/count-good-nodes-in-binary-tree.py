@@ -16,7 +16,6 @@ class Solution:
                 return
             
             if  len(prev) == 0  or node.val >= max(prev):
-                print(node.val, prev)
                 self.good_nodes += 1
             
             if node.left:
