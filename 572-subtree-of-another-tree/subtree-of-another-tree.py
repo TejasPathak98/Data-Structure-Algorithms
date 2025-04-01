@@ -6,41 +6,18 @@
 #         self.right = right
 class Solution:
     def isSubtree(self, root: Optional[TreeNode], subRoot: Optional[TreeNode]) -> bool:
-    #     return self.dfs(root,subRoot)
-
-    # def dfs(self,root,subRoot):
-    #     if not root:
-    #         return False
-        
-    #     if self.isSameTree(root,subRoot):
-    #         return True
-        
-    #     return self.dfs(root.left,subRoot) or self.dfs(root.right,subRoot)
-    
-    # def isSameTree(self,root,subRoot):
-    #     if not root and not subRoot:
-    #         return True
-    #     if not root or not subRoot:
-    #         return False
-    #     if root.val != subRoot.val:
-    #         return False
-        
-    #     return self.isSameTree(root.left, subRoot.left) and self.isSameTree(root.right, subRoot.right)
- 
-
-    # #O(N*M) ; O(N)
-
-        root_str_representation = self.preorder(root)
-        subRoot_str_representation = self.preorder(subRoot)
-
-        if subRoot_str_representation in root_str_representation:
+        if not root:
+            return False
+        if self.isSameTree(root,subRoot):
             return True
-        
-        return False
+        else:
+            return self.isSubtree(root.left, subRoot) or self.isSubtree(root.right, subRoot)
 
-    def preorder(self,root):
-        if root is None:
-            return "X"
-
-        return f" #{root.val} {self.preorder(root.left)} {self.preorder(root.right)}"
-
+    def isSameTree(self,p,q):
+        if p is None and q is None:
+            return True
+        if p is None or q is None:
+            return False
+        if p.val != q.val:
+            return False
+        return self.isSameTree(p.left, q.left) and self.isSameTree(p.right, q.right)
