@@ -1,35 +1,33 @@
 class Solution:
     def reorganizeString(self, s: str) -> str:
-        c = Counter(s)
-        print(c)
-        c = sorted(c.items(),key = lambda x : x[1],reverse= True)
+        counter = Counter(s)
+        max_heap = [(-freq,char) for char,freq in counter.items()]
+        heapify(max_heap)
 
-        res = []
-        for k,val in c:
-            res.extend([val * k])
-        
-        st = ''.join(res)
-        
-        arr = [None] * len(s)
-        i = 0
-        j = 0
+        prev_freq = 0
+        prev_char = 0
+        result = []
 
-        while j < len(st):
-            if i > len(s) - 1:
-                i = 1
-            arr[i] = st[j]
-            i += 2
-            j += 1
-        
-        print(arr)
-        
-        for i in range(1,len(arr)):
-            if arr[i] == arr[i - 1]:
+        while max_heap:
+            freq,char = heapq.heappop(max_heap)
+
+            result.append(char)
+
+            if prev_freq < 0:
+                heapq.heappush(max_heap, (prev_freq,prev_char))
+            
+            prev_freq = freq + 1 #decreasing the freq by 1 and adding in next iteration(because we do not want consectuive same characters)
+            prev_char = char
+
+        result = "".join(result)
+
+        print(result)
+
+        if len(result) < len(s):
+            return ""
+
+        for i in range(1,len(s)):
+            if result[i] == result[i - 1]:
                 return ""
-        return ''.join(arr)
 
-
-
-
-        return ""
-        
+        return result
