@@ -5,46 +5,25 @@
 #         self.left = left
 #         self.right = right
 class Solution:
-    def __init__(self):
-        self.max_count = 0 
-
     def goodNodes(self, root: TreeNode) -> int:
-    #     self.dfs(root,[])
-    #     return self.max_count
-
-    # def dfs(self,root,nodes):
-    #     if root is None:
-    #         return
-
-    #     if len(nodes) == 0:
-    #         self.max_count += 1
-    #     else:
-    #         if root.val >= max(nodes):
-    #             self.max_count += 1
+        if not root:
+            return 0
         
-    #     nodes.append(root.val)
-        
-    #     self.dfs(root.left,nodes)
-    #     self.dfs(root.right, nodes)
+        self.good_nodes = 0
 
-    #     nodes.pop()
-
-    # #O(N); O(N)
-
-        queue = deque([(root,float("-inf"))])
-        max_count = 0
-
-        while queue:
-            node,max_so_far = queue.popleft()
-            if node.val >= max_so_far:
-                max_count += 1
+        def dfs(node,prev):
+            if not node:
+                return
+            
+            if  len(prev) == 0  or node.val >= max(prev):
+                print(node.val, prev)
+                self.good_nodes += 1
             
             if node.left:
-                queue.append((node.left,max(max_so_far,node.val)))
+                dfs(node.left,prev + [node.val])
             if node.right:
-                queue.append((node.right,max(max_so_far,node.val)))
+                dfs(node.right,prev + [node.val])
 
-        return max_count
-            
+        dfs(root,[])
 
-        
+        return self.good_nodes
