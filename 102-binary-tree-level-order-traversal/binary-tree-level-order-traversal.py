@@ -34,9 +34,6 @@ class Solution:
         ans = defaultdict(list)
         
         def dfs(node,level):
-            if not node:
-                return
-            
             ans[level].append(node.val)
 
             if node.left:
