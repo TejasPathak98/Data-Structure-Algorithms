@@ -55,20 +55,14 @@ class Solution:
                     stack.appendleft((nums[i],i))
 
 
-        
         for r in range(k,len(nums)):
             if nums[r] >= stack[-1][0]:
                 stack.append((nums[r],r))
                 ans.append(stack[-1][0])
-
-
             else:
                 while nums[r] > stack[0][0]:
                     stack.popleft()
                 stack.appendleft((nums[r],r))
-
-
-
                 while stack[-1][1] <= r - k:
                     stack.pop()
                 
