@@ -1,47 +1,99 @@
 class Solution:
     def maxSlidingWindow(self, nums: List[int], k: int) -> List[int]:
-        # if len(nums) == 1:
-        #     return [nums[0]]
-        
+        # max_heap = []
         # ans = []
 
-        # max_heap = []
         # for i in range(k):
-        #     max_heap.append((-1 * nums[i],i))
+        #     max_heap.append(-nums[i])
+        
+        # heapify(max_heap)
+        # r = k
 
-        # heapq.heapify(max_heap)
+        # ans.append(-max_heap[0])
+        # l = 0
 
-        # ans.append(-1 * max_heap[0][0])
+        # while r < len(nums):
+        #     x = nums[l]
+        #     to_add = []
 
-        # for i in range(k,len(nums)):
-        #     while max_heap and max_heap[0][1] <= i - k:
-        #         heapq.heappop(max_heap)
+        #     while max_heap:
+        #         val = -heapq.heappop(max_heap)
+        #         if val != x:
+        #             to_add.append(val)
+        #         else:
+        #             break
             
-        #     heapq.heappush(max_heap, (-1 * nums[i],i))
-        #     ans.append(-1* max_heap[0][0])
+        #     for y in to_add:
+        #         heapq.heappush(max_heap, -y)
+            
+        #     heapq.heappush(max_heap,-nums[r])
+            
+
+        #     ans.append(-max_heap[0])
+        #     l += 1
+        #     r += 1
         
         # return ans
 
-        # #O(NlogN) ; O(N)
-        
-        if len(nums) == 1:
-            return [nums[0]]
-        
-        ans = []
-        dq = deque()
+        #This is lazy deletion method(TLE)
 
-        for i in range(len(nums)):
-            if dq and dq[0] < i - k + 1:
-                dq.popleft()
-            
-            while dq and nums[dq[-1]] < nums[i]:
-                dq.pop()
-            
-            dq.append(i)
 
-            if i >= k - 1:
-                ans.append(nums[dq[0]])
+        ans =  []
+        ans.append(max(nums[:k]))
+        
+        stack = deque()
+
+        for i in range(k):
+            if not stack:
+                stack.append((nums[i],i))
+            else:
+                if nums[i] > stack[-1][0]:
+                    stack.append((nums[i],i))
+                else:
+                    while nums[i] > stack[0][0]:
+                        stack.popleft()
+                    stack.appendleft((nums[i],i))
+
+
+        
+        for r in range(k,len(nums)):
+            if nums[r] >= stack[-1][0]:
+                stack.append((nums[r],r))
+                ans.append(stack[-1][0])
+
+
+            else:
+                while nums[r] > stack[0][0]:
+                    stack.popleft()
+                stack.appendleft((nums[r],r))
+
+
+
+                while stack[-1][1] <= r - k:
+                    stack.pop()
+                
+                ans.append(stack[-1][0])
         
         return ans
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
