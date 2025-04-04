@@ -15,14 +15,11 @@ class Solution:
             if n == 0:
                 return ""
             elif n < 20:
-                print("break-3")
                 return below_Twenty[n] + " "
             elif n < 100:
-                print("break-2")
                 return Tens[n // 10] + " " + helper(n % 10)
             else:
-                print("break-1")
-                return below_Twenty[n // 100] + " " + "Hundred" + " " + helper(n % 100)
+                return below_Twenty[n // 100] + " Hundred " + helper(n % 100)
 
         i = 0
         res = ""
