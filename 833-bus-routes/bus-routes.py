@@ -1,36 +1,33 @@
 class Solution:
     def numBusesToDestination(self, routes: List[List[int]], source: int, target: int) -> int:
-        if source == target:
-            return 0
-        
-        stops_to_bus_map = defaultdict(list)
+        bus_stop_to_bus_mapping = defaultdict(list)
 
-        for bus,route in enumerate(routes):
+        for bus_idx,route in enumerate(routes):
             for stop in route:
-                stops_to_bus_map[stop].append(bus)
+                bus_stop_to_bus_mapping[stop].append(bus_idx)
         
-        queue = deque()
-        queue.append((source,0))
-        visited_stop = set([source])
-        visited_bus = set()
-
+        queue = deque([(source)])
+        visited_stops = set([(source)])
+        visited_buses = set()
+        buses_taken = 0
 
         while queue:
-            stop, buses_taken = queue.popleft()
+            for _ in range(len(queue)): #Expanding the whole queue(bus routes here)
 
-            if stop == target:
-                return buses_taken
+                stop = queue.popleft()
+                if stop == target:
+                    return buses_taken
+                
+                for bus in bus_stop_to_bus_mapping[stop]:
+                    if bus not in visited_buses:
+                        visited_buses.add(bus)
+                        for new_stop in routes[bus]:
+                            if new_stop not in visited_stops:
+                                queue.append(new_stop)
+                                visited_stops.add(new_stop)
             
-            for new_bus in stops_to_bus_map[stop]:
-                if new_bus not in visited_bus:
-                    for new_stop in routes[new_bus]:
-                        if new_stop == target:
-                            return buses_taken + 1
-                        if new_stop not in visited_stop:
-                            visited_stop.add(new_stop)
-                            visited_bus.add(new_bus)
-                            queue.append((new_stop,buses_taken + 1))
+            buses_taken += 1
+
 
         
         return -1
-
