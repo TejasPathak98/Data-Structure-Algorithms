@@ -1,7 +1,7 @@
 class Trie:
     def __init__(self):
         self.children = {}
-        self.isEnd = True
+        self.isEnd = False
         self.word = ""
 
 class Solution:
