@@ -31,10 +31,8 @@ class Solution:
                 continue
             else:
                 temp.append(asteroids[i])
-        
-        print(temp)
 
-        
+    
         if all(x > 0 for x in temp) > 0 or all(x < 0 for x in temp) < 0 or len(temp) == len(asteroids):
             print("br")
             return temp
