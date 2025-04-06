@@ -1,7 +1,6 @@
 class Solution:
     def asteroidCollision(self, asteroids: List[int]) -> List[int]:
-        temp = []        
-
+        temp = []
         i = 0
 
         while i < len(asteroids) - 1:
@@ -35,7 +34,6 @@ class Solution:
     
         if all(x > 0 for x in temp) > 0 or all(x < 0 for x in temp) < 0 or len(temp) == len(asteroids):
             return temp
-        
         else:
             return self.asteroidCollision(temp)
 
