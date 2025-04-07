@@ -2,41 +2,30 @@ class Solution:
     def countServers(self, grid: List[List[int]]) -> int:
         m = len(grid)
         n = len(grid[0])
+        visited = [[False] * n for _ in range(m)]
+        connected_components = 0
 
-        connected_servers = 0
-        visited_server = set()
+        def dfs(i,j):
+            visited[i][j] = True
+            count = 1
 
-
-        for i in range(m):
-            visited_server_row = set()
-            servers_in_row = 0
-            for j in range(n):
-                if grid[i][j] == 0:
-                    continue
-                else:
-                    visited_server_row.add((i,j))
-                    servers_in_row += 1
+            for row in range(m):
+                if row != i and grid[row][j] == 1 and visited[row][j] == False:
+                    count += dfs(row,j)
             
-            if servers_in_row > 1:
-                connected_servers += servers_in_row
-                visited_server.update(visited_server_row)
+            for col in range(n):
+                if col != j and grid[i][col] == 1 and visited[i][col] == False:
+                    count += dfs(i,col)
 
-        for j in range(n):
-            servers_in_col = 0
-            row_visited_server_count = 0
-            for i in range(m):
-                if grid[i][j] == 0:
-                    continue
-                else:
-                    if (i,j) in visited_server:
-                        row_visited_server_count += 1
-                    else:
-                        servers_in_col += 1
-            
-            if row_visited_server_count + servers_in_col > 1:
-                connected_servers += servers_in_col
+            return count
 
-        return connected_servers
+        for i in range(len(grid)):
+            for j in range(len(grid[0])):
+                if grid[i][j] == 1 and visited[i][j] == False:
+                    groupSize = dfs(i,j)
+                    if groupSize > 1:
+                        connected_components += groupSize
 
 
-
+        
+        return connected_components
