@@ -1,41 +1,35 @@
-from collections import defaultdict
-from itertools import combinations
-
-
 class Solution:
     def mostVisitedPattern(self, username: List[str], timestamp: List[int], website: List[str]) -> List[str]:
-        data = [(username[i],timestamp[i],website[i]) for i in range(len(username))]
-        #Aggregating
+        data = []
 
-        data = sorted(data,key = lambda x : x[1]) #Sorting by timestamp
+        for i in range(len(timestamp)):
+            data.append((username[i],timestamp[i],website[i]))
+        
+        data = sorted(data, key = lambda x : x[1])
 
-        visits_per_user = defaultdict(list)
+        user_to_website_mapping = defaultdict(list)
 
         for user,timestamp,website in data:
-            visits_per_user[user].append(website)
+            user_to_website_mapping[user].append(website)
         
-        patterns_mapping_to_users = defaultdict(list)
+        pattern_to_user_mapping = defaultdict(list)
 
-
-
-        for user,websites in visits_per_user.items():
+        for user , websites in user_to_website_mapping.items():
             if len(websites) < 3:
                 continue
-            
-            website_patterns = set(combinations(websites, 3))
-            for pattern in website_patterns:
-                patterns_mapping_to_users[pattern].append(user)
-
+            patterns = set(combinations(websites, 3))
+            for pattern in patterns:
+                pattern_to_user_mapping[pattern].append(user)
         
-        max_score = 0
+
         best_pattern = None
+        best_score = 0
 
-        for pattern,users in patterns_mapping_to_users.items():
+        for pattern,users in pattern_to_user_mapping.items():
             score = len(users)
-            if score > max_score or (max_score == score and (best_pattern is None or pattern < best_pattern)):
+            if score > best_score or (score == best_score and (best_pattern == None or pattern < best_pattern)):
+                best_score = score
                 best_pattern = pattern
-                max_score = score
-
-
-
-        return list(best_pattern)
+            
+        
+        return best_pattern
