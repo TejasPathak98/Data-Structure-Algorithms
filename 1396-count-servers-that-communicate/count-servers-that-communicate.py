@@ -22,7 +22,6 @@ class Solution:
                 visited_server.update(visited_server_row)
 
         for j in range(n):
-            visited_server_col = set()
             servers_in_col = 0
             row_visited_server_count = 0
             for i in range(m):
@@ -33,13 +32,10 @@ class Solution:
                         row_visited_server_count += 1
                     else:
                         servers_in_col += 1
-                        visited_server_col.add((i,j))
             
             if row_visited_server_count + servers_in_col > 1:
                 connected_servers += servers_in_col
-                visited_server.update(visited_server_col)
 
-        
         return connected_servers
 
 
