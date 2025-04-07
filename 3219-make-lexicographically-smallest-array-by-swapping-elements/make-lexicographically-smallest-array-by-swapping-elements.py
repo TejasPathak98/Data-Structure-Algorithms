@@ -22,17 +22,11 @@ class Solution:
         
         index_values = sorted(index_values)
 
-        #Sliding Window Union
-
-        i = 0
-
         for i in range(n - 1):
-            val1, idx1 = index_values[i]
-            val2, idx2 = index_values[i + 1]
-            if abs(val2 - val1) <= limit:
+            val1,idx1 = index_values[i]
+            val2,idx2 = index_values[i + 1]
+            if abs(val1 - val2) <= limit:
                 uf.union(idx1, idx2)
-
-        
 
         #Getting a map for connected_components(idx)
 
