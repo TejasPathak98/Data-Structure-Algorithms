@@ -10,8 +10,8 @@ class Solution:
         if root is None:
             return root
         
-        if len(nodes) == 1:
-            return nodes[0]
+        # if len(nodes) == 1:
+        #     return nodes[0]
         
         if root in nodes:
             return root
