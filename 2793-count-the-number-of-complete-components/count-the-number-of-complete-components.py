@@ -1,45 +1,36 @@
 class Solution:
     def countCompleteComponents(self, n: int, edges: List[List[int]]) -> int:
-        
-        #the key idea is that every subgraph with k nodes will have k*(k  - 1) / 2 edges
-
         graph = defaultdict(list)
-        count_complete_components = 0
 
-        for u,v in edges:
-            graph[u].append(v)
-            graph[v].append(u)
+        for a,b in edges:
+            graph[a].append(b)
+            graph[b].append(a)
+        
+        self.visited = set()
 
-        visited = [False] * n
+        def dfs(node,nodes_edges):
+            self.visited.add(node)
+
+            nodes_edges[0] += 1
+            nodes_edges[1] += len(graph[node])
+
+            for nei in graph[node]:
+                if nei not in self.visited:
+                    dfs(nei,nodes_edges)
+        
+        count = 0
 
         for i in range(n):
-            if not visited[i]:
-                edges_count = 0
-                nodes = 0
+            if i not in self.visited:
+                nodes_edges = [0,0]
+                dfs(i,nodes_edges)
+                nodes, edges = nodes_edges
 
-                queue = deque([i])
-                visited[i] = True
-
-                while queue:
-                    node = queue.popleft()
-
-                    nodes += 1
-                    edges_count += len(graph[node])
-
-                    for nei in graph[node]:
-                        if not visited[nei]:
-                            visited[nei] = True
-                            queue.append(nei)
-
-                
-                if edges_count // 2 == (nodes * (nodes - 1)) // 2:
-                    count_complete_components += 1
+                if edges // 2 == (nodes * (nodes - 1)) // 2:
+                    count += 1
 
         
+        return count
 
-        return count_complete_components
 
-
-                
-
-            
+        
