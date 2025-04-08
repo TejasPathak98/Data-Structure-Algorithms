@@ -2,6 +2,7 @@ class Solution:
     def punishmentNumber(self, n: int) -> int:
         ans = 0
 
+        @cache(lru_cache)
         def helper(s,number_of_interest):
             n = len(s)
 
@@ -24,5 +25,7 @@ class Solution:
                 ans += x
         
 
-        return ans + 1       
+        return ans + 1
+
+        #O(N * L^2) ; O(L)       
 
