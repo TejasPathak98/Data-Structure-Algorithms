@@ -6,6 +6,9 @@ class Solution:
         visited = set()
         visited.add((0,0))
 
+        x = abs(x)
+        y = abs(y)
+
         steps = 0
 
         while queue:
