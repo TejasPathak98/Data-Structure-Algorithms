@@ -1,35 +1,34 @@
 class Solution:
     def numDistinctIslands(self, grid: List[List[int]]) -> int:
-        # we take a dfs based approach for the capturing the shape of the islands
-
         m = len(grid)
         n = len(grid[0])
-        unique_shapes = set()
+
+
+        def dfs(x,y,base_x,base_y,shape):
+
+            if visited[x][y]:
+                return
+            
+            visited[x][y] = True
+            shape.append((x - base_x,y - base_y))
+
+            for dx,dy in [(0,1),(0,-1),(1,0),(-1,0)]:
+                x_ = x +dx
+                y_ = y +dy
+
+                if 0 <= x_ < m and 0 <= y_ < n and grid[x_][y_] == 1 and not visited[x_][y_]:
+                    dfs(x_,y_,base_x,base_y,shape)
+
+        islands = set()
         visited = [[False] * n for _ in range(m)]
 
-
-        def dfs(i,j,base_i,base_j,shape):
-            if i < 0 or i >= m or j < 0 or j >= n or grid[i][j] == 0 or visited[i][j]:
-                return
-
-            visited[i][j] = True
-            
-            shape.append((i - base_i,j - base_j))
-
-            dfs(i + 1,j,base_i,base_j,shape)
-            dfs(i - 1,j,base_i,base_j,shape)
-            dfs(i ,j + 1,base_i,base_j,shape)
-            dfs(i,j - 1,base_i,base_j,shape)
-
-        
         for i in range(m):
             for j in range(n):
-                if grid[i][j] == 1 and visited[i][j] == False:
+                if grid[i][j] == 1 and not visited[i][j]:
                     shape = []
                     dfs(i,j,i,j,shape)
-                    unique_shapes.add(tuple(shape))
+                    islands.add(tuple(shape))
 
-
-
-        return len(unique_shapes)
+        
+        return len(islands)
 
