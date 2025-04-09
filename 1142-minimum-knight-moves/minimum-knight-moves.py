@@ -1,34 +1,35 @@
 class Solution:
     def minKnightMoves(self, x: int, y: int) -> int:
-        directions = [(1,2),(2,1),(2,-1),(1,-2),(-1,-2),(-2,-1),(-2,1),(-1,2)]
+        #BFS approach
 
-        queue = deque()
-        queue.append((0,0))
-        dist = -1
+        queue = deque([(0,0)])
         visited = set()
         visited.add((0,0))
 
+        steps = 0
+
         while queue:
-            dist += 1
+            
             for _ in range(len(queue)):
-                a,b = queue.popleft()
-                
-                if a == x and b == y:
-                    return dist
-                
-                for dx,dy in directions:
-                    a_ = a + dx
-                    b_ = b + dy
+                r , c = queue.popleft()
 
-                    if (a_,b_) not in visited:
-                        visited.add((a_,b_))
-                        queue.append((a_,b_))
+                if r == x and c == y:
+                    return steps
+                
+                for dr,dc in [(1,2),(2,1),(-1,2),(-2,1),(-1,-2),(-2,-1),(1,-2),(2,-1)]:
+                    r_ = r + dr
+                    c_ = c + dc
+
+                    if (r_,c_) not in visited:
+                        visited.add((r_,c_))
+                        queue.append((r_,c_))
+
+            steps += 1
         
+
         return -1
-
-
-                
+                    
 
 
 
-        
+            
