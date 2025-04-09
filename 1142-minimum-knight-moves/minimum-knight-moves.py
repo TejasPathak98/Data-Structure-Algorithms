@@ -6,7 +6,7 @@ class Solution:
         visited = set()
         visited.add((0,0))
 
-        x = abs(x)
+        x = abs(x) # taking advantage of symmetry we only search in the 1st Quadrant
         y = abs(y)
 
         steps = 0
@@ -23,7 +23,7 @@ class Solution:
                     r_ = r + dr
                     c_ = c + dc
 
-                    if (r_,c_) not in visited:
+                    if (r_,c_) not in visited and r_ >= -2 and c_ >= -2 and r_ <= x + 2 and  c_ <= y + 2:
                         visited.add((r_,c_))
                         queue.append((r_,c_))
 
