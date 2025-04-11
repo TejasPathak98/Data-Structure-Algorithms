@@ -2,15 +2,26 @@ class Solution:
     def allPathsSourceTarget(self, graph: List[List[int]]) -> List[List[int]]:
         paths = []
 
-        def dfs(node,temp):
-            if node == len(graph) - 1:
-                paths.append(temp.copy())
+        n = len(graph)
+        visited = [False] * n
+
+        def dfs(node,path):
+            if node == n - 1:
+                paths.append(path.copy())
                 return
 
-            for neighbor in graph[node]:
-                dfs(neighbor,temp + [neighbor])
+            visited[node] = True
 
+            for nei in graph[node]:
+                if not visited[nei]:
+                    path.append(nei)
+                    dfs(nei,path)
+                    path.pop()
+
+            visited[node] = False
 
         
         dfs(0,[0])
         return paths
+
+             
