@@ -19,7 +19,6 @@ class Solution:
 
                 x,y = queue.popleft()
                 
-
                 for dx,dy in [(0,1),(0,-1),(1,0),(-1,0)]:
                     x_ = x + dx
                     y_ = y + dy
