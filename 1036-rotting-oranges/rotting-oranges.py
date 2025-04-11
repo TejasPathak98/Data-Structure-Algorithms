@@ -3,44 +3,43 @@ class Solution:
         m = len(grid)
         n = len(grid[0])
 
-        if all(cell == 0 for row in grid for cell in row):
-            return 0
-
-        queue = deque()
+        rotten = []
 
         for i in range(m):
             for j in range(n):
                 if grid[i][j] == 2:
-                    queue.append((i,j))
+                    rotten.append((i,j))
         
-        return self.bfs(queue,grid)
-
-
-    def bfs(self,queue,grid):
+        queue = deque(rotten)
         time = -1
-        m = len(grid)
-        n = len(grid[0])
 
         while queue:
-            size = len(queue)
-            time += 1
 
-            for _ in range(size):
+            for _ in range(len(queue)):
+
                 x,y = queue.popleft()
+                
 
                 for dx,dy in [(0,1),(0,-1),(1,0),(-1,0)]:
                     x_ = x + dx
                     y_ = y + dy
 
-                    if x_ >= 0 and x_ < m and y_ >=0 and y_ < n and grid[x_][y_] == 1:
-                        grid[x_][y_] = 2
+                    if 0 <= x_ < m and 0 <= y_ < n and grid[x_][y_] == 1:
                         queue.append((x_,y_))
+                        grid[x_][y_] = 2
+
+            time += 1
 
         
         for i in range(m):
             for j in range(n):
                 if grid[i][j] == 1:
                     return -1
+
+        all_zero = all(val == 0 for row in grid for val in row)
+        if all_zero:
+            return 0
+
         return time
 
 
