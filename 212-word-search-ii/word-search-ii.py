@@ -2,7 +2,7 @@ class Solution:
     def findWords(self, board: List[List[str]], words: List[str]) -> List[str]:
         def build_trie(words):
             root = {}
-            
+
             for word in words:
                 curr = root
                 for ch in word:
@@ -13,41 +13,49 @@ class Solution:
 
             return root
 
-        
-        def dfs(x,y,trie):
-            letter = board[x][y]
-            curr = trie[letter]
 
-            w = curr.pop('#',False)
+        def dfs(i,j,Trie):
+            letter = board[i][j]
+            curr = Trie[letter]
 
-            if w:
-                result.append(w)
+            word = curr.pop('#',False)
+
+            if word:
+                result.append(word)
+
             
-            temp = board[x][y]
+            temp = board[i][j]
 
-            board[x][y] = "*"
+            board[i][j] = "*"
 
             for dx,dy in [(0,1),(0,-1),(1,0),(-1,0)]:
-                x_ = x + dx
-                y_ = y + dy
+                ni = i + dx
+                nj = j + dy
 
-                if 0 <= x_ < m and 0 <= y_ < n and board[x_][y_] in curr:
-                    dfs(x_,y_,curr)
+                if 0 <= ni < m and 0 <= nj < n and board[ni][nj] in curr:
+                    dfs(ni,nj,curr)
 
-            board[x][y] = temp
+            board[i][j] = temp
+
             
             if not curr:
-                trie.pop(letter)
+                Trie.pop(letter)
 
+        Trie = build_trie(words)
         result = []
-        trie = build_trie(words)
+
         m = len(board)
         n = len(board[0])
 
         for i in range(m):
             for j in range(n):
-                if board[i][j] in trie: 
-                    dfs(i,j,trie)
+                if board[i][j] in Trie:
+                    dfs(i,j,Trie)
 
-
+        
         return result
+
+
+                    
+
+
