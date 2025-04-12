@@ -27,7 +27,6 @@ class Solution:
             if 0 <= x_ < len(grid) and 0 <= y_ < len(grid[0]) and grid[x_][y_] == 1:
                 count += self.dfs(x_,y_,grid)
 
-
         return count
 
 
