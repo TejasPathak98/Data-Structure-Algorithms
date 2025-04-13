@@ -2,37 +2,37 @@ class Solution:
     def findPeakGrid(self, mat: List[List[int]]) -> List[int]:
         m = len(mat)
         n = len(mat[0])
+        
+        def helper(col_idx):
+            row_idx = -1
+            row_val = -1
 
-        left = 0
-        right = n - 1
+            for i in range(m):
+                if mat[i][col_idx] > row_val:
+                    row_val = mat[i][col_idx]
+                    row_idx = i
+            
+            return row_idx
 
-        while left <= right:
-            mid = (left + right) // 2
+        l = 0
+        h = n - 1
 
-            max_row_index = self.findIndex(mat,m,n,mid)
+        while l <= h:
+            mid = (l + h) // 2
 
-            max_number = mat[max_row_index][mid]
-            left_number = mat[max_row_index][mid - 1] if mid  - 1 >= 0 else -1
-            right_number = mat[max_row_index][mid + 1] if mid < n - 1 else -1
+            row_idx = helper(mid)
 
-            if max_number > left_number and max_number > right_number:
-                return [max_row_index,mid]
-            elif max_number < left_number:
-                right = mid - 1
+
+            left_number = mat[row_idx][mid - 1] if mid - 1 >= 0 else -1
+            right_number = mat[row_idx][mid + 1] if mid + 1 < n else -1
+
+            if  mat[row_idx][mid] > left_number and mat[row_idx][mid] > right_number:
+                return [row_idx,mid]
+            elif mat[row_idx][mid] < left_number:
+                h = mid - 1
             else:
-                left = mid + 1
+                l = mid + 1
 
         
         return [-1,-1]
-            
 
-    def findIndex(self,mat,m,n,mid):
-        index = -1
-        val = -1
-
-        for i in range(m):
-            if mat[i][mid] > val:
-                val = mat[i][mid]
-                index = i
-
-        return index
