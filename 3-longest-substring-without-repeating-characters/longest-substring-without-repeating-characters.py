@@ -16,7 +16,6 @@ class Solution:
                     prev_pos = char_dict[s[r]]
                     char_dict[s[r]] = r
                     l = prev_pos + 1
-                    max_len = max(max_len,r - l + 1)
                     r += 1
                 else:
                     char_dict[s[r]] = r
