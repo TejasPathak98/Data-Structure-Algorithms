@@ -2,34 +2,37 @@ class Solution:
     def mostVisitedPattern(self, username: List[str], timestamp: List[int], website: List[str]) -> List[str]:
         data = []
 
-        for i in range(len(timestamp)):
+        for i in range(len(username)):
             data.append((username[i],timestamp[i],website[i]))
-        
-        data = sorted(data, key = lambda x : x[1])
+
+        data.sort(key = lambda x : x[1])
 
         user_to_website_mapping = defaultdict(list)
 
-        for user,timestamp,website in data:
+        for user,_,website in data:
             user_to_website_mapping[user].append(website)
         
-        pattern_to_user_mapping = defaultdict(list)
+        websitePattern_to_users_mapping = defaultdict(list)
 
-        for user , websites in user_to_website_mapping.items():
+        for user,websites in user_to_website_mapping.items():
             if len(websites) < 3:
                 continue
-            patterns = set(combinations(websites, 3))
-            for pattern in patterns:
-                pattern_to_user_mapping[pattern].append(user)
+            website_patterns = set(combinations(websites,3))
+            for pattern in website_patterns:
+                websitePattern_to_users_mapping[pattern].append(user)
+
         
-
         best_pattern = None
-        best_score = 0
+        no_of_users = 0
 
-        for pattern,users in pattern_to_user_mapping.items():
-            score = len(users)
-            if score > best_score or (score == best_score and (best_pattern == None or pattern < best_pattern)):
-                best_score = score
+        for pattern,list_users in websitePattern_to_users_mapping.items():
+            score  = len(list_users)
+            if score > no_of_users or (no_of_users == score and (pattern < best_pattern or pattern is None)):
                 best_pattern = pattern
+                no_of_users = score
             
         
         return best_pattern
+        
+
+
