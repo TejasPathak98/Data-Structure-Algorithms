@@ -1,17 +1,21 @@
 class Solution:
     def merge(self, intervals: List[List[int]]) -> List[List[int]]:
         intervals.sort(key = lambda x : x[0])
-        ans = []
-        prev_end_time = float("-inf")
+        result = []
 
-        for i in range(len(intervals)):
-            if not ans or intervals[i][0] > ans[-1][1]:
-                ans.append(intervals[i])
+        for interval in intervals:
+            if not result:
+                result.append(interval)
             else:
-                ans[-1][1] = max(ans[-1][1],intervals[i][1])
+                if interval[0] <= result[-1][1]:
+                    result[-1][0] = min(interval[0],result[-1][0])
+                    result[-1][1] = max(interval[1],result[-1][1])
+                else:
+                    result.append(interval)
 
-        return ans
+        
+        return result
 
-        #O(NlogN) ;O(1)
-            
+
+
 
