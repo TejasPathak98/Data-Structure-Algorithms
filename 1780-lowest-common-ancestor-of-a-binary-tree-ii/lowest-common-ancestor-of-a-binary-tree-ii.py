@@ -7,38 +7,36 @@
 
 class Solution:
     def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
-        
-        def dfs(node,p,q):
-            if not node:
-                return None,False,False
-            
-            left_lca,left_p,left_q = dfs(node.left,p,q)
-            right_lca,right_p,right_q = dfs(node.right,p,q)
+        def Existence(node,X):
+            if node.val == X.val:
+                return True
 
-            mid_p = (node == p)
-            mid_q = (node == q)
-            found_p = left_p or right_p or mid_p
-            found_q = left_q or right_q or mid_q
+            left = right = False
+            
+            if node.left:
+                left = Existence(node.left,X)
+            if node.right:
+                right = Existence(node.right,X)
+            
+            return left or right
 
-            if node == p or node == q:
-                return node,found_p,found_q
-            
-            if left_lca and right_lca:
-                return node,found_p,found_q
-            
-            if left_lca:
-                return left_lca,found_p,found_q
-            
-            if right_lca:
-                return right_lca,found_p,found_q
-            
-            return None,found_p,found_q
-        
-        the_node,found_p,found_q = dfs(root,p,q)
-        
-        return the_node if found_p and found_q else None
+        if Existence(root, p) == False or Existence(root, q) == False:
+            return None
+        else:
+            return self.LCA(root,p,q)
 
-        #O(N) ; O(1)
-        
 
+    def LCA(self,root,p,q):
+        if root is None:
+            return root
+
+        if root == p or root == q:
+            return root
         
+        l = self.LCA(root.left, p, q)
+        r = self.LCA(root.right, p, q)
+
+        if l and r:
+            return root
+        
+        return l if l else r
