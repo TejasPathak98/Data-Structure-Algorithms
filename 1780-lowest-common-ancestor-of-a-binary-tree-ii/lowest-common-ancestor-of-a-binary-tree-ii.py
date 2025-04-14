@@ -8,17 +8,13 @@
 class Solution:
     def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
         def Existence(node,X):
+            if node is None:
+                return False
+
             if node.val == X.val:
                 return True
 
-            left = right = False
-            
-            if node.left:
-                left = Existence(node.left,X)
-            if node.right:
-                right = Existence(node.right,X)
-            
-            return left or right
+            return Existence(node.left,X) or Existence(node.right,X)
 
         if Existence(root, p) == False or Existence(root, q) == False:
             return None
