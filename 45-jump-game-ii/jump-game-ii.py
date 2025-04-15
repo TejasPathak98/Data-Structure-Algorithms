@@ -33,6 +33,6 @@ class Solution:
                         curr = prev[curr]
                         temp.append(curr)
                     
-                    print(temp)
+                    print(temp[::-1])
                     return jumps
 
