@@ -28,3 +28,34 @@ class Solution:
             return courses
         else:
             return []
+
+        visited = []
+
+        path = []
+
+        def dfs(node):
+            if visited[node] == 2:
+                return True
+            
+            if visited[node] == 1:
+                return False
+
+            
+            visited[node] = 1
+            path.append(node)
+
+            for nei in graph[node]:
+                if not dfs(nei):
+                    return False
+
+            visited[node] = 2
+            return True
+
+        
+        for i in range(numCourses):
+            if not dfs(i):
+                return []
+        
+        return path
+
+
