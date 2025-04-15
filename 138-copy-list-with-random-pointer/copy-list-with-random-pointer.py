@@ -8,24 +8,39 @@ class Node:
 """
 
 class Solution:
-    def __init__(self):
-        self.list_dict = {}
-
     def copyRandomList(self, head: 'Optional[Node]') -> 'Optional[Node]':
-
         if not head:
-            return None
+            return head
         
-        if head in self.list_dict:
-            return self.list_dict[head]
+        #Interleaving nodes
+
+        curr = head
+        while curr:
+            new_node = Node(curr.val)
+            new_node.next = curr.next
+            curr.next = new_node
+            curr = new_node.next
         
-        self.list_dict[head] = Node(head.val)
 
-        self.list_dict[head].next = self.copyRandomList(head.next)
+        #Copying the random pointer
 
-        self.list_dict[head].random = self.copyRandomList(head.random)
-
-        return self.list_dict[head]
-
+        curr = head
+        while curr:
+            if curr.random:
+                curr.next.random = curr.random.next
+            curr = curr.next.next
 
         
+        #Extracting our desired list out
+
+        curr = head
+        dummy_node = Node(-1)
+        dummy_copy = dummy_node
+
+        while curr:
+            dummy_copy.next  = curr.next
+            curr.next = curr.next.next
+            curr = curr.next
+            dummy_copy = dummy_copy.next
+        
+        return dummy_node.next
