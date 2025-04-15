@@ -1,36 +1,30 @@
 class Solution:
     def findOrder(self, numCourses: int, prerequisites: List[List[int]]) -> List[int]:
+        inDegree = [0] * numCourses
         graph = defaultdict(list)
-        InDegree = [0] * numCourses
 
         for course,pre_req in prerequisites:
             graph[pre_req].append(course)
-            InDegree[course] += 1
+            inDegree[course] += 1
 
         queue = deque()
-
         for i in range(numCourses):
-            if InDegree[i] == 0:
+            if inDegree[i] == 0:
                 queue.append(i)
 
-
-        return self.bfs(queue,graph,numCourses,InDegree)
-
-    def bfs(self,queue,graph,numCourses,InDegree):
-        courses_order = []
+        courses = []
 
         while queue:
             course = queue.popleft()
-            courses_order.append(course)
+            courses.append(course)
 
-            for c in graph[course]:
-                InDegree[c] -= 1
+            for nei in graph[course]:
+                inDegree[nei] -= 1
+                if inDegree[nei] == 0:
+                    queue.append(nei)
 
-                if InDegree[c] == 0:
-                    queue.append(c)
-
-        if len(courses_order) == numCourses:
-            return courses_order
+        
+        if len(courses) == numCourses:
+            return courses
         else:
             return []
-
