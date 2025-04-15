@@ -25,7 +25,6 @@ class Solution:
                             visited.add((x_,y_))
                         else:
                             water_set.add((x_,y_))
-            print(area)
             
             for cell in water_set:
                 water_dict[cell] += area
@@ -42,7 +41,6 @@ class Solution:
                     bfs(i,j)
 
         if len(water_dict) > 0:
-            print("br")
             return 1 + max(water_dict.values())
         
         if grid[0][0] == 1:
