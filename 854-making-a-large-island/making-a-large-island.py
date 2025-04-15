@@ -1,44 +1,51 @@
 class Solution:
     def largestIsland(self, grid: List[List[int]]) -> int:
         
-        def explore_land(start):
-            queue = deque([start])
+        def bfs(i,j):
+            water_set = set()
+
+            queue = deque()
+            queue.append((i,j))
+            visited.add((i,j))
             area = 0
-            water = set()
 
             while queue:
                 x,y = queue.popleft()
+
                 area += 1
 
                 for dx,dy in [(0,1),(0,-1),(1,0),(-1,0)]:
-                    nx = x + dx
-                    ny = y + dy
+                    x_ = x + dx
+                    y_ = y + dy
 
-                    if 0 <= nx < m and 0 <= ny < n:
+                    if 0 <= x_  < m and 0 <= y_ < n and (x_,y_) not in visited:
 
-                        if grid[nx][ny] == 1:
-                            grid[nx][ny] = -1
-                            queue.append((nx,ny))
-                        elif grid[nx][ny] == 0:
-                            water.add((nx,ny))
-
-            for w in water:
-                water_area[w] += area
+                        if grid[x_][y_] == 1:
+                            queue.append((x_,y_))
+                            visited.add((x_,y_))
+                        else:
+                            water_set.add((x_,y_))
+            print(area)
+            
+            for cell in water_set:
+                water_dict[cell] += area
 
         m = len(grid)
         n = len(grid[0])
 
-        water_area = defaultdict(int)
+        water_dict = defaultdict(int)
+        visited = set()
 
-        for i in range(m):
-            for j in range(n):
-                if grid[i][j] == 1:
-                    grid[i][j] = -1
-                    explore_land((i,j))
+        for i in range(n):
+            for j in range(m):
+                if grid[i][j] == 1 and (i,j) not in visited:
+                    bfs(i,j)
 
-        print(water_area)
-
-        if water_area:
-            return 1 + max(water_area.values())
+        if len(water_dict) > 0:
+            print("br")
+            return 1 + max(water_dict.values())
         
-        return 1 if grid[0][0] == 0 else m*n
+        if grid[0][0] == 1:
+            return m*n
+        else:
+            return 1
