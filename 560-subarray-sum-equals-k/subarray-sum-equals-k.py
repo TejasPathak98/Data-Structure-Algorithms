@@ -19,8 +19,5 @@ class Solution:
             
             prefix[curr_sum] += 1
 
-        
-        print(prefix)
 
-        
         return count
