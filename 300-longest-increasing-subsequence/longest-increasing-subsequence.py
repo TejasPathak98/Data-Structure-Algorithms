@@ -16,15 +16,16 @@ class Solution:
 
         # #O(N^2) ; O(N)
 
-        tails = []
+        tails = [] # we recording the ends/tails of the increasing subseq as we observe it
 
         for num in nums:
-            
             pos = bisect.bisect_left(tails, num)
 
-            if pos == len(tails):
+            if pos == len(tails): #if we find that it is greater than all elements, then we just add it
                 tails.append(num)
             else:
-                tails[pos] = num
+                tails[pos] = num #else we just replace the the position in tails which is equal to or least greater than num
 
         return len(tails)
+
+        #O(NlogN) ; O(N)
