@@ -1,39 +1,38 @@
 class Solution:
     def spiralOrder(self, matrix: List[List[int]]) -> List[int]:
-        if not matrix:
-            return []
+        
         m = len(matrix)
         n = len(matrix[0])
 
+        ans = []
+        left = 0 
+        right = n - 1
         top = 0
         bottom = m - 1
-        left = 0
-        right = n - 1
 
-        result = []
+        while left <= right and top <= bottom:
 
-        while top <= bottom and left <= right and len(result) < m*n:
             for i in range(left,right + 1):
-                result.append(matrix[top][i])
+                ans.append(matrix[top][i])
+            
             top += 1
-            
+
             for i in range(top,bottom + 1):
-                result.append(matrix[i][right])
+                ans.append(matrix[i][right])
+            
             right -= 1
-            
-            if top <= bottom :
+
+            if top <= bottom:
+                print("Br")
                 for i in range(right,left - 1,-1):
-                    result.append(matrix[bottom][i])
+                    ans.append(matrix[bottom][i])
                 bottom -= 1
-            
+
             if left <= right:
-                for i in range(bottom, top - 1 ,-1):
-                    result.append(matrix[i][left])
+                for i in range(bottom,top - 1,-1):
+                    ans.append(matrix[i][left])
                 left += 1
 
-        return result
-
-
-
-
         
+        return ans
+
