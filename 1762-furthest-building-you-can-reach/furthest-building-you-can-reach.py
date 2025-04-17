@@ -4,17 +4,16 @@ class Solution:
 
         for i in range(len(heights) - 1):
 
-            diff = heights[i + 1] - heights[i] 
+            if heights[i + 1] > heights[i]:
+                diff = heights[i + 1] - heights[i]
+                heapq.heappush(min_heap, diff)
 
-            if diff > 0:
-                heappush(min_heap,diff) 
             
             if len(min_heap) > ladders:
-                bricks -= heappop(min_heap) 
+                bricks -= heapq.heappop(min_heap)
             
             if bricks < 0:
-                return i 
-        
+                return i
 
-        return len(heights) - 1
         
+        return len(heights) - 1
