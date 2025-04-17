@@ -36,21 +36,23 @@ class Solution:
         :type robot: Robot
         :rtype: None
         """
+        visited = set()
         directions = [(0,1),(1,0),(0,-1),(-1,0)]
-        cleaned = set()
 
         def dfs(x,y,direction):
-            if (x,y) in cleaned:
-                return
-            robot.clean()
-            cleaned.add((x,y))
 
-            for i,(dx,dy) in enumerate(directions[direction:] + directions[:direction]):
-                nx = x + dx
-                ny = y + dy
+            if (x,y) in visited:
+                return
+            
+            visited.add((x,y))
+            robot.clean()
+
+            for i,(dx,dy) in enumerate((directions[direction:]  + directions[:direction])):
+                x_ = x + dx
+                y_ = y + dy
 
                 if robot.move():
-                    dfs(nx,ny,(i + direction) % 4)
+                    dfs(x_,y_,(direction + i) % 4)
 
                     robot.turnLeft()
                     robot.turnLeft()
@@ -59,13 +61,13 @@ class Solution:
                 else:
                     robot.turnRight()
 
+        
         dfs(0,0,0)
 
 
 
+            
 
 
 
 
-
-        
