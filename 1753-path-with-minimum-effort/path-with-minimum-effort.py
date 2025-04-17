@@ -1,6 +1,5 @@
 class Solution:
     def minimumEffortPath(self, heights: List[List[int]]) -> int:
-        min_effort = float('inf')
         m = len(heights)
         n = len(heights[0])
         cost_dict = [[float('inf')] * n for _ in range(m)]
@@ -8,7 +7,6 @@ class Solution:
 
         min_heap = [(0,0,0)]
         heapify(min_heap)
-        #visited = set()
         
 
         while min_heap:
