@@ -9,8 +9,6 @@ class Solution:
                     graph[i].append(j)
                     graph[j].append(i)
         
-
-        
         count = 0
         visited = set()
 
