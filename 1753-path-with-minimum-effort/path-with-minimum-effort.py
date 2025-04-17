@@ -1,41 +1,41 @@
 class Solution:
     def minimumEffortPath(self, heights: List[List[int]]) -> int:
+        min_effort = float('inf')
         m = len(heights)
         n = len(heights[0])
-
-        total_cost = 0
+        cost_dict = [[float('inf')] * n for _ in range(m)]
+        cost_dict[0][0] = 0
 
         min_heap = [(0,0,0)]
         heapify(min_heap)
-
-        cost = [[float('inf')] * n for _ in range(m)]
-
-        cost[0][0] = 0
+        #visited = set()
+        
 
         while min_heap:
-            current_cost , x, y = heapq.heappop(min_heap)
-
-            #current_cost is maximum absolute difference in heights between two consecutive cells of the route seen until now
-
+            cost,x,y = heapq.heappop(min_heap)
 
             if x == m - 1 and y == n - 1:
-                return current_cost
-
-            if current_cost > cost[x][y]:
+                return cost
+            
+            if cost > cost_dict[x][y]:
                 continue
 
-
+            
             for dx,dy in [(0,1),(0,-1),(1,0),(-1,0)]:
-                x_ = x + dx
-                y_ = y + dy
+                nx = x + dx
+                ny = y + dy
 
-                if 0 <= x_ < m and 0 <= y_ <n:
-                    potential_cost_incurred = abs(heights[x_][y_] - heights[x][y])
-                    new_cost = max(potential_cost_incurred,current_cost)
-                    if new_cost < cost[x_][y_]:
-                        heapq.heappush(min_heap, (new_cost,x_,y_))
-                        cost[x_][y_] = new_cost
+                if 0 <= nx < m and 0 <= ny < n:
+                    new_cost = max(cost,abs(heights[nx][ny] - heights[x][y]))
+                    if new_cost < cost_dict[nx][ny]:
+                        cost_dict[nx][ny] = new_cost
+                        heapq.heappush(min_heap,(new_cost,nx,ny))
 
-        return -1
+
+        return -1 
+            
+
+
+
 
 
