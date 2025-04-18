@@ -1,22 +1,8 @@
 class Solution:
     def longestOnes(self, nums: List[int], k: int) -> int:
-        n = len(nums)
-
         max_len = 0
         j = 0
         i = 0
-
-        # if k == 0:
-        #     while j < len(nums):
-        #         if nums[j] == 1:
-        #             max_len = max(max_len,j - i + 1)
-        #             j += 1
-        #         else:
-        #             i = j + 1
-        #             j += 1
-            
-        #     return max_len
-
         queue = deque()
 
         while j < len(nums):
@@ -40,7 +26,6 @@ class Solution:
                         max_len = max(max_len,j - i + 1)
                         j += 1
 
-        
         return max_len
 
 
