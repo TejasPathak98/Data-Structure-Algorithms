@@ -30,11 +30,15 @@ class Solution:
                     j += 1
                     k -= 1
                 else:
-                    pos = queue.popleft()
-                    queue.append(j)
-                    i = pos + 1
-                    max_len = max(max_len,j - i + 1)
-                    j += 1
+                    if not queue:
+                        i = j + 1
+                        j += 1
+                    else:
+                        pos = queue.popleft()
+                        queue.append(j)
+                        i = pos + 1
+                        max_len = max(max_len,j - i + 1)
+                        j += 1
 
         
         return max_len
