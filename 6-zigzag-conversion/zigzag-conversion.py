@@ -4,7 +4,6 @@ class Solution:
             return s
         
         rows = [[] for _ in range(numRows)]
-        print(len(rows))
 
         i = 0
         while i < len(s):
@@ -22,15 +21,9 @@ class Solution:
                 j -= 1
                 i += 1
 
-
-
-
         final_row = []
         for r in rows:
-            print(r)
             final_row.extend(r)
-        
-        
         return "".join(final_row)
 
 
