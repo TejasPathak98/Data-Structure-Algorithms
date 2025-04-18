@@ -1,6 +1,6 @@
 class Solution:
     def removeKdigits(self, num: str, k: int) -> str:
-        #Monotonic increasing stack ; we want lease number
+        #Monotonic Increasing stack
 
         stack = []
 
@@ -13,7 +13,8 @@ class Solution:
         while stack and k:
             stack.pop()
             k -= 1
-
         
-        result =  "".join(stack).lstrip("0")
+        result = "".join(stack).lstrip("0")
+
         return result if result else "0"
+
