@@ -10,7 +10,6 @@ class Solution:
                 factors.append(y)
 
         factors = list(set(factors))
-        print(factors)
         factors.sort()
         
         if k <= len(factors):
