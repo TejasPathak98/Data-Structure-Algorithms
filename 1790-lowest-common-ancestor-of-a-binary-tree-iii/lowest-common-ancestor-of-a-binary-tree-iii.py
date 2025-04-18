@@ -10,31 +10,32 @@ class Node:
 
 class Solution:
     def lowestCommonAncestor(self, p: 'Node', q: 'Node') -> 'Node':
-        def dfs_get_root(node):            
-            if node.parent == None:
+        self.root = None
+        
+        def get_root(node):
+            if node.parent is None:
                 return node
             
-            return dfs_get_root(node.parent)
+            return get_root(node.parent)
 
-        root = dfs_get_root(p)
+        self.root = get_root(p)
 
-        def lca(root,p,q):
+        
+        def LCA(root,p,q):
             if not root:
                 return root
             
-            if root == p or root == q:
+            if root == p or root  == q:
                 return root
             
-            l = lca(root.left,p,q)
-            r = lca(root.right,p,q)
+            l = LCA(root.left,p,q)
+            r = LCA(root.right,p,q)
 
             if l and r:
                 return root
             
             return l if l else r
 
-        
-        return lca(root,p,q)
+        return LCA(self.root,p,q)
 
 
-        
