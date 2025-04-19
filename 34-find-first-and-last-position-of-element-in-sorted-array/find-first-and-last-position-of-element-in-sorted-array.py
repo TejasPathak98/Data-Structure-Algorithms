@@ -1,38 +1,29 @@
 class Solution:
     def searchRange(self, nums: List[int], target: int) -> List[int]:
-        if not nums:
-            return [-1,-1]
-        if len(nums) == 1:
-            if nums[0] == target:
-                return [0,0]
-            else:
-                return [-1,-1]
-        
-        ans = [-1,-1]
-        l = 0
-        h = len(nums) - 1
+        def binarySearch(left_bias):
+            l = 0
+            r = len(nums) - 1
+            ans = -1
 
-        while l <= h:
-            mid = (l + h) // 2
-            if target == nums[mid]:
-                ans[0] = mid
-                h = mid - 1
-            elif target > nums[mid]:
-                l = mid + 1
-            else:
-                h = mid - 1
+            while l <= r:
 
-        l = 0
-        h = len(nums) - 1
+                mid = (l + r) // 2
 
-        while l <= h:
-            mid = (l + h) // 2
-            if target == nums[mid]:
-                ans[1] = mid
-                l = mid + 1
-            elif target > nums[mid]:
-                l = mid + 1
-            else:
-                h = mid - 1
-        
-        return ans
+                if nums[mid] == target:
+                    ans = mid
+
+                    if left_bias:
+                        r = mid - 1
+                    else:
+                        l = mid + 1
+                elif nums[mid] > target:
+                    r = mid - 1
+                else:
+                    l = mid + 1
+            
+            return ans
+            
+        left_pos = binarySearch(True)
+        right_pos = binarySearch(False)
+
+        return [left_pos,right_pos]
