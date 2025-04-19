@@ -21,9 +21,7 @@ class Solution:
             if index == len(digits):
                 result.append("".join(temp[:]))
                 return
-            
-            if index > len(temp):
-                return
+
             
             for ch in phone_map[digits[index]]:
                 temp.append(ch)
