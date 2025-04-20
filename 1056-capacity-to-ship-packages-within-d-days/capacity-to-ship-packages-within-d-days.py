@@ -19,23 +19,14 @@ class Solution:
         return l
         
     def helper(self,ship_capacity,weights):
-        days = 0
-        curr = 0
+        temp_sum = 0
+        days = 1
 
-        for idx,weight in enumerate(weights):
-            curr += weight
-
-            if curr == ship_capacity:
+        for weight in weights:
+            if temp_sum + weight > ship_capacity:
                 days += 1
-                curr = 0
-            elif curr > ship_capacity:
-                days += 1
-                curr = weight
+                temp_sum = 0
+            temp_sum += weight
         
-        if curr:
-            days += 1
-        
-
-
         return days
 
