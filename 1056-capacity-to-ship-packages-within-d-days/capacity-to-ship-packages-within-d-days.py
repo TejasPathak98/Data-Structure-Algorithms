@@ -1,58 +1,41 @@
 class Solution:
     def shipWithinDays(self, weights: List[int], days: int) -> int:
-        #days = total_weight / Ship capacity
+        # days = total / w
 
         l = max(weights)
         r = sum(weights)
-        
-        while l <= r:
+
+        while l < r:
+
             mid = (l + r) // 2
 
-            no_of_days = self.helper(weights,mid)
+            time = self.helper(mid,weights)
 
-            if no_of_days > days:
-                l = mid + 1
+            if time <= days:
+                r = mid
             else:
-                r = mid - 1
+                l = mid + 1
 
-        
         return l
-            
-    # def helper(self,weights,ship_weight):
-    #     the_days = 0
-    #     i = 0
-    #     temp_sum = 0
-
-    #     while i < len(weights):
-    #         temp_sum += weights[i]
-    #         if temp_sum == ship_weight:
-    #             the_days += 1
-    #             temp_sum = 0
-    #             i += 1
-    #         elif temp_sum > ship_weight:
-    #             the_days += 1
-    #             temp_sum = 0
-    #         else:
-    #             i += 1
         
-    #     if temp_sum > 0:
-    #         the_days += 1
+    def helper(self,ship_capacity,weights):
+        days = 0
+        curr = 0
+
+        for idx,weight in enumerate(weights):
+            curr += weight
+
+            if curr == ship_capacity:
+                days += 1
+                curr = 0
+            elif curr > ship_capacity:
+                days += 1
+                curr = weight
         
-    #     return the_days
-
-    def helper(self,weights,ship_weight):
-        the_days = 1
-        temp_sum = 0
-
-        for weight in weights:
-            if temp_sum + weight > ship_weight:
-                the_days += 1
-                temp_sum = 0
-            temp_sum += weight
+        if curr:
+            days += 1
         
-        return the_days
 
 
-            
-
+        return days
 
