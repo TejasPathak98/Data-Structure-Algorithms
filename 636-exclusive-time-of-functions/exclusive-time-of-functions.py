@@ -18,3 +18,5 @@ class Solution:
                     result[stack[-1][0]] -= (Time - startTime + 1)
         
         return result
+
+        
