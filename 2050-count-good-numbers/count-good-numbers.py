@@ -8,9 +8,9 @@ class Solution:
 
         return (self.helper(5,even_digits) * self.helper(4,odd_digits)) % self.MOD
     
-    def helper(self,x,n):
+    def helper(self,base,n):
 
-        base = x % self.MOD
+        base = base % self.MOD
         result = 1
 
         while n > 0:
