@@ -1,26 +1,20 @@
 class Solution:
     def exclusiveTime(self, n: int, logs: List[str]) -> List[int]:
-        ans = [0] * n
+        result = [0] * n
 
         stack = []
 
         for log in logs:
-            components = log.split(":")
-            time = int(components[2])
-            ID = int(components[0])
+            job_id , operation , Time = log.split(":")
+            job_id = int(job_id)
+            Time = int(Time)
 
-            if not stack:
-                stack.append([ID,time])
+            if operation == "start":
+                stack.append((job_id,Time))
             else:
-                if components[1] == "start":
-                    stack.append([ID,time])
-                else:
-                    ID,start_time = stack.pop()
-                    ans[ID] += (time - start_time + 1)
-
-                    if stack:
-                        ans[stack[-1][0]] -= (time - start_time + 1)
+                job_id , startTime = stack.pop()
+                result[job_id] += (Time - startTime + 1)
+                if stack:
+                    result[stack[-1][0]] -= (Time - startTime + 1)
         
-        return ans
-            
-
+        return result
