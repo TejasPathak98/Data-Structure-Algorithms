@@ -2,36 +2,47 @@ class Solution:
     def minWindow(self, s: str, t: str) -> str:
         if len(t) > len(s):
             return ""
+        if len(t) == len(s):
+            if Counter(t) == Counter(s):
+                return s
+            else:
+                return ""
 
+        
         dict_t = Counter(t)
-        requried = len(dict_t) # how many unique characters do I need to match ?
-        formed =0 # how many unique characters have I matched ? Do not compare the full map
+        required = len(dict_t)
+        formed = 0
         l = 0
         r = 0
-        ans = float("inf"),r,l
-        s_dict = defaultdict(int)
+        result = [float('inf'),l,r]
+        dict_s = defaultdict(int)
 
         while r < len(s):
-            s_dict[s[r]] += 1
-
-            if s_dict[s[r]] == dict_t[s[r]]:# we match one unique char count
+            dict_s[s[r]] += 1
+            if dict_s[s[r]] == dict_t[s[r]]:
                 formed += 1
             
-            while l < len(s) and formed == requried:
-                if ans[0] > r - l + 1:
-                    ans = r-l+1,r,l
-
-                s_dict[s[l]] -= 1
-
-                if s_dict[s[l]] < dict_t[s[l]]:
-                    formed -= 1
+            while l <= r and formed == required:
+                if (r - l + 1) < result[0]:
+                    result = [r - l + 1,l,r]
                 
+                dict_s[s[l]] -= 1
+                if s[l] in dict_t and dict_s[s[l]] < dict_t[s[l]]:
+                    formed -= 1
+
                 l += 1
 
             r += 1
 
-        if ans[0] == float("inf"):
-            print("Br")
-            return ""
-        else:
-            return s[ans[2]:ans[1] + 1]
+        return s[result[1]:result[2] + 1] if result[0] != float('inf') else ""
+        
+
+            
+
+
+
+
+
+
+
+
