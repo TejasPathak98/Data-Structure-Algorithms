@@ -27,7 +27,8 @@ class LFUCache:
             del self.freq_map[freq]
 
             if self.min_freq == freq:
-                self.min_freq = min(list(self.freq_map.keys()),default=1)
+                #self.min_freq = min(list(self.freq_map.keys()),default=1)
+                self.min_freq = freq + 1
 
         
 
