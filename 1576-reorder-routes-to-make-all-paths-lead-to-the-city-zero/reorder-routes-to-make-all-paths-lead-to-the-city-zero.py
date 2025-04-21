@@ -7,18 +7,21 @@ class Solution:
             city_dict[dst].append((src,False))
         
         queue = deque([0])
-        capital_city = set()
+        visited = set()
+        visited.add(0)
         count = 0
 
         while queue:
             city = queue.popleft()
-            capital_city.add(city)
 
-            for nei , status in city_dict[city]:
-                if nei not in capital_city:
+            for nei , direction in city_dict[city]:
+                if nei not in visited:
+                    visited.add(nei)
                     queue.append(nei)
 
-                    if status:
+                    if direction:
                         count += 1
-            
+
+        
         return count
+
