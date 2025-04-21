@@ -1,20 +1,22 @@
 class Solution:
     def removeKdigits(self, num: str, k: int) -> str:
-        #Monotonic Increasing stack
-
+        
         stack = []
 
-        for i in num:
-            while stack and k > 0 and stack[-1] > i:
+        for digit in num:
+            while k and stack and digit < stack[-1]:
                 stack.pop()
                 k -= 1
-            stack.append(i)
+            stack.append(digit)
 
-        while stack and k:
+        while k and stack:
             stack.pop()
             k -= 1
+
+        print(stack)
+
+        if not stack or all(x == '0' for x in stack):
+            print("br")
+            return "0"
         
-        result = "".join(stack).lstrip("0")
-
-        return result if result else "0"
-
+        return "".join(stack).lstrip("0")
