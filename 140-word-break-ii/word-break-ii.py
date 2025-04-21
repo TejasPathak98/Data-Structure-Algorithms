@@ -3,18 +3,17 @@ class Solution:
         n = len(s)
         result = []
 
-        def backtracking(index,temp): #temp will have all the words which are space separated and present in the dict(and also part of the original s)
+        def backtracking(temp,index):
             if index == len(s):
-                result.append(" ".join(temp.copy()))
+                result.append(" ".join(temp))
                 return
             
             for j in range(index,len(s)):
                 if s[index:j + 1] in wordDict:
                     temp.append(s[index:j + 1])
-                    backtracking(j + 1, temp)
+                    backtracking(temp, j + 1)
                     temp.pop()
 
-        backtracking(0, [])
-        return result
 
-        #O(2^N) ; O(N)
+        backtracking([],0)
+        return result
