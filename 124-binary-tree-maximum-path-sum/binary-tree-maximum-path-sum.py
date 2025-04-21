@@ -9,24 +9,21 @@ class Solution:
         if not root:
             return 0
         
-        self.max_sum = float("-inf")
+        max_sum = float('-inf')
 
         def dfs(node):
+            nonlocal max_sum
             if not node:
                 return 0
             
-            lsum = dfs(node.left)
-            rsum = dfs(node.right)
+            l = max(dfs(node.left) , 0) #clamp all the negative contribution from the child
+            r = max(dfs(node.right) , 0)
 
-            self.max_sum = max(self.max_sum,lsum + rsum + node.val,node.val,lsum + node.val,rsum + node.val)
-
-            return max(lsum + node.val,rsum + node.val,node.val)
-
-        dfs(root)
-        return self.max_sum
+            max_sum = max(max_sum,node.val + l + r)
 
             
+            return max(l,r) + node.val
 
-
-
-
+        
+        dfs(root)
+        return max_sum
