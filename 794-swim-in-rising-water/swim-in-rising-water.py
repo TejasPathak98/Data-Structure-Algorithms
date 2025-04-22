@@ -2,16 +2,15 @@ class Solution:
     def swimInWater(self, grid: List[List[int]]) -> int:
         n = len(grid)
 
-        min_heap = [(0,0,grid[0][0])]
+        min_heap = [(grid[0][0],0,0)]
 
         minTime = [[float('inf')] * n for _ in range(n)]
 
         minTime[0][0] = grid[0][0]
 
        
-
         while min_heap:
-            x,y,time = heapq.heappop(min_heap)
+            time,x,y, = heapq.heappop(min_heap)
 
             if x == n - 1 and y == n - 1:
                 return time
@@ -25,7 +24,7 @@ class Solution:
 
                     if new_time < minTime[nx][ny]:
                         minTime[nx][ny] = new_time
-                        heapq.heappush(min_heap,(nx,ny,new_time))
+                        heapq.heappush(min_heap,(new_time,nx,ny))
     
 
         return -1
