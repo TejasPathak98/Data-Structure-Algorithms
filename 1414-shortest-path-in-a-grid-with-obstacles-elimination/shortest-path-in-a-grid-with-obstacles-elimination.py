@@ -2,33 +2,37 @@ class Solution:
     def shortestPath(self, grid: List[List[int]], k: int) -> int:
         m = len(grid)
         n = len(grid[0])
+        best = [[float('inf')] * n for _ in range(m)] # this is basically the matrix which keep track of the min obstacles used to reach point x,y (so far) ....if we reach that point from any other
+        #way and with any other obstacle count, we will ignore it unless its less (its a more intelligent visited state)
 
-        #BFS with constraints
-
+        best[0][0] = 0
         queue = deque([(0,0,0)])
-        steps = -1
-        visited = set()
-        visited.add((0,0,0))
+
+        path = 0
 
         while queue:
-            steps += 1
             
             for _ in range(len(queue)):
+                x,y,used = queue.popleft()
 
-                x,y,obstacle_count = queue.popleft()
+                if x  == m -1 and y == n- 1:
+                    return path
 
-                if x == m - 1 and y == n - 1:
-                    return steps
+                if used > k:
+                    continue
                 
                 for dx,dy in [(0,1),(0,-1),(1,0),(-1,0)]:
-                    x_ = x + dx
-                    y_ = y + dy
+                    nx = x + dx
+                    ny = y + dy
 
-                    if 0 <= x_ < m and 0 <= y_ < n:
-                        new_obstacle_count = obstacle_count + grid[x_][y_]
-                        if new_obstacle_count <= k and (x_,y_,new_obstacle_count) not in visited:
-                            queue.append((x_,y_,new_obstacle_count))
-                            visited.add((x_,y_,new_obstacle_count))
+                    if 0 <= nx < m and 0 <= ny < n:
+                        new_used = used + grid[nx][ny]
 
+                        if new_used <= k and best[nx][ny] > new_used:
+                            best[nx][ny] = new_used
+                            queue.append((nx,ny,new_used))
+            
+            path += 1
+
+        
         return -1
-
