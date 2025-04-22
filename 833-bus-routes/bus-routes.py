@@ -1,33 +1,42 @@
 class Solution:
     def numBusesToDestination(self, routes: List[List[int]], source: int, target: int) -> int:
-        bus_stop_to_bus_mapping = defaultdict(list)
+        
+        bus_stop_to_route_mapping = defaultdict(list)
+        stop_visited = set()
+        routes_visited = set()
+        queue = deque()
 
         for bus_idx,route in enumerate(routes):
-            for stop in route:
-                bus_stop_to_bus_mapping[stop].append(bus_idx)
+            for busStop in route:
+                bus_stop_to_route_mapping[busStop].append(bus_idx)
         
-        queue = deque([(source)])
-        visited_stops = set([(source)])
-        visited_buses = set()
-        buses_taken = 0
+        queue.append(source)
+        stop_visited.add(source)
+
+        stops = 0
 
         while queue:
-            for _ in range(len(queue)): #Expanding the whole queue(bus routes here)
+
+            for _ in range(len(queue)):
 
                 stop = queue.popleft()
+
                 if stop == target:
-                    return buses_taken
-                
-                for bus in bus_stop_to_bus_mapping[stop]:
-                    if bus not in visited_buses:
-                        visited_buses.add(bus)
-                        for new_stop in routes[bus]:
-                            if new_stop not in visited_stops:
+                    return stops
+
+                for bus_idx in bus_stop_to_route_mapping[stop]:
+                    if bus_idx not in routes_visited:
+                        routes_visited.add(bus_idx)
+                        for new_stop in routes[bus_idx]:
+                            if new_stop not in stop_visited:
+                                stop_visited.add(new_stop)
                                 queue.append(new_stop)
-                                visited_stops.add(new_stop)
-            
-            buses_taken += 1
 
-
+            stops += 1
         
+
         return -1
+                                
+                
+
+
