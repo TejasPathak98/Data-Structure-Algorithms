@@ -13,8 +13,9 @@ class Codec:
         :type root: TreeNode
         :rtype: str
         """
-        return self.preorder(root)
-        
+
+        return self.PreOrder(root)
+
 
     def deserialize(self, data):
         """Decodes your encoded data to tree.
@@ -22,29 +23,30 @@ class Codec:
         :type data: str
         :rtype: TreeNode
         """
-        values = deque(data.split("|"))
-        return self.build(values)
+        queue = deque(data.split("|"))
+        return self.build(queue)
     
-    def build(self,values):
-        if not values:
+
+    def build(self,queue):
+
+        if not queue:
             return None
         
-        val = values.popleft()
+        val = queue.popleft()
 
         if val[1] == "X":
             return None
         
         root = TreeNode(int(val[1:]))
-        root.left = self.build(values)
-        root.right = self.build(values)
+        root.left = self.build(queue) #The queue will implicitly deal with the elements in the sense that left elements will go to left subtree and right to right
+        root.right = self.build(queue)
         return root
 
-
-    def preorder(self,root):
+    def PreOrder(self,root):
         if root is None:
             return "#X"
-        
-        return f"#{root.val}|{self.preorder(root.left)}|{self.preorder(root.right)}"
+        else:
+            return f"#{root.val}|{self.PreOrder(root.left)}|{self.PreOrder(root.right)}"
         
 
 # Your Codec object will be instantiated and called as such:
