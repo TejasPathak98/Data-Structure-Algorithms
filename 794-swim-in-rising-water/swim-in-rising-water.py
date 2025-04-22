@@ -1,32 +1,31 @@
 class Solution:
     def swimInWater(self, grid: List[List[int]]) -> int:
-        #This is Dijsktra problem because the weights are implicit, we are finding the most optimal at very step
-
-        min_heap = [(grid[0][0],0,0)]
-        visited = set([0,0])
-        directions = [(0,1),(0,-1),(1,0),(-1,0)]
         n = len(grid)
 
+        min_heap = [(0,0,grid[0][0])]
+
+        minTime = [[float('inf')] * n for _ in range(n)]
+
+        minTime[0][0] = grid[0][0]
+
+       
+
         while min_heap:
-            t , x, y = heapq.heappop(min_heap)
+            x,y,time = heapq.heappop(min_heap)
 
             if x == n - 1 and y == n - 1:
-                return t
+                return time
             
-            for dx,dy in directions:
-                x_ = x + dx
-                y_= y + dy
+            for dx,dy in [(0,1),(0,-1),(1,0),(-1,0)]:
+                nx = x + dx
+                ny = y + dy
 
-                if 0 <= x_ < n and 0 <= y_ < n and (x_,y_) not in visited:
-                    new_t= max(t,grid[x_][y_])
-                    heapq.heappush(min_heap, (new_t,x_,y_))
-                    visited.add((x_,y_))
+                if 0 <= nx < n and 0 <= ny < n:
+                    new_time = max(time,grid[nx][ny])
 
-        
-        return -1
-
-
+                    if new_time < minTime[nx][ny]:
+                        minTime[nx][ny] = new_time
+                        heapq.heappush(min_heap,(nx,ny,new_time))
     
 
-            
-
+        return -1
