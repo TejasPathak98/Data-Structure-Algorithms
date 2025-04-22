@@ -1,14 +1,15 @@
 class Solution:
     def calculate(self, s: str) -> int:
-        def evaluate(stack,sign,num):
-            stack.append(num * sign)
+        def evluate(stack,sign,num):
+            stack.append(sign* num)
         
+        #global trackers
 
         i = 0
-        stack = []
-        states = []
-        sign = 1
         num = 0
+        sign = 1
+        stack = []
+        state = []
 
         while i < len(s):
             if s[i].isdigit():
@@ -16,28 +17,28 @@ class Solution:
             elif s[i] == "(":
                 outer_sum = sum(stack)
                 stack = []
-                states.append((outer_sum,sign))
+                state.append((outer_sum,sign))
                 sign = 1
                 num = 0
             elif s[i] == ")":
-                evaluate(stack, sign, num)
+                evluate(stack, sign, num)
                 inner_sum = sum(stack)
-                outer_sum,outer_sign = states.pop()
-                val = outer_sum + (outer_sign * inner_sum)
                 stack = []
-                stack.append(val)
+                outer_sum,outer_sign = state.pop()
+                total_sum = outer_sum + (outer_sign * inner_sum)
+                stack.append(total_sum)
                 sign = 1
                 num = 0
             elif s[i] == "+":
-                evaluate(stack, sign, num)
+                evluate(stack, sign, num)
+                num = 0
                 sign = 1
-                num = 0
             elif s[i] == "-":
-                evaluate(stack, sign, num)
-                sign = -1
+                evluate(stack, sign, num)
                 num = 0
-            
+                sign = -1
+
             i += 1
-        
-        evaluate(stack, sign, num)
+
+        evluate(stack, sign, num)
         return sum(stack)
