@@ -1,6 +1,6 @@
 class Solution:
     def findWords(self, board: List[List[str]], words: List[str]) -> List[str]:
-        def build_trie(words):
+        def build_trie(words): #O(WL) ; O(WL)
             Trie = {}
 
             for word in words:
@@ -52,3 +52,5 @@ class Solution:
 
         return result
 
+
+        #(4^L * MN)  + O(WL); O(L) + O(WL)
