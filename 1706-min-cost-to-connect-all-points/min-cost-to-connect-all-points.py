@@ -1,37 +1,34 @@
 class Solution:
     def minCostConnectPoints(self, points: List[List[int]]) -> int:
-        #Prim's Algo
-        # Here you would have to have a total cost and a cost dict
-        #the cost dict is for making the choice to insert correct values in the heap 
-        # the values popped out from the heap are the final MST edges
-        #While the cost dict wont have the correct updated MSY weight
+        def helper(i,j):
+            x = points[i]
+            y = points[j]
+            return abs(x[0] - y[0]) + abs(x[1] - y[1])
 
+        
         n = len(points)
-        min_heap = [(0,0)]
-        visited = set()
-        total_cost = 0
-        cost_dict = {i : float("inf") for i in range(n)}
+        cost_dict = [float('inf')] * n
         cost_dict[0] = 0
+        min_heap = [(0,0)]
+        heapify(min_heap)
+        visited = set()
 
-        def helper(a,b):
-            return abs(points[a][0] - points[b][0]) + abs(points[a][1] - points[b][1])
 
-        while min_heap:
-            current_cost , node = heapq.heappop(min_heap)
+        while len(visited) < n:
+            cost,idx = heappop(min_heap)
 
-            if node in visited:
+            visited.add(idx)
+
+            if cost > cost_dict[idx]:
                 continue
-
-            total_cost += current_cost
-
-            visited.add(node)
-
+            
             for j in range(n):
-                if j not in visited:
-                    new_cost = helper(node,j)
+                if j != idx and j not in visited:
+                    new_cost = helper(idx,j)
                     if new_cost < cost_dict[j]:
                         cost_dict[j] = new_cost
-                        heapq.heappush(min_heap, (new_cost,j))
+                        heappush(min_heap,(new_cost,j))
 
+        
+        return sum(cost_dict)
 
-        return total_cost
