@@ -14,8 +14,8 @@ class Solution:
         while min_heap:
             cost,node = heappop(min_heap)
 
-            if time_dict[node] < cost:
-                continue
+            # if time_dict[node] < cost:
+            #     continue
             
             for nei,w in graph[node]:
                 new_cost = cost + w
