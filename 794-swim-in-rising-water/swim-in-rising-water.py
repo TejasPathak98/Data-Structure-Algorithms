@@ -12,6 +12,9 @@ class Solution:
         while min_heap:
             time,x,y, = heapq.heappop(min_heap)
 
+            if time > minTime[x][y]:
+                continue
+
             if x == n - 1 and y == n - 1:
                 return time
             
