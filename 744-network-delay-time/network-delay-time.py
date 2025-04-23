@@ -1,60 +1,34 @@
 class Solution:
     def networkDelayTime(self, times: List[List[int]], n: int, k: int) -> int:
-        #Normal Dijsktra
-
-        # graph = defaultdict(list)
-
-        # for u,v,w in times:
-        #     graph[u].append((v,w))
-        
-        # min_heap = [(0,k)]
-
-        # time_dict = {i : float("inf") for i in range(1,n + 1)}
-        # time_dict[k] = 0
-
-        # heapify(min_heap)
-
-        # while min_heap:
-        #     current_time, node = heapq.heappop(min_heap)
-
-        #     for neighbor,weight in graph[node]:
-        #         new_weight = weight + current_time
-        #         if new_weight < time_dict[neighbor]:
-        #             heapq.heappush(min_heap, (new_weight,neighbor))
-        #             time_dict[neighbor] = new_weight
-        
-
-        # if max(time_dict.values()) == float("inf"):
-        #     return -1
-        # else:
-        #     return max(time_dict.values())
-
-        #O(ElogV + Vlogv) ; O(V + E) # Most optimal
-        
         graph = defaultdict(list)
 
         for u,v,w in times:
             graph[u].append((v,w))
-
-        time_dict = {i : float("inf") for i in range(1,n + 1)}
+        
+        time_dict = [float('inf')] * (n + 1)
         time_dict[k] = 0
 
+        min_heap = []
+        heappush(min_heap,(0,k))
 
-        def dfs(node,current_time):
+        while min_heap:
+            cost,node = heappop(min_heap)
 
-            for neighbor,weight in graph[node]:
-                new_weight = weight + current_time
-                if new_weight < time_dict[neighbor]:
-                    time_dict[neighbor] = new_weight
-                    dfs(neighbor,new_weight)
-
-        dfs(k,0)
+            if time_dict[node] < cost:
+                continue
+            
+            for nei,w in graph[node]:
+                new_cost = cost + w
+                if new_cost < time_dict[nei]:
+                    time_dict[nei] = new_cost
+                    heappush(min_heap,(new_cost,nei))
         
-        if max(time_dict.values()) == float("inf"):
+
+        
+        if any(x == float('inf') for x in time_dict[1:]):
             return -1
         else:
-            return max(time_dict.values())
-
+            return max(time_dict[1:])
 
 
 
