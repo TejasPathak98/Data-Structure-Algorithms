@@ -1,15 +1,30 @@
 class Solution:
     def countAndSay(self, n: int) -> str:
-        String = '1'
+        
+        if n == 1:
+            return "1"
+        
+        x = "1"
 
         for _ in range(n - 1):
-            String = Solution.helper(String)
+            x = self.helper(x)
         
-        return String
-    
-    @staticmethod
-    def helper(n:string) -> string:
-        return ''.join(f'{sum(1 for _ in gr)}{key}' for key,gr in groupby(n))
-    
-     
-        
+        return x
+
+
+    def helper(self,s):
+
+        res = ""
+        i = 0
+
+        while i < len(s):
+
+            count  = 1
+            while i < len(s) - 1 and s[i] == s[i + 1]:
+                count += 1
+                i += 1
+            
+            res += str(count) + s[i]
+            i += 1
+
+        return res
