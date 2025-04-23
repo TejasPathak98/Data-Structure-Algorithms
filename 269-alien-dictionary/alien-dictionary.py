@@ -3,44 +3,42 @@ class Solution:
         graph = defaultdict(list)
         inDegree = {ch : 0 for word in words for ch in word}
 
+        for i in range(len(words) - 1):
+            word1 = words[i]
+            word2 = words[i + 1]
 
-        for word1,word2 in zip(words,words[1:]):
-            l = min(len(word1),len(word2))
+            minLen = min(len(word1),len(word2))
 
-            if len(word1) > len(word2) and word1[:l] == word2:
+            if word1[:minLen] == word2[:minLen] and len(word2) == minLen and len(word1) > minLen:
                 return ""
-
-            for j in range(l):
+            
+            for j in range(minLen):
                 if word1[j] != word2[j]:
                     graph[word1[j]].append(word2[j])
                     inDegree[word2[j]] += 1
-                    print(word2[j],inDegree[word2[j]])
                     break
-        
-
-        result = []
+            
         queue = deque()
-        for ch, f in inDegree.items():
-            if f == 0:
+
+        for ch,key in inDegree.items():
+            if key == 0:
                 queue.append(ch)
-
-
         
-        while queue:
-            node = queue.popleft()
+        result = []
 
+        while queue:
+
+            node = queue.popleft()
             result.append(node)
 
-            for neighbor in graph[node]:
-                inDegree[neighbor] -= 1
-                if inDegree[neighbor] == 0:
-                    queue.append(neighbor)
+            for nei in graph[node]:
+                inDegree[nei] -= 1
+                if inDegree[nei] == 0:
+                    queue.append(nei)
 
+        
+        print(result)
 
-        if len(result) == len(inDegree):
-            return "".join(result)
-        else:
-            return ""
-
+        return "".join(result) if len(result) == len(inDegree) else ""
 
 
