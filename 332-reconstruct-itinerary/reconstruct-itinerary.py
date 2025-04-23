@@ -6,16 +6,14 @@ class Solution:
         for u,v in tickets:
             heapq.heappush(graph[u],v)
         
-        path = []
+        result = []
 
         def dfs(node):
-
+            
             while graph[node]:
                 nei = heapq.heappop(graph[node])
                 dfs(nei)
-            
-            path.append(node)
+            result.append(node)
 
-        dfs('JFK')
-
-        return path[::-1]
+        dfs("JFK")
+        return result[::-1]
