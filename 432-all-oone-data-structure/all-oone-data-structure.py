@@ -44,6 +44,8 @@ class AllOne:
 
         return ""
 
+    #This is all O(logN) amortized cost solution, using a DLL will get us the O(1) TC
+
 
 # Your AllOne object will be instantiated and called as such:
 # obj = AllOne()
