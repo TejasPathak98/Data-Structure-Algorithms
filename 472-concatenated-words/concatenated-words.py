@@ -1,27 +1,32 @@
-from functools import cache
-
 class Solution:
     def findAllConcatenatedWordsInADict(self, words: List[str]) -> List[str]:
-        wordSet = set(words)
-        result = []
+        
+        @lru_cache
+        def DP_helper(word):
+            n = len(word)
 
-        @cache(lru_cache)
-        def helper(word):
-            for i in range(1,len(word)):
-                prefix = word[:i]
-                suffix = word[i:]
+            for i in range(n):
+                x = word[:i + 1]
+                y = word[i + 1:]
 
-                if prefix in wordSet:
-                    if suffix in wordSet or helper(suffix):
+                if x in Wordset:
+                    if y in Wordset or DP_helper(y):
                         return True
+
                 
             return False
-                
 
-        for word in words:
-            wordSet.discard(word)
-            if helper(word):
+        Wordset = set(words)
+        result = []
+
+        for word in Wordset:
+            Wordset.discard(word)
+
+            if DP_helper(word):
                 result.append(word)
-            wordSet.add(word)
+            
+            Wordset.add(word)
 
+        
         return result
+
