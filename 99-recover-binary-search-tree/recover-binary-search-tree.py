@@ -10,24 +10,25 @@ class Solution:
         Do not return anything, modify root in-place instead.
         """
         
-        nodes = []
+        first = second = prev = None
 
-        def InOrder(node):
+        def dfs_InOrder(node):
+            nonlocal first,second,prev
             if not node:
                 return
-            InOrder(node.left)
-            nodes.append(node)
-            InOrder(node.right)
-        
-        InOrder(root)
-        first = second = None
+            
+            dfs_InOrder(node.left)
 
-        for i in range(len(nodes) - 1):
-            if nodes[i].val > nodes[i + 1].val:
+            if prev and prev.val > node.val:
                 if first == None:
-                    first  = nodes[i]
+                    first = prev
+                
+                second = node
+            
+            prev = node
 
-                second = nodes[i + 1]
+            dfs_InOrder(node.right)
 
+        dfs_InOrder(root)
 
-        first.val , second.val = second.val , first.val 
+        first.val , second.val = second.val , first.val
