@@ -6,34 +6,59 @@
 #         self.right = right
 class Solution:
     def amountOfTime(self, root: Optional[TreeNode], start: int) -> int:
-        if not root:
-            return 0
-        
-        graph = defaultdict(list)
+        parent_map = {}
+        startNode = None
 
-        def build_graph(node,parent):
-            if node:
-                if parent:
-                    graph[node.val].append(parent.val)
-                    graph[parent.val].append(node.val)
-                build_graph(node.left, node)
-                build_graph(node.right, node)
+        def dfs_build_parent_map(node):
+            nonlocal parent_map,startNode
+            if not node:
+                return
 
-        build_graph(root, None)
-        queue = deque([start])
+            if node.val == start:
+                startNode = node
+            
+            if node.left:
+                parent_map[node.left] = node
+                dfs_build_parent_map(node.left)
+
+            if node.right:
+                parent_map[node.right] = node
+                dfs_build_parent_map(node.right)
+
+        dfs_build_parent_map(root)
+
+        queue = deque([startNode])
+        visited = set()
+        visited.add(startNode)
         time = -1
-        visited =set([start])
 
         while queue:
+
             for _ in range(len(queue)):
+
                 node = queue.popleft()
 
-                for nei in graph[node]:
-                    if nei not in visited:
-                        queue.append(nei)
-                        visited.add(nei)
-            
+                if node.left and node.left not in visited:
+                    queue.append(node.left)
+                    visited.add(node.left)
+                if node.right and node.right not in visited:
+                    queue.append(node.right)
+                    visited.add(node.right)
+                if node in parent_map and parent_map[node] not in visited:
+                    queue.append(parent_map[node])
+                    visited.add(parent_map[node])
+
             time += 1
+
+        
+        return time
+                
+
+
+
+
+
+
+
         
 
-        return time
