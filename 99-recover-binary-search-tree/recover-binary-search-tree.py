@@ -9,35 +9,25 @@ class Solution:
         """
         Do not return anything, modify root in-place instead.
         """
-        #1,3,2,4 ; 1,2,3,4
-        #3,2,1 : 1,2,3
-
+        
         nodes = []
 
-        def Inorder(node):
-            if node is None:
+        def InOrder(node):
+            if not node:
                 return
-
-            Inorder(node.left)
-
+            InOrder(node.left)
             nodes.append(node)
-
-            Inorder(node.right)
+            InOrder(node.right)
         
-        Inorder(root)
-        print(nodes)
-
+        InOrder(root)
         first = second = None
 
         for i in range(len(nodes) - 1):
-            if nodes[i].val < nodes[i + 1].val:
-                continue
-            else:
+            if nodes[i].val > nodes[i + 1].val:
                 if first == None:
-                    first = nodes[i]
-                
+                    first  = nodes[i]
+
                 second = nodes[i + 1]
-        
-        first.val , second.val = second.val , first.val
 
 
+        first.val , second.val = second.val , first.val 
