@@ -25,5 +25,9 @@ class Solution:
         
         return result
 
+        #O(NlogN) + O(QlogQ) ; O(N)
+
+        #Think of this a timeline problem + singleSweep + Heap
+
 
 
