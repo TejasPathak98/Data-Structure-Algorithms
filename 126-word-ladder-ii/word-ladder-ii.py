@@ -11,46 +11,55 @@ class Solution:
             steps = depthMap[word]
 
             for i in range(len(word)):
-                original_ch = word[i]
-                for ch in 'abcdefghijklmnopqrstuvwxyz':
+                original_char = word[i]
+                for ch in "abcdefghijklmnopqrstuvwxyz":
                     word = word[:i] + ch + word[i + 1:]
 
                     if word in depthMap and depthMap[word] + 1 == steps:
                         seq.append(word)
                         dfs(word,seq)
                         seq.pop()
-                word = word[:i] + original_ch + word[i + 1:]
-                    
+                        
+                word = word[:i] + original_char + word[i + 1:]
 
         queue = deque([beginWord])
+        depthMap = {}
         depthMap[beginWord] = 1
         WordSet = set(wordList)
         WordSet.discard(beginWord)
 
+
         while queue:
+
             word = queue.popleft()
-            steps = depthMap[word]
+            depth = depthMap[word]
 
             if word == endWord:
                 break
             
+
             for i in range(len(word)):
-                original_ch = word[i]
-                for ch in 'abcdefghijklmnopqrstuvwxyz':
+                original_char = word[i]
+                for ch in "abcdefghijklmnopqrstuvwxyz":
                     word = word[:i] + ch + word[i + 1:]
 
                     if word in WordSet:
-                        depthMap[word] = steps + 1
+                        depthMap[word] = 1 + depth
                         WordSet.discard(word)
                         queue.append(word)
 
-                word = word[:i] + original_ch + word[i + 1:]
+                word = word[:i] + original_char + word[i + 1:]
 
-        wordList = set(wordList)
 
         if endWord in depthMap:
-            seq = [endWord]
-            dfs(endWord,seq)
-
-        return ans
+            dfs(endWord,[endWord])
         
+        return ans
+
+            
+
+            
+
+
+
+
