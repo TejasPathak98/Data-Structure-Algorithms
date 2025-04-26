@@ -1,38 +1,59 @@
+class TrieNode:
+    def __init__(self):
+        self.children = {}
+        self.top_sentences = []
+
 class AutocompleteSystem:
 
     def __init__(self, sentences: List[str], times: List[int]):
-        self.sentence_dict = defaultdict(int)
-        for i in range(len(sentences)):
-            self.sentence_dict[sentences[i]] = times[i]
-        self.search_word = ""
+        self.frequencies = {}
+        self.prefix = ""
+        self.root = TrieNode()
+        self.current_node = self.root
+        self.invalid_prefix = False
+
+        for sentence,time in zip(sentences,times):
+            self.add_sentence(sentence,time)
+            self.frequencies[sentence] = time
+        
+
+    def add_sentence(self,sentence,time):
+
+        self.curr_node = self.root
+
+        for char in sentence:
+            if char not in self.curr_node.children:
+                self.curr_node.children[char] = TrieNode()
+            self.curr_node = self.curr_node.children[char]
+
+            ts = [(t,s) for t,s in self.curr_node.top_sentences if s != sentence]
+            ts = ts + [(time,sentence)]
+            ts.sort(key = lambda x : (-x[0],x[1]))
+            ts = ts[:3]
+            self.curr_node.top_sentences = ts
 
     def input(self, c: str) -> List[str]:
         if c == "#":
-            self.sentence_dict[self.search_word] += 1
-            self.search_word = ""
+            freq = self.frequencies.get(self.prefix,0)
+            freq += 1
+            self.frequencies[self.prefix] = freq
+            self.add_sentence(self.prefix, freq)
+            self.prefix = ""
+            self.invalid_prefix = False
+            self.current_node = self.root
             return []
-        else:
-            self.search_word += c
-            max_heap = []
+        
+        self.prefix += c
 
-            for sentence,freq in self.sentence_dict.items():
-                if sentence.startswith(self.search_word):
-                    heappush(max_heap,(-freq,sentence))
-            
-            if not max_heap:
-                return []
+        if self.invalid_prefix or c not in self.current_node.children:
+            self.invalid_prefix = True
+            return []
 
-            result = []
-            counter = 3
+        self.current_node = self.current_node.children[c]
+        return [word for (_,word) in self.current_node.top_sentences]
 
-            while max_heap and counter > 0:
-                freq,sentence = heappop(max_heap)
-                result.append(sentence)
-                counter -= 1
-            
-            return result
 
-            
+
 
 
 
