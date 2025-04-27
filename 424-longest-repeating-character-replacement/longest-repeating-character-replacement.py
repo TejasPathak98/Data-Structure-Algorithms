@@ -1,21 +1,26 @@
 class Solution:
     def characterReplacement(self, s: str, k: int) -> int:
+        maxLen = 0
+        maxfreq = 0
+        l = 0
+        r = 0
         Fmap = [0] * 26
-        start = 0
-        end = 0
-        max_freq = 0
-        max_len = 0
-        Map = defaultdict(int)
+        FreqMap = defaultdict(int)
 
-        while end < len(s):
-            Map[s[end]] += 1
-            max_freq = max(max_freq,Map[s[end]])
+        while r < len(s):
 
-            if (end - start + 1) - max_freq > k:
-                Map[s[start]] -= 1
-                start += 1
+            FreqMap[s[r]] += 1
+
+            maxfreq = max(maxfreq,FreqMap[s[r]])
+
+            if (r - l + 1)  - maxfreq > k:
+                FreqMap[s[l]] -= 1
+                l += 1
             
-            max_len = max(max_len,end - start + 1)
-            end += 1
+            maxLen = max(maxLen,r - l + 1)
+            r += 1
         
-        return max_len
+        return maxLen
+
+
+
