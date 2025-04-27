@@ -1,7 +1,13 @@
 class Solution:
     def isPalindrome(self, s: str) -> bool:
         s = s.lower()
-        s = s.replace(" ","")
+        # s = s.lstrip()
+        # s = s.rstrip()
+        # s = s.strip()
+        # s = s.replace(" ","")
+        s = re.sub(r'\s+',"",s)
+
+
         res = ""
         
         for ch in s:
