@@ -1,34 +1,33 @@
 class Solution:
     def maxSlidingWindow(self, nums: List[int], k: int) -> List[int]:
-        stack = deque()
+        
+        #Decreasing Monotoic Queue (for comparisons at the top)
+        #(For Window expiry and taking Max we use front of Deque)
+
+
+        Deque = deque()
         ans = []
         ans.append(max(nums[:k]))
-
         for i in range(k):
-            if not stack:
-                stack.append((nums[i],i))
-            else:
-                if nums[i] >= stack[-1][0]:
-                    stack.append((nums[i],i))
-                else:
-                    while nums[i] > stack[0][0]:
-                        stack.popleft()
-                    stack.appendleft((nums[i],i))
+            while Deque and nums[i] > nums[Deque[-1]]:
+                Deque.pop()
+            Deque.append(i)
 
+        i = k
+
+        while i < len(nums):
+            while Deque and nums[i] > nums[Deque[-1]]:
+                Deque.pop()
+            Deque.append(i)
+
+            while Deque[0] <= i - k:
+                Deque.popleft()
+            
+            ans.append(nums[Deque[0]])
+            i += 1
         
-        for r in range(k,len(nums)):
-            if nums[r] >= stack[-1][0]:
-                stack.append((nums[r],r))
-                ans.append(stack[-1][0])
-            else:
-                while nums[r] > stack[0][0]:
-                    stack.popleft()
-                stack.appendleft((nums[r],r))
-
-                while stack[-1][1] <= r - k:
-                    stack.pop()
-                
-                ans.append(stack[-1][0])
-        
-
         return ans
+
+
+
+
