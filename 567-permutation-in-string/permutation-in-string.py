@@ -5,40 +5,23 @@ class Solution:
 
         if n1 > n2:
             return False
-        if n1 == s2:
-            if Counter(n1) == Counter(n2):
-                return True
-            else:
-                return False
-
-        counter1 = Counter(s1)
-
-        l = 0
-        r = 0
-
-        temp_dict = defaultdict(int)
-
-        while r < len(s2):
-            temp_dict[s2[r]] += 1
-
-            if temp_dict == counter1:
-                return True
-
-            if s2[r] not in counter1:
-                r += 1
-                l = r
-                temp_dict.clear()
-                continue
-            
-            if temp_dict[s2[r]] == counter1[s2[r]] + 1:
-
-                while l < r and temp_dict[s2[r]] != counter1[s2[r]]:
-                    temp_dict[s2[l]] -= 1
-                    l += 1
-            
-            r += 1
         
+        counter1 = Counter(s1)
+        counter2 = Counter()
+
+        for i in range(n2):
+
+            counter2[s2[i]] += 1
+
+            if i >= n1:
+                counter2[s2[i - n1]] -= 1
+
+                if counter2[s2[i - n1]] == 0:
+                    del counter2[s2[i - n1]]
+                
+            
+            if counter1 == counter2:
+                return True
+    
+
         return False
-
-
-
