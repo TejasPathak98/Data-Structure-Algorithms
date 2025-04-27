@@ -1,68 +1,73 @@
 class Node:
-    def __init__(self,val):
-        self.val = val
+    def __init__(self,value):
+        self.value = value
         self.next = None
         self.prev = None
 
 class MaxStack:
 
+    def addNode(self,prev_node,node):
+        temp = prev_node.next
+        node.prev = prev_node
+        prev_node.next = node
+        node.next = temp
+        temp.prev = node
+    
+    def removeNode(self,node):
+        nxt,prev = node.next,node.prev
+        nxt.prev = prev
+        prev.next = nxt
+
     def __init__(self):
-        self.node_map = {} # key -> (collection of nodes in DLL)
-        self.max_heap = []
+        self.cache = {}
         self.head = Node(-1)
         self.tail = Node(-1)
         self.head.next = self.tail
         self.tail.prev = self.head
+        self.max_heap = []
 
     def push(self, x: int) -> None:
         node = Node(x)
-
-        prev = self.tail.prev
-        prev.next = node
-        node.next = self.tail
-        self.tail.prev = node
-        node.prev = prev
-
-        self.node_map.setdefault(x,[]).append(node)
+        self.addNode(self.tail.prev,node)
+        self.cache.setdefault(x,[]).append(node)
         heappush(self.max_heap, -x)
 
     def pop(self) -> int:
-        node = self.tail.prev
-        val = node.val
-
-        self.node_map[val].pop()
-        if not self.node_map[val]:
-            del self.node_map[val]
-
-        prev,nxt = node.prev,node.next
-        prev.next = nxt
-        nxt.prev= prev
+        x = self.tail.prev.value
+        self.cache[x].pop()
+        if not self.cache[x]:
+            del self.cache[x]
+        self.removeNode(self.tail.prev)
+        return x
         
-        return val
-
     def top(self) -> int:
-        return self.tail.prev.val
+        return self.tail.prev.value
         
     def peekMax(self) -> int:
-        while self.max_heap and -self.max_heap[0] not in self.node_map:
+
+        while self.max_heap and -self.max_heap[0] not in self.cache:
             heappop(self.max_heap)
+        
         return -self.max_heap[0]
         
+
     def popMax(self) -> int:
-        while self.max_heap and -self.max_heap[0] not in self.node_map:
+
+        while self.max_heap and -self.max_heap[0] not in self.cache:
             heappop(self.max_heap)
 
-        val = -self.max_heap[0]
+        x = -self.max_heap[0]
+        
 
-        node = self.node_map[val].pop()
-        if not self.node_map[val]:
-            del self.node_map[val]
+        node = self.cache[x].pop()
+        if not self.cache[x]:
+            del self.cache[x]
 
-        prev,nxt = node.prev,node.next
-        prev.next = nxt
-        nxt.prev= prev
+        self.removeNode(node)
 
-        return val
+        return x
+            
+
 
         
 
