@@ -18,7 +18,6 @@ class Codec:
         final_list = []
         string_split = s.split("*")
         string_split = string_split[:-1]
-        print(string_split)
 
         for st in string_split:
             s_split = st.split("#")
