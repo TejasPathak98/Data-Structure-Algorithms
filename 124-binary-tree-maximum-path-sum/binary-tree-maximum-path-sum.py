@@ -19,7 +19,7 @@ class Solution:
             lsum = max(dfs(node.left),0)
             rsum = max(dfs(node.right),0)
 
-            max_sum = max(max_sum,node.val,node.val + lsum + rsum)
+            max_sum = max(max_sum,node.val + lsum + rsum)
 
             return node.val + max(lsum,rsum)
 
