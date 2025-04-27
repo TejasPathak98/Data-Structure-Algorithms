@@ -5,7 +5,8 @@ class Solution:
         # s = s.rstrip()
         # s = s.strip()
         # s = s.replace(" ","")
-        s = re.sub(r'\s+',"",s)
+        #s = re.sub(r'\s+',"",s)
+        s = "".join(s.split())
 
 
         res = ""
