@@ -20,10 +20,9 @@ class Solution:
         
         while min_heap:
             _,idx,node = heappop(min_heap)
-            if node:
-                curr.next = node
-                curr = curr.next
-                if node.next:
-                    heappush(min_heap, (node.next.val,idx,node.next))
+            curr.next = node
+            curr = curr.next
+            if node.next:
+                heappush(min_heap, (node.next.val,idx,node.next))
 
         return dummy.next
