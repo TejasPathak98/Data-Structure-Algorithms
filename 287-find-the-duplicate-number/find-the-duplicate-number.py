@@ -1,18 +1,22 @@
 class Solution:
     def findDuplicate(self, nums: List[int]) -> int:
-        hare = tortoise = nums[0]
-
-        while hare:
-            tortoise = nums[tortoise]
-            hare = nums[nums[hare]]
-            if tortoise == hare:
-                break
         
-        tortoise = nums[0]
-        while hare != tortoise:
-            hare = nums[hare]
-            tortoise = nums[tortoise]
+        n = len(nums)
 
-        return tortoise
+        def swap(i,j):
+            nums[i],nums[j] = nums[j],nums[i]
 
+        for i in range(n):
+            while 0 < nums[i] <= n - 1 and nums[i] != nums[nums[i] - 1]:
+                 swap(i,nums[i] - 1)
 
+        
+        for i in range(n):
+            if i + 1 != nums[i]:
+                return nums[i]
+
+        
+        return -1
+            
+
+        
