@@ -11,21 +11,22 @@ class Solution:
         
         def dfs(node):
             if not node:
-                return 0,True
+                return 0
             
-            left_height,isLeftBST = dfs(node.left)
-            right_height,isRightBST = dfs(node.right)
+            l = dfs(node.left)
+            if l == -1:
+                return -1
 
-            if isLeftBST == False or isRightBST == False:
-                return 1 + max(left_height,right_height),False
+            r = dfs(node.right)
+            if r == -1:
+                return -1
 
-            if abs(left_height - right_height) > 1:
-                return 1 + max(left_height,right_height),False
+            if abs(l - r) > 1:
+                return - 1
             
-            return 1 + max(left_height,right_height),True
-    
 
-        return dfs(root)[1]
-
+            return 1 + max(l,r)
 
         
+        return dfs(root) != -1
+            
