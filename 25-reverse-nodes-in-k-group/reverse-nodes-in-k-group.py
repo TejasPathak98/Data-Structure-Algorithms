@@ -13,28 +13,29 @@ class Solution:
             if count == k:
                 break
             curr = curr.next
+
         
         if count < k:
             return head
         
-        other_part = curr.next
+        other_node = curr.next
         curr.next = None
 
         prev = None
-        new_curr = head
+        curr = head
 
-        while new_curr:
-            temp = new_curr.next
-            new_curr.next = prev
-            prev = new_curr
-            new_curr = temp
+        while curr:
+            nxt = curr.next
+            curr.next = prev
+            prev = curr
+            curr = nxt
         
-        new_curr2 = prev
 
-        while new_curr2.next:
-            new_curr2 = new_curr2.next
+        new_head = prev
 
+        while new_head.next:
+            new_head = new_head.next
         
-        new_curr2.next = self.reverseKGroup(other_part, k)
+        new_head.next = self.reverseKGroup(other_node, k)
 
         return prev
