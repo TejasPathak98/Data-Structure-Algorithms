@@ -1,17 +1,21 @@
 class Solution:
     def permute(self, nums: List[int]) -> List[List[int]]:
-        result = []
         n = len(nums)
 
-        def backtrack(i):
-            if i == n:
-                result.append(nums.copy())
+        result = []
+
+        def backtracking(index):
+            if index == n:
+                result.append(nums[:])
                 return
             
-            for j in range(i,len(nums)):
-                nums[i] , nums[j] = nums[j] ,nums[i]
-                backtrack(i + 1)
-                nums[i] , nums[j] = nums[j] ,nums[i]
+            for j in range(index,len(nums)):
+                nums[j] , nums[index] = nums[index] , nums[j]
+                backtracking(index + 1)
+                nums[j] , nums[index] = nums[index] , nums[j]
 
-        backtrack(0)
+        
+        backtracking(0)
         return result
+
+
