@@ -1,17 +1,21 @@
 class Solution:
     def minMeetingRooms(self, intervals: List[List[int]]) -> int:
         intervals.sort()
-        meeting_heap = []
-        heapify(meeting_heap)
+        rooms = 1
+        heap = []
+        heappush(heap,intervals[0][1])
 
-        for interval in intervals:
-            if not meeting_heap:
-                heapq.heappush(meeting_heap,interval[1])
+        for i in range(1,len(intervals)):
+            if intervals[i][0] < heap[0]:
+                heappush(heap, intervals[i][1])
             else:
-                if meeting_heap[0] > interval[0]:
-                    heapq.heappush(meeting_heap, interval[1])
-                else:
-                    heapq.heapreplace(meeting_heap,interval[1])
+                heapreplace(heap,intervals[i][1])
+
+            rooms = max(rooms,len(heap))
         
-        return len(meeting_heap)
+        return rooms
+
+
+
+
 
