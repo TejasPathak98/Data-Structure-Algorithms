@@ -6,55 +6,50 @@ class TrieNode:
 class AutocompleteSystem:
 
     def __init__(self, sentences: List[str], times: List[int]):
-        self.frequencies = {}
-        self.prefix = ""
         self.root = TrieNode()
-        self.current_node = self.root
-        self.invalid_prefix = False
+        self.curr = self.root
+        self.frequency_dict = {}
+        self.prefix = ""
+        self.Invalid_prefix = False
 
         for sentence,time in zip(sentences,times):
-            self.add_sentence(sentence,time)
-            self.frequencies[sentence] = time
-        
+            self.add_sentence(sentence, time)
+            self.frequency_dict[sentence] = time
 
-    def add_sentence(self,sentence,time):
+    def add_sentence(self,sentence,times):
+        self.current_node = self.root
 
-        self.curr_node = self.root
+        for ch in sentence:
+            if ch not in self.current_node.children:
+                self.current_node.children[ch] = TrieNode()
+            self.current_node = self.current_node.children[ch]
 
-        for char in sentence:
-            if char not in self.curr_node.children:
-                self.curr_node.children[char] = TrieNode()
-            self.curr_node = self.curr_node.children[char]
-
-            ts = [(t,s) for t,s in self.curr_node.top_sentences if s != sentence]
-            ts = ts + [(time,sentence)]
-            ts.sort(key = lambda x : (-x[0],x[1]))
+            ts = [(t,s) for t,s in self.current_node.top_sentences if s != sentence]
+            ts = ts + [(times,sentence)]
+            ts = sorted(ts,key = lambda x : (-x[0],x[1]))
             ts = ts[:3]
-            self.curr_node.top_sentences = ts
+            self.current_node.top_sentences = ts
 
     def input(self, c: str) -> List[str]:
+
         if c == "#":
-            freq = self.frequencies.get(self.prefix,0)
-            freq += 1
-            self.frequencies[self.prefix] = freq
-            self.add_sentence(self.prefix, freq)
+            f = self.frequency_dict.get(self.prefix,0)
+            f += 1
+            self.frequency_dict[self.prefix] = f
+            self.add_sentence(self.prefix, f)
+            self.curr = self.root
+            self.Invalid_prefix = False
             self.prefix = ""
-            self.invalid_prefix = False
-            self.current_node = self.root
             return []
-        
+
         self.prefix += c
 
-        if self.invalid_prefix or c not in self.current_node.children:
-            self.invalid_prefix = True
+        if self.Invalid_prefix or c not in self.curr.children:
+            self.Invalid_prefix = True
             return []
 
-        self.current_node = self.current_node.children[c]
-        return [word for (_,word) in self.current_node.top_sentences]
-
-
-
-
+        self.curr = self.curr.children[c]
+        return [sentence for (_,sentence) in self.curr.top_sentences]
 
 
 
