@@ -1,26 +1,35 @@
 class Solution:
     def countComponents(self, n: int, edges: List[List[int]]) -> int:
         graph = defaultdict(list)
+        nodes = set()
 
         for u,v in edges:
             graph[u].append(v)
             graph[v].append(u)
+            nodes.add(u)
+            nodes.add(v)
         
-        connected_components = 0
+
         visited = set()
 
-        def dfs(x,visited):
+        def dfs(x):
             if x in visited:
                 return
-            
+
             visited.add(x)
 
             for nei in graph[x]:
-                dfs(nei,visited)
+                if nei not in visited:
+                    dfs(nei)
 
-        for i in range(n):
-            if i not in visited:
-                dfs(i,visited)
-                connected_components += 1
         
-        return connected_components
+        count = 0
+
+        for node in range(n):
+            if node not in visited:
+                dfs(node)
+                count += 1
+
+        
+        return count
+
