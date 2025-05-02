@@ -21,11 +21,11 @@ class Solution:
 
             cost,node,stops = heappop(heap)
 
-            if stops > k + 1:
-                continue
-
             if node == dst:
                 return cost
+
+            if stops > k + 1:
+                continue
 
             if (node,stops) in best_dict and best_dict[(node,stops)] <= cost:
                 continue
