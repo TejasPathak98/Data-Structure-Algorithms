@@ -24,7 +24,7 @@ class Solution:
             if node == dst:
                 return cost
 
-            if stops > k + 1:
+            if stops > k:
                 continue
 
             if (node,stops) in best_dict and best_dict[(node,stops)] <= cost:
