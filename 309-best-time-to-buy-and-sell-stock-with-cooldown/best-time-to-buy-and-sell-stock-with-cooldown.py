@@ -1,21 +1,21 @@
 class Solution:
     def maxProfit(self, prices: List[int]) -> int:
-        if len(prices) == 1:return 0
-
+        if len(prices) == 1:
+            return 0
+        
         sell = 0
-        cool_down = 0
-        hold = float("-inf")
+        hold = float('-inf')
+        cooldown = 0
 
-        for stock_price_of_the_day in prices:
-            prev_sell = sell
-            prev_cool_down = cool_down
+        for current_price in prices:
             prev_hold = hold
+            prev_cooldown = cooldown
+            prev_sell = sell
 
-            cool_down = max(prev_cool_down,prev_sell)
+            cooldown = max(prev_cooldown,prev_sell)
+            
+            sell = prev_hold + current_price
 
-            sell = prev_hold + stock_price_of_the_day
+            hold = max(prev_hold,prev_cooldown - current_price)
 
-            hold = max(prev_hold,prev_cool_down - stock_price_of_the_day)
-        
-        return max(sell,cool_down)
-        
+        return max(cooldown,sell)
