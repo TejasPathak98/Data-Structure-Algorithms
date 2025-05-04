@@ -1,6 +1,6 @@
 class Solution:
     def removeKdigits(self, num: str, k: int) -> str:
-        
+        #Monotonic Increasing Stack
         stack = []
 
         for digit in num:
@@ -9,14 +9,14 @@ class Solution:
                 k -= 1
             stack.append(digit)
 
-        while k and stack:
+        
+        while stack and k:
             stack.pop()
             k -= 1
-
-        print(stack)
-
-        if not stack or all(x == '0' for x in stack):
-            print("br")
-            return "0"
         
+        if not stack or all(x == "0" for x in stack):
+            return "0"
+
         return "".join(stack).lstrip("0")
+
+
