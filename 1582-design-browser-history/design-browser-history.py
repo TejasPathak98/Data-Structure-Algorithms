@@ -19,8 +19,6 @@ class BrowserHistory:
             self.website_ptr -= steps
             return self.queue[x]
 
-
-
     def forward(self, steps: int) -> str:
         if self.website_ptr + steps >= len(self.queue) - 1:
             self.website_ptr = len(self.queue) - 1
