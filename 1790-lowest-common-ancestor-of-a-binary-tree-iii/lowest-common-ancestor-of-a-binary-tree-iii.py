@@ -10,16 +10,36 @@ class Node:
 
 class Solution:
     def lowestCommonAncestor(self, p: 'Node', q: 'Node') -> 'Node':
-        parent_map = {}
-        node = p
+        
+        root = None
 
-        while node:
-            parent_map[node] = node.parent
-            node = node.parent
+        def reverse_traversal(node):
+            nonlocal root
+            if not node:
+                return
+            
+            if node.parent is None:
+                root = node
+            
+            reverse_traversal(node.parent)
         
-        while q:
-            if q in parent_map:
-                return q
-            q = q.parent
+        reverse_traversal(p)
+
+        def LCA(root,p,q):
+            if not root:
+                return None
+            
+            if root is p or root is q:
+                return root
+
+            l = LCA(root.left,p,q)
+            r = LCA(root.right,p,q)
+
+            if l and r:
+                return root
+            
+            return l if l else r
         
-        return None
+        return LCA(root,p,q)
+
+            
