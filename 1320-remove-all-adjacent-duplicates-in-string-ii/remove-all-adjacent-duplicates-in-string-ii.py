@@ -9,6 +9,7 @@ class Solution:
                     stack.pop()
             else:
                 stack.append([c,1])
-
-        return ''.join(c * cnt for c ,cnt in stack)
         
+        return "".join([cnt * c for c,cnt in stack])
+
+            
