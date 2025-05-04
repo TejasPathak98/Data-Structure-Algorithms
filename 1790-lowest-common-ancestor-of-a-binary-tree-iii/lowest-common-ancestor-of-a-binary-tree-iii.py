@@ -11,17 +11,15 @@ class Node:
 class Solution:
     def lowestCommonAncestor(self, p: 'Node', q: 'Node') -> 'Node':
         parent_map = {}
-
         node = p
 
         while node:
             parent_map[node] = node.parent
             node = node.parent
-
+        
         while q:
             if q in parent_map:
                 return q
             q = q.parent
         
         return None
-        
