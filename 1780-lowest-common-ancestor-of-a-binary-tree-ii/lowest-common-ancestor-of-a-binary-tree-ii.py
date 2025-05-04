@@ -7,33 +7,33 @@
 
 class Solution:
     def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
-        def lca_node(node):
-
+        
+        def dfs_existence_check(node,p):
             if not node:
-                return None,False,False
+                return False
             
-            left_node , left_has_p , left_has_q = lca_node(node.left)
-
-            if left_node:
-                return left_node,True,True
+            if node is p:
+                return True
             
+            return dfs_existence_check(node.left, p) or dfs_existence_check(node.right, p)
 
-            right_node , right_has_p , right_has_q = lca_node(node.right)
+        if not dfs_existence_check(root, p) or not dfs_existence_check(root,q):
+            return None
+        
 
-            if right_node:
-                return right_node,True,True
-
+        def LCA(root,p,q):
+            if not root:
+                return None
             
-            node_has_p = (node == p) or left_has_p or right_has_p
-            node_has_q = (node == q) or left_has_q or right_has_q
+            if root is p or root is q:
+                return root
 
-            if node_has_p and node_has_q:
+            l = LCA(root.left,p,q)
+            r = LCA(root.right,p,q)
 
-                return node,node_has_p,node_has_q
+            if l and r:
+                return root
             
-            return None,node_has_p,node_has_q
-
-
-        lca , has_p , has_q = lca_node(root)
-        return lca if has_p and has_q else None
-                
+            return l if l else r
+        
+        return LCA(root,p,q)
