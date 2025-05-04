@@ -1,36 +1,28 @@
 class BrowserHistory:
 
     def __init__(self, homepage: str):
-        self.queue = []
-        self.queue.append(homepage)
-        self.website_ptr = 0
+        self.forward_stack = []
+        self.back_stack = []
+        self.current = homepage
         
     def visit(self, url: str) -> None:
-        self.queue = self.queue[:self.website_ptr + 1]
-        self.queue.append(url)
-        self.website_ptr += 1
+        self.back_stack.append(self.current)
+        self.current = url
+        self.forward_stack.clear()
 
     def back(self, steps: int) -> str:
-        if self.website_ptr - steps <= 0:
-            self.website_ptr = 0
-            return self.queue[0]
-        else:
-            x = self.website_ptr - steps
-            self.website_ptr -= steps
-            return self.queue[x]
+        while self.back_stack and steps:
+            self.forward_stack.append(self.current)
+            self.current = self.back_stack.pop()
+            steps -= 1
+        return self.current
 
     def forward(self, steps: int) -> str:
-        if self.website_ptr + steps >= len(self.queue) - 1:
-            self.website_ptr = len(self.queue) - 1
-            return self.queue[-1]
-        else:
-            x = self.website_ptr + steps
-            self.website_ptr += steps
-            return self.queue[x]
-
-
-
-        
+        while self.forward_stack and steps:
+            self.back_stack.append(self.current)
+            self.current = self.forward_stack.pop()
+            steps -= 1
+        return self.current
 
 
 # Your BrowserHistory object will be instantiated and called as such:
