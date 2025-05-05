@@ -6,20 +6,23 @@
 #         self.right = right
 class Solution:
     def maxProduct(self, root: Optional[TreeNode]) -> int:
-        
+        #we have to store the sums of the tree in post order dfs manner and then iterate over the array
+
         sums = []
 
-        def dfs(root):
-            if not root:
+        def dfs(node):
+            if not node:
                 return 0
-            Sum = dfs(root.left) + dfs(root.right) + root.val
+            Sum = dfs(node.left) + dfs(node.right) + node.val
             sums.append(Sum)
             return Sum
-        
-        max_prod = float('-inf')
+
+        max_product = float("-inf")
         total_sum = dfs(root)
+
         for s in sums:
-            prod = s * (total_sum - s)
-            max_prod = max(max_prod,prod)
-        
-        return max_prod % (10 ** 9  + 7)
+            left_product = s
+            right_product = total_sum - left_product
+            max_product = max(max_product,left_product* right_product)
+
+        return max_product % (10**9 + 7)
