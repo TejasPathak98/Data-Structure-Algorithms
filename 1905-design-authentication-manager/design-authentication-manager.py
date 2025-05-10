@@ -8,7 +8,6 @@ class AuthenticationManager:
         sorted_cache = sorted(self.cache.items(),key = lambda x : (x[1]))
         x = bisect.bisect_right(sorted_cache, (chr(127),currentTime))
 
-
         for i in range(x):
             if sorted_cache[i][1] <= currentTime:
                 token = sorted_cache[i][0]
