@@ -3,19 +3,19 @@ class AuthenticationManager:
     def __init__(self, timeToLive: int):
         self.TTL = timeToLive
         self.cache = {}
+        self.heap = []
     
     def delete_if_expired(self,currentTime):
-        sorted_cache = sorted(self.cache.items(),key = lambda x : (x[1]))
-        x = bisect.bisect_right(sorted_cache, (chr(127),currentTime))
+        while self.heap and self.heap[0][0] <= currentTime:
+            expiry_time,token = heappop(self.heap)
 
-        for i in range(x):
-            if sorted_cache[i][1] <= currentTime:
-                token = sorted_cache[i][0]
+            if self.cache[token] == expiry_time:
                 del self.cache[token]
-
+        
     def generate(self, tokenId: str, currentTime: int) -> None:
         self.delete_if_expired(currentTime)
         self.cache[tokenId] = currentTime + self.TTL
+        heappush(self.heap, (currentTime + self.TTL,tokenId))
 
 
     def renew(self, tokenId: str, currentTime: int) -> None:
@@ -25,6 +25,7 @@ class AuthenticationManager:
         else:
             new_expiry_time = currentTime + self.TTL
             self.cache[tokenId] = new_expiry_time
+            heappush(self.heap, (new_expiry_time,tokenId))
 
 
     def countUnexpiredTokens(self, currentTime: int) -> int:
