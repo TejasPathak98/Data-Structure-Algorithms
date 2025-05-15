@@ -1,36 +1,24 @@
 class Solution:
     def decodeString(self, s: str) -> str:
         num_stack = []
-        stack = []
-        curr_string = ""
+        str_stack = []
+        curr_num = 0
+        curr_str = ""
 
-        i = 0
-
-        while i < len(s):
-            if s[i].isdigit():
-                num = 0
-                while i < len(s) and s[i].isdigit():
-                    num = num*10 + int(s[i])
-                    i += 1
-                num_stack.append(num)
-            elif s[i] == "[":
-                stack.append(curr_string)
-                curr_string = ""
-                i += 1
-            elif s[i].isalpha():
-                curr_string += s[i]
-                i += 1
+        for ch in s:
+            if ch.isdigit():
+                curr_num = curr_num * 10 + int(ch)
+            elif ch == "[":
+                num_stack.append(curr_num)
+                str_stack.append(curr_str)
+                curr_num = 0
+                curr_str = ""
+            elif ch == "]":
+                repeat = num_stack.pop()
+                prev_str = str_stack.pop()
+                curr_str = prev_str + repeat*curr_str
             else:
-                x = num_stack.pop() if num_stack else 1
-                curr_string = stack.pop() + curr_string*x
-                i += 1
-
-
-        return curr_string
-
-
-
-
-
+                curr_str += ch
 
         
+        return curr_str
