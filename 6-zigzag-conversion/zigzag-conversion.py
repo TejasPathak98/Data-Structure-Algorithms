@@ -17,9 +17,6 @@ class Solution:
                 j -= 1
                 i += 1
 
-        
-        print(rows)
-
         return "".join(["".join(r) for r in rows])
 
         
