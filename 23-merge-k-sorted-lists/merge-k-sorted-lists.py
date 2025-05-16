@@ -7,22 +7,33 @@ class Solution:
     def mergeKLists(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:
         if not lists or len(lists) == 0:
             return None
+
+        while len(lists) > 1:
+            merged = []
+            for i in range(0,len(lists),2):
+                l1 = lists[i]
+                l2 = lists[i + 1] if i + 1 < len(lists) else None
+                merged.append(self.helper(l1,l2))
+            
+            lists = merged
         
+        return lists[0]
+
+
+    def helper(self,l1,l2):
         dummy = ListNode(-1)
         curr = dummy
 
-        min_heap = []
-        var = 1
-
-        for idx,l in enumerate(lists):
-            if l:
-                heapq.heappush(min_heap, (l.val,idx,l))
-        
-        while min_heap:
-            _,idx,node = heappop(min_heap)
-            curr.next = node
+        while l1 and l2:
+            if l1.val <= l2.val:
+                curr.next = l1
+                l1 = l1.next
+            else:
+                curr.next = l2
+                l2 = l2.next
             curr = curr.next
-            if node.next:
-                heappush(min_heap, (node.next.val,idx,node.next))
+        
+        curr.next = l1 if l1 else l2
 
         return dummy.next
+
