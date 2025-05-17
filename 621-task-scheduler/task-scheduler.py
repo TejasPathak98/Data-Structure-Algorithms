@@ -1,12 +1,38 @@
 class Solution:
     def leastInterval(self, tasks: List[str], n: int) -> int:
-        
-        task_counter = Counter(tasks)
-        max_freq = max(task_counter.values())
-        count = 0 
+        counter = Counter(tasks)
+        cooldown = deque()
 
-        for task,freq in task_counter.items():
-            if freq == max_freq:
-                count += 1
+        heap = []
+
+        for task,freq in counter.items():
+            heapq.heappush(heap,-freq)
+
         
-        return max(len(tasks),(1 + n)*(max_freq - 1) + count)
+        timer = 0
+        
+
+        while heap or cooldown:
+
+            if heap:
+                freq = -heappop(heap)
+
+                if freq > 1:
+                    cooldown.append((timer + n + 1,freq - 1))
+                
+            
+            timer += 1
+
+
+            while cooldown and cooldown[0][0] <= timer:
+                _,freq = cooldown.popleft()
+                if freq >= 1:
+                    heappush(heap, -freq)
+
+        
+        return timer
+
+
+
+
+
