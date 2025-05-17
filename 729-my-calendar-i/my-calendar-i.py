@@ -9,7 +9,7 @@ class MyCalendar:
             return True
         else:
             for event in self.events:
-                if startTime < event[1] and endTime > event[0]:
+                if startTime < event[1] and endTime > event[0]: # important condition covering partial and full overlaps
                     return False
             self.events.append([startTime,endTime])
             return True
