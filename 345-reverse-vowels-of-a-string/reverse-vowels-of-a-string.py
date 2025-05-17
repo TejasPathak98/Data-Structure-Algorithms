@@ -11,8 +11,6 @@ class Solution:
 
         
         i = len(chs) - 1
-
-        print(chs)
         
         new_s = ""
 
