@@ -5,7 +5,6 @@ class Solution:
         for ch in s:
             if stack and stack[-1] == ch:
                 stack.pop()
-                continue
             else:
                 stack.append(ch)
         
