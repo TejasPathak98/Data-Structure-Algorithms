@@ -2,20 +2,22 @@ class MyCalendar:
 
     def __init__(self):
         self.events = []
-
+        
     def book(self, startTime: int, endTime: int) -> bool:
         if not self.events:
             self.events.append([startTime,endTime])
             return True
         else:
-            for event in self.events:
-                if startTime < event[1] and endTime > event[0]: # important condition covering partial and full overlaps
-                    return False
-            self.events.append([startTime,endTime])
+            idx = bisect.bisect_left(self.events,[startTime,endTime])
+
+            if idx > 0 and self.events[idx - 1][1] > startTime:
+                return False
+            
+            if idx < len(self.events) and self.events[idx][0] < endTime:
+                return False
+            
+            self.events.insert(idx,[startTime,endTime])
             return True
-                    
-
-
         
 
 
