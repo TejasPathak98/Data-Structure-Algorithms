@@ -5,8 +5,15 @@
 #         self.next = next
 class Solution:
     def reverseKGroup(self, head: Optional[ListNode], k: int) -> Optional[ListNode]:
-        count = 0
+        
+        if not head:
+            return None
+        
+        if not head.next:
+            return head
+        
         curr = head
+        count = 0
 
         while curr:
             count += 1
@@ -14,28 +21,28 @@ class Solution:
                 break
             curr = curr.next
 
-        
         if count < k:
             return head
-        
-        other_node = curr.next
+
+        temp = curr.next
         curr.next = None
 
-        prev = None
         curr = head
+        prev = None
 
         while curr:
             nxt = curr.next
             curr.next = prev
             prev = curr
             curr = nxt
-        
 
-        new_head = prev
+        curr = prev
 
-        while new_head.next:
-            new_head = new_head.next
+        while curr.next:
+            curr = curr.next
         
-        new_head.next = self.reverseKGroup(other_node, k)
+        curr.next = self.reverseKGroup(temp, k)
 
         return prev
+        
+
