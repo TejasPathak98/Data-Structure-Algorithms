@@ -1,34 +1,35 @@
 class Solution:
     def minCostConnectPoints(self, points: List[List[int]]) -> int:
-        def helper(i,j):
-            x = points[i]
-            y = points[j]
-            return abs(x[0] - y[0]) + abs(x[1] - y[1])
-
-        
         n = len(points)
-        cost_dict = [float('inf')] * n
-        cost_dict[0] = 0
-        min_heap = [(0,0)]
-        heapify(min_heap)
+        best = [float('inf')] * n
+        best[0] = 0
+        heap = []
+        heappush(heap, (0,0))
         visited = set()
 
+        def helper(p1,p2):
+            return abs(points[p1][0] - points[p2][0]) + abs(points[p2][1] - points[p1][1])
 
-        while len(visited) < n:
-            cost,idx = heappop(min_heap)
 
-            visited.add(idx)
+        while heap:
 
-            if cost > cost_dict[idx]:
+            cost, point_idx = heappop(heap)
+
+            visited.add(point_idx)
+
+            if cost > best[point_idx]:
                 continue
             
-            for j in range(n):
-                if j != idx and j not in visited:
-                    new_cost = helper(idx,j)
-                    if new_cost < cost_dict[j]:
-                        cost_dict[j] = new_cost
-                        heappush(min_heap,(new_cost,j))
+            best[point_idx] = cost
 
-        
-        return sum(cost_dict)
+            for j in range(n):
+                if j != point_idx:
+                    if j not in visited:
+                        new_cost = helper(point_idx,j)
+                        heappush(heap, (new_cost,j))
+
+
+        return sum(best)
+
+
 
