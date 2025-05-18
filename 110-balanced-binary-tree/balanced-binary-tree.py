@@ -9,24 +9,21 @@ class Solution:
         if not root:
             return True
         
+
         def dfs(node):
             if not node:
-                return 0
+                return True,0
             
-            l = dfs(node.left)
-            if l == -1:
-                return -1
+            balanced_left,l = dfs(node.left)
+            balanced_right,r = dfs(node.right)
 
-            r = dfs(node.right)
-            if r == -1:
-                return -1
+            if not balanced_left or not balanced_right or (balanced_left and balanced_right and abs(l - r) >  1):
+                return False,max(l,r)
 
-            if abs(l - r) > 1:
-                return - 1
             
-
-            return 1 + max(l,r)
+            return (True,1 + max(l,r))
 
         
-        return dfs(root) != -1
+        return dfs(root)[0]
+
             
