@@ -6,7 +6,7 @@ class Solution:
         
         count = Counter(hand)
         keys = sorted(count) #when we sort count(a counter) we just get the keys
-        count_ = sorted(count.items(),key = lambda x : (x[1],x[0]))
+        #count_ = sorted(count.items(),key = lambda x : (x[1],x[0]))
 
         for key in keys:
             while count[key] > 0:
