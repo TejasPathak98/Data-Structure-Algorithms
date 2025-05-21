@@ -1,17 +1,16 @@
 class Solution:
     def triangularSum(self, nums: List[int]) -> int:
-        if len(nums) == 1:
-            return nums[0]
+        
+        coeff = 1
+        result = 0
+        n = len(nums)
 
-        while len(nums) > 1:
+        for i in range(n):
+            result  = (result + coeff*nums[i]) % 10 #C(n - 1,0)
 
-            n = len(nums)
-            new_nums = [0] * (n - 1)
+            #update it to C(n - 1,i + 1)
+            coeff = coeff * (n - 1 - i) // (i + 1) 
 
-            for i in range(0,n - 1):
-                new_nums[i] = (nums[i] + nums[i + 1]) % 10
-            
-            nums = new_nums
+        return result
 
-        return nums[0]
-
+        #C(n,k + 1) = C(n,k) * ((n - k) / (k + 1))
