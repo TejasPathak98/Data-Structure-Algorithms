@@ -23,8 +23,6 @@ class Solution:
                     x3,y3 = dp[i][j + win] #top right
                     x4,y4 = dp[i + win][j + win] #bottom right
 
-                    
-
                     if x2 - x1 == x4 - x3 == y3 - y1 == y4 - y2 == win:
                         return (win + 1) * (win + 1)
 
