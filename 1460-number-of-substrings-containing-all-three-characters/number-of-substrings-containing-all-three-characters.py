@@ -20,10 +20,7 @@ class Solution:
 
                     if helper():
                         count += 1 + (len(s) - 1 - r)
-                        l += 1
-                    else:
-                        l += 1
-            
+                    l +=1 
             r += 1
             
         
