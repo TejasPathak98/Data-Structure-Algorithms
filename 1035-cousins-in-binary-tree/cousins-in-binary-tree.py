@@ -7,13 +7,10 @@
 class Solution:
     def isCousins(self, root: Optional[TreeNode], x: int, y: int) -> bool:
         depth = defaultdict(set)
-        parent_map = defaultdict(int)
+        parent_map = {}
         depth_flag = False
 
         def dfs_depth(node,level):
-            if not node:
-                return
-
             depth[level].add(node.val)
 
             if node.left:
