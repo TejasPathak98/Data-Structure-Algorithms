@@ -4,8 +4,6 @@ class Solution:
         r = 0
         count = 0
         freq_dict = defaultdict(int)
-        required = 3
-        calc = 0
 
         def helper():
             if freq_dict['a'] >= 1 and freq_dict['b'] >= 1 and freq_dict['c'] >= 1:
