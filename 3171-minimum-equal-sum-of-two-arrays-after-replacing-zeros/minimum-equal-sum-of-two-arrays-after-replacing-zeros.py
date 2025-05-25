@@ -5,9 +5,6 @@ class Solution:
         c1 = nums1.count(0)
         c2 = nums2.count(0)
 
-        print(sum1,c1)
-        print(sum2,c2)
-
         if c1 == 0:
             if sum1 < sum2 + c2:
                 return -1
