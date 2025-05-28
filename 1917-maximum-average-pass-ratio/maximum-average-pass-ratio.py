@@ -26,6 +26,8 @@ class Solution:
 
         return Sum / len(classes)
 
+        #O(NlogN) ; O(N)
+
 
 
 
