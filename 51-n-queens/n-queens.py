@@ -3,35 +3,44 @@ class Solution:
         col = set()
         diag = set()
         anti_diag = set()
-        queens = [-1] * n
-        result = [] 
+        result = []
 
-        def backtrack(row):
+        def backtracking(level,temp):
+            #print(level)
 
-            if row == n:
-                board = []
-                for r in queens:
-                    s = r * "." + "Q" + "." * (n - r - 1)
-                    board.append(s)
-                result.append(board)
+            if level == n:
+                print("br")
+                v = []
+                for p in temp:
+                    s = "." * p + "Q" + "." * (n - p - 1)
+                    v.append(s)
+                result.append(v)
                 return
             
-            for c in range(n):
-                if c in col or (row + c) in diag or (row - c) in anti_diag:
+            for j in range(n):
+                print(level)
+                if j in col or (level + j) in diag or (level - j) in anti_diag:
                     continue
-            
-                queens[row] = c
-                col.add(c)
-                diag.add(row + c)
-                anti_diag.add(row - c)
+                
+                col.add(j)
+                diag.add(j + level)
+                anti_diag.add(level - j)
+                temp.append(j)
 
-                backtrack(row + 1)
+                #print(level + 1)
+                backtracking(level + 1, temp)
 
-                queens[row] = -1
-                col.remove(c)
-                diag.remove(row + c)
-                anti_diag.remove(row - c)
+                temp.pop()
+                col.remove(j)
+                diag.remove(j + level)
+                anti_diag.remove(level - j)
 
-        backtrack(0)
+        
+        backtracking(0, [])
+
         return result
 
+
+
+
+            
