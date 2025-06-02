@@ -8,8 +8,9 @@ class Solution:
         for num in nums:
             if num % 2 == 1:
                 odd_count += 1
-            count += prefix[odd_count - k]
+            
             prefix[odd_count] += 1
+            count += prefix[odd_count - k]
 
         
         return count
