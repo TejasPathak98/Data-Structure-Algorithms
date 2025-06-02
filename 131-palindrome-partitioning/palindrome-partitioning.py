@@ -1,15 +1,38 @@
 class Solution:
     def partition(self, s: str) -> List[List[str]]:
-        ans = []
+        n = len(s)
+        result = []
 
-        def helper(start,temp):
-            if start == len(s):
-                ans.append(temp[:])
+        def isPalindrome(t):
+            n = len(t)
+            i = 0
+            j = n - 1
+
+            while i < j:
+                if t[i] != t[j]:
+                    return False
+                i += 1
+                j -= 1
+            
+            return True
+
+        def backtracking(index,temp):
+            if index == n:
+                result.append(temp.copy())
                 return
             
-            for end in range(start + 1,len(s) + 1):
-                if s[start:end] == s[start:end][::-1]:
-                    helper(end,temp + [s[start:end]])
+            for j in range(index,n):
+                if isPalindrome(s[index:j + 1]):
+                    temp.append(s[index:j + 1])
+                    backtracking(j + 1, temp)
+                    temp.pop()
+            
         
-        helper(0,[])
-        return ans
+        backtracking(0, [])
+        return result
+
+
+
+
+
+
