@@ -1,25 +1,25 @@
 class Solution:
-    def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
-        ans = []
+    def combinationSum(self, nums: List[int], target: int) -> List[List[int]]:
+        
+        result = []
 
-
-        def backtracking(current_sum,temp,idx):
-            if current_sum > target:
+        def backtracking(curr_sum,temp,index):
+            if curr_sum == target:
+                result.append(temp.copy())
                 return
             
-            if current_sum == target:
-                ans.append(temp.copy())
+            if curr_sum > target:
                 return
             
-
-            for j in range(idx,len(candidates)):
-                temp.append(candidates[j])
-                backtracking(current_sum + candidates[j],temp,j)
+            for j in range(index,len(nums)):
+                if curr_sum + nums[j] > target:
+                    continue
+                
+                temp.append(nums[j])
+                backtracking(curr_sum + nums[j],temp,j)
                 temp.pop()
 
-        backtracking(0, [], 0)
+        
+        backtracking(0,[],0)
 
-        return ans
-
-        # O(2^N) ; O(N)
-            
+        return result
