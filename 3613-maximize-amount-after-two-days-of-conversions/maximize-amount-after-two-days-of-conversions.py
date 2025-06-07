@@ -20,8 +20,8 @@ class Solution:
             while queue:
                 node, c = queue.popleft()
 
-                if node in cost_dict and c < cost_dict[node]:
-                    continue
+                # if node in cost_dict and c < cost_dict[node]:
+                #     continue
 
                 for neighbor, rate in graph[node]:
                     new_cost = c * rate
